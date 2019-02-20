@@ -5,6 +5,9 @@ const passport = require('passport');
 const { isLoggedIn, isNotLoggedIn } = require('./middlewares');
 const { User } = require('../models');
 
+/*
+ * 회원가입 하기
+ */
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
     const { email, nick, password } = req.body;
     try {
@@ -28,6 +31,9 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
     }
 });
 
+/*
+ * 로그인 하기 - local 전략
+ */
 router.post('/login', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local', (authError, user, info) => {
         if(authError){
@@ -48,6 +54,9 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
     })(req, res, next);
 });
 
+/*
+ * 로그아웃하기
+ */
 router.get('/logout', isLoggedIn, (req, res) => {
     req.logout();
     req.session.destroy();

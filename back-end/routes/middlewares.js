@@ -1,3 +1,6 @@
+/*
+ * 로그인이 되었는지 확인
+ */
 exports.isLoggedIn = (req, res, next) => {
     if(req.isAuthenticated()) {
         next();
@@ -6,6 +9,9 @@ exports.isLoggedIn = (req, res, next) => {
     }
 }
 
+/*
+ * 로그인이 안되었는지 확인
+ */
 exports.isNotLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()) {
         next();

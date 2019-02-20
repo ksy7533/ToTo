@@ -2,6 +2,9 @@ const LocalStorage = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const { User } = require('../models');
 
+/*
+ * 로컬 전략 - db의 email, password을 이용하여 로그인 가능여부 확인하기
+ */
 module.exports = (passport) => {
     passport.use(new LocalStorage({
         usernameField: 'email',
