@@ -11,5 +11,9 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize, Sequelize);
+db.Project = require('./project')(sequelize, Sequelize);
+
+db.User.hasMany(db.Project);
+db.Project.belongsTo(db.User);
 
 module.exports = db;

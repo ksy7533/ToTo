@@ -6,8 +6,11 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 require('dotenv').config();
+
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const projectRouter = require('./routes/project');
+
 const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
@@ -43,6 +46,7 @@ app.use(passport.session()); // deserializeUser 실행
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/project', projectRouter);
 
 app.use((req, res, next) => {
     const err = new Error('Not found');
