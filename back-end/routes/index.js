@@ -10,7 +10,10 @@ router.get('/login', (req, res, next) => {
 });
 
 router.get('/main', (req, res, next) => {
-    res.render('main');
+    res.render('main', {
+        user: req.user,
+        loginError: req.flash('loginError')
+    });
 });
 
 module.exports = router;
