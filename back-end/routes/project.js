@@ -9,7 +9,7 @@ const {Project} = require('../models');
 router.get('/', isLoggedIn, async (req, res, next) => {
     try {
         const project = await Project.findAll();
-        return res.json({project});
+        return res.status(200).json({project});
     } catch (error) {
         console.error(error);
         next(error);
@@ -17,7 +17,7 @@ router.get('/', isLoggedIn, async (req, res, next) => {
 });
 
 /*
- * project 리스트 추가하기
+ * project 추가하기
  */
 router.post('/', isLoggedIn, async (req, res, next) => {
     try {
@@ -30,6 +30,24 @@ router.post('/', isLoggedIn, async (req, res, next) => {
             support: req.body.support
         });
         return res.status(201).json({project});
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+/*
+ * project 삭제하기
+ */
+router.delete('/:id', isLoggedIn, async (req, res, next) => {
+    try {
+        await Project.destroy({
+            where: {
+                id: req.params.id,
+                userId: req.user.id
+            }
+        })
+        return res.status(204).end();
     } catch (error) {
         console.error(error);
         next(error);

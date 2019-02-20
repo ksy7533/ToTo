@@ -29,5 +29,23 @@ html
                     label(for='support') 지원범위
                     input#password(type='text' name='support')
                 button#login.btn(type='submit') 프로젝트 등록
+        .delete
+            input#delete-id(type="text")
+            button#delete 프로젝트 삭제
+    script.
+        document.getElementById('delete').addEventListener('click', function (e) {
+            var delete_id = parseInt(document.querySelector('#delete-id').value);
+            console.log(delete_id)
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var url = JSON.parse(xhr.responseText);
+                } else {
+                    console.error(xhr.responseText);
+                }
+            };
+            xhr.open('DELETE', `/project/${delete_id}`);
+            xhr.send();
+        });
 
 
