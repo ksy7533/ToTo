@@ -1,6 +1,6 @@
 # front-end
 
-> toto project front-end
+> ToTo Project front-end
 
 ## Build Setup
 
