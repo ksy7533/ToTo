@@ -5,6 +5,8 @@ const path = require('path');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
+const cors = require('cors')
+
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
@@ -15,6 +17,8 @@ const { sequelize } = require('./models');
 const passportConfig = require('./passport');
 
 const app = express();
+app.use(cors())
+
 sequelize.sync();
 passportConfig(passport);
 
@@ -24,8 +28,6 @@ app.set('port', process.env.PORT || 8001);
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public'))); // /main.css
-
-
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 

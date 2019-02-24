@@ -2,34 +2,63 @@
     <div class="login">
         <h1>ToTo<br>(Today TodoList)</h1>
         <div class="wrap-box">
-            <div class="row">
-                <p class="title">
-                    <label for="login">로그인</label>
-                </p>
-                <p class="wrap-input">
-                    <input type="text" id="login">
-                </p>
-            </div>
-            <div class="row">
-                <p class="title">
-                    <label for="password">패스워드</label>
-                </p>
-                <p class="wrap-input">
-                    <input type="password" id="password">
-                </p>
-            </div>
-            <div class="util">
-                <button>로그인</button>
-                <button>회원가입</button>
-            </div>
-            <p class="info">암호잘못입력했슈</p>
+            <form @submit.prevent="onSubmit">
+                <div class="row">
+                    <p class="title">
+                        <label for="email">EMAIL</label>
+                    </p>
+                    <p class="wrap-input">
+                        <input type="text" id="email" v-model.trim="email" autofocus placeholder="이메일을 입력 해주세요.">
+                    </p>
+                </div>
+                <div class="row">
+                    <p class="title">
+                        <label for="password">PASSWORD</label>
+                    </p>
+                    <p class="wrap-input">
+                        <input type="password" id="password" v-model.trim="password" placeholder="암호를 입력 해주세요.">
+                    </p>
+                </div>
+                <div class="util">
+                    <button type="submit" :class="{'success': !invalidForm}" :disabled="invalidForm">로그인</button>
+                    <button>회원가입</button>
+                </div>
+            </form>
+            <p class="info" v-if="this.error">{{this.error}}</p>
         </div>
     </div>
 </template>
 
 <script>
-export default {
+import { auth } from '../api';
 
+export default {
+    data() {
+        return {
+            email: '',
+            password: '',
+            error: '',
+        }
+    },
+
+    computed: {
+        invalidForm() {
+            return !this.email || !this.password;
+        }
+    },
+
+    methods: {
+        onSubmit() {
+            auth.login(this.email, this.password)
+            .then((result) => {
+                if(result === 'OK'){
+                    this.$router.push('/');
+                }else {
+                    this.error = result.data.error;
+                }
+            })
+        }
+    }
 };
 </script>
 
@@ -52,7 +81,7 @@ export default {
         padding: 20px;
 
         .row {
-            margin-top: 10px;
+            margin-top: 20px;
 
             &:first-child {
                 margin-top: 0;
@@ -90,12 +119,18 @@ export default {
                 padding: 10px 20px;
                 font-size: 18px;
                 border: 0;
+
+                &.success {
+                    color: #fff;
+                    background-color: #333;
+                }
             }
         }
 
         .info {
             text-align: center;
             margin-top: 20px;
+            color: red;
         }
     }
 }

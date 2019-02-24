@@ -41,15 +41,16 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
             return next(authError)
         }
         if(!user) {
-            req.flash('loginError', info.message);
-            return res.redirect('/login');
+            return res.status(401).json({
+                error : info.message
+            });
         }
         return req.login(user, (loginError) => { //여기서 req.login함수를 실행하면서 session user정보를 넣고 그후 serializeUser실행
             if(loginError) {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.redirect('/main');
+            return res.send(200);
         });
     })(req, res, next);
 });
