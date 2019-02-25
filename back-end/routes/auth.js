@@ -12,21 +12,25 @@ const expiresIn = 1 * 24 * 3600; // 토큰의 유효기간 = 1일
  */
 router.post('/join', async (req, res, next) => {
     const { email, nick, password } = req.body;
+    console.log(req.body)
     try {
         const exUser = await User.find({
             where: {email}
         });
         if(exUser){
-            req.flash('joinError', '이미 가입된 이메일입니다.');
-            return res.redirect('/join');
+            return res.status(401).json({
+                error : '이미존재한다',
+            });
         };
         const hash = await bcrypt.hash(password, 12);
-        await User.create({
+        const user = await User.create({
             email,
             nick,
             password: hash,
         });
-        return res.redirect('/login');
+        return res.status(201).json({
+            user
+        });
     } catch(error){
         console.error(error);
         next(error);
@@ -39,9 +43,9 @@ router.post('/join', async (req, res, next) => {
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {session: false}, (err, user, info) => {
         if (err || !user) {
-            return res.status(400).json({
-                message: info ? info.message : 'Login failed',
-                user   : user
+            let message = info ? info.message : 'Login failed';
+            return res.status(401).json({
+                error: message,
             });
         }
 
@@ -49,8 +53,8 @@ router.post('/login', (req, res, next) => {
             if (err) {
                 res.send(err);
             }
-            const token = jwt.sign({ id : user.id }, process.env.JWT_SECRET, { expiresIn });
-            return res.json({user, token});
+            const accessToken = jwt.sign({ id : user.id }, process.env.JWT_SECRET, { expiresIn });
+            return res.json({user, accessToken});
         });
     })(req, res, next);
 });

@@ -1,6 +1,7 @@
 <template>
     <div class="login">
         <h1>ToTo<br>(Today TodoList)</h1>
+        <h2>회원가입</h2>
         <div class="wrap-box">
             <form @submit.prevent="onSubmit">
                 <div class="row">
@@ -19,9 +20,17 @@
                         <input type="password" id="password" v-model.trim="password" placeholder="암호를 입력 해주세요.">
                     </p>
                 </div>
+                <div class="row">
+                    <p class="title">
+                        <label for="password">닉네임</label>
+                    </p>
+                    <p class="wrap-input">
+                        <input type="text" id="nick" v-model.trim="nick" placeholder="닉네임을 입력 해주세요.">
+                    </p>
+                </div>
                 <div class="util">
-                    <button type="submit" :class="{'success': !invalidForm}" :disabled="invalidForm">로그인</button>
-                    <button @click="onJoin">회원가입</button>
+                    <button @click="onBack">뒤로</button>
+                    <button type="submit" :class="{'success': !invalidForm}" :disabled="invalidForm">회원가입</button>
                 </div>
             </form>
             <p class="info" v-if="this.error">{{this.error}}</p>
@@ -38,36 +47,32 @@ export default {
         return {
             email: '',
             password: '',
+            nick: '',
             error: '',
-            rPath: '',
         }
     },
 
     computed: {
         invalidForm() {
-            return !this.email || !this.password;
+            return !this.email || !this.password || !this.nick;
         }
-    },
-
-    created() {
-        this.rPath = this.$route.query.rPath || '/';
     },
 
     methods: {
         ...mapActions([
-            'LOGIN'
+            'JOIN'
         ]),
         onSubmit() {
-            this.LOGIN({email:this.email, password:this.password})
+            this.JOIN({email:this.email, password:this.password, nick:this.nick})
             .then((data) => {
-                this.$router.push(this.rPath);
+                this.$router.push('/login');
             })
             .catch((err) => {
                 console.log(err)
             })
         },
-        onJoin() {
-            this.$router.push('/join');
+        onBack() {
+            this.$router.push('/login');
         }
     }
 };
@@ -75,7 +80,7 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-    margin: 120px auto 0; 
+    margin: 120px auto 0;
     padding-bottom: 40px;
     width: 400px;
     background-color: #dbdbdb;
@@ -86,6 +91,11 @@ export default {
         padding: 50px 0 20px 0;
         font-size: 30px;
         font-weight: bold;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 25px;
     }
 
     .wrap-box {
@@ -146,4 +156,3 @@ export default {
     }
 }
 </style>
-

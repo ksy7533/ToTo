@@ -5,7 +5,7 @@ const DOMAIN = 'http://localhost:8001';
 const UNAUTHORIZED = 401;
 
 const onUnauthorized = () => {
-  router.push('/login');
+  router.push(`/login?returnPath=${encodeURIComponent(location.pathname)}`);
 };
 
 const request = (method, url, data) => {
@@ -13,11 +13,14 @@ const request = (method, url, data) => {
     method,
     url: DOMAIN + url,
     data,
-  }).then(result => result.data).catch((result) => {
-    const { status } = result.response;
-    if (status === UNAUTHORIZED) return onUnauthorized();
-    throw Error(result);
-  });
+  }).then((result) => {
+    return result.data;
+  })
+    .catch(({ response }) => {
+      const { status } = response;
+      if (status === UNAUTHORIZED) return onUnauthorized();
+      throw Error(response);
+    });
 };
 
 export const auth = {
@@ -31,4 +34,16 @@ export const auth = {
   logout() {
     return request('get', '/auth/logout');
   },
+
+  join(email, password, nick) {
+    return request('post', '/auth/join', {
+      email,
+      password,
+      nick,
+    });
+  },
+};
+
+export const setAuthInHeader = (token) => {
+  axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 };

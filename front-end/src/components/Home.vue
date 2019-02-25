@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { auth } from '../api';
+import { mapMutations } from 'vuex';
 
 export default {
     data() {
@@ -16,16 +16,14 @@ export default {
     },
 
     methods: {
+        ...mapMutations([
+            'LOGOUT'
+        ]),
+
         onLogout(){
-            auth.logout()
-            .then((result) => {
-                if(result === 'OK'){
-                    this.$router.push('/login');
-                }else {
-                    this.error = result.data.error;
-                }
-            });
-        }
+            this.LOGOUT()
+            this.$router.push('/login');
+        },
     }
 };
 </script>
