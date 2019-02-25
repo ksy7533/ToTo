@@ -51,13 +51,14 @@ export default {
         onSubmit() {
             auth.login(this.email, this.password)
             .then((result) => {
-                if(result === 'OK'){
-                    this.$router.push('/');
-                }else {
-                    this.error = result.data.error;
-                }
-            })
-        }
+                console.log(result)
+                // if(result === 'OK'){
+                //     this.$router.push('/');
+                // }else {
+                //     this.error = result.data.error;
+                // }
+            });
+        },
     }
 };
 </script>

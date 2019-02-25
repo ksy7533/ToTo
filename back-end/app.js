@@ -2,11 +2,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
-const session = require('express-session');
 const flash = require('connect-flash');
-const passport = require('passport');
 const cors = require('cors')
-
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
@@ -14,13 +11,10 @@ const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/project');
 
 const { sequelize } = require('./models');
-const passportConfig = require('./passport');
-
+require('./passport');
 const app = express();
 app.use(cors())
-
 sequelize.sync();
-passportConfig(passport);
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -30,21 +24,8 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public'))); // /main.css
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-
-app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(session({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.COOKIE_SECRET,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-    }
-}));
-
+app.use(cookieParser());
 app.use(flash());
-app.use(passport.initialize());
-app.use(passport.session()); // deserializeUser 실행
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);

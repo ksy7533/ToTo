@@ -1,29 +1,43 @@
-const local = require('./localStrategy');
+const passport = require('passport');
+const passportJWT = require("passport-jwt");
+const ExtractJWT = passportJWT.ExtractJwt;
+const LocalStrategy = require('passport-local').Strategy;
+const JWTStrategy   = passportJWT.Strategy;
+const bcrypt = require('bcrypt');
 const { User } = require('../models');
 
-const user = {};
-
-module.exports = (passport) => {
-    passport.serializeUser((user, done) => { // 로그인할 때 한번 호출
-        done(null, user.id);
-    });
-
-    passport.deserializeUser((id, done) => { // 매 요청시 마다 passport.session() 여기서 deserializeUser실행, user.id를 DB조회 후 req.user로
-        // deserializeUser는 모든 요청에 실행되기 때문에 DB조회를 캐싱해서 효율적이게 만들어야한다
-        console.log(user)
-        if(user[id]){
-            done(user[id]);
-        } else{
-            User.find({
-                where: {id}
-            })
-            .then(user => {
-                user[id] = user;
-                done(null, user);
-            })
-            .catch(err => done(err));
+passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    }, async(email, password, done) => { //done(에러, 성공, 실패)
+    try{
+        const exUser = await User.find({ where: { email }});
+        if(exUser) {
+            const result = await bcrypt.compare(password, exUser.password);
+            if(result){
+                done(null, exUser);
+            } else {
+                done(null, false, {message: '비밀번호가 일치하지 않습니다.'});
+            }
+        } else {
+            done(null, false, {message: '가입되지 않은 회원입니다.'});
         }
-    });
+    } catch(error) {
+        console.error(error);
+        done(error);
+    }
+}));
 
-    local(passport);
-};
+passport.use(new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        secretOrKey   : process.env.JWT_SECRET,
+    }, (jwtPayload, cb) => {
+        return User.find({ where: { id : jwtPayload.id }})
+            .then(user => {
+                return cb(null, user);
+            })
+            .catch(err => {
+                return cb(err);
+            });
+    }
+));

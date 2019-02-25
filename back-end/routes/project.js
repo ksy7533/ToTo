@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const {isLoggedIn} = require('./middlewares');
 const {Project} = require('../models');
+const { ensureAuth } = require('./middlewares');
 
 /*
  * project 모든 리스트 목록 가져오기
  */
-router.get('/', isLoggedIn, async (req, res, next) => {
+router.get('/', ensureAuth, async (req, res, next) => {
     try {
         const project = await Project.findAll();
         return res.status(200).json({project});
@@ -19,7 +19,7 @@ router.get('/', isLoggedIn, async (req, res, next) => {
 /*
  * project 추가하기
  */
-router.post('/', isLoggedIn, async (req, res, next) => {
+router.post('/', ensureAuth, async (req, res, next) => {
     try {
         const project = await Project.create({
             userId: req.user.id,
@@ -39,7 +39,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {
 /*
  * project 삭제하기
  */
-router.delete('/:id', isLoggedIn, async (req, res, next) => {
+router.delete('/:id', ensureAuth, async (req, res, next) => {
     try {
         await Project.destroy({
             where: {

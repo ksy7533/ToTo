@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+/* 서버에서 데이터 테스트 */
 router.get('/join', (req, res, next) => {
     res.render('join');
 });
