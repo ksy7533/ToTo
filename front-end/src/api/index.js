@@ -48,6 +48,10 @@ export const project = {
   fetch() {
     return request('get', '/projects');
   },
+
+  create(title) {
+    return request('post', '/projects', { title });
+  },
 };
 
 export const setAuthInHeader = (token) => {

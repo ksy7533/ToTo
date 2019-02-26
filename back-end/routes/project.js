@@ -10,7 +10,7 @@ router.get('/', ensureAuth(), async (req, res, next) => {
     try {
         const project = await Project.findAll({
             where: {
-                id: req.user.id,
+                userId: req.user.id,
             }
         });
         return res.status(200).json({

@@ -18,6 +18,13 @@ const actions = {
         commit('SET_PROJECTS', data.result);
       });
   },
+
+  ADD_PROJECT({ dispatch }, { title }) {
+    return api.project.create(title)
+      .then(() => {
+        dispatch('FETCH_PROJECTS');
+      });
+  },
 };
 
 export default actions;

@@ -5,12 +5,12 @@
         <!--// header component -->
         <div class="container" v-if="!isLoding">
             <div class="add-project">
-                <input type="text" id="title" placeholder="프로젝트명을 입력해주세요.">
+                <input type="text" v-model="title" placeholder="프로젝트명을 입력해주세요.">
                 <button @click="addProject">Add Project</button>
             </div>
             <ul>
-                <li v-for="(item, index) in this.projects" :key="index">
-                    <a>{{item}}</a>
+                <li v-for="(item, index) in projects" :key="index">
+                    <a :data-id="item.id">{{item.title}}</a>
                 </li>
             </ul>
         </div>
@@ -30,6 +30,7 @@ export default {
     data() {
         return {
             isLoding: false,
+            title : '',
         }
     },
 
@@ -41,18 +42,26 @@ export default {
 
     methods: {
         ...mapActions([
-            'FETCH_PROJECTS'
+            'FETCH_PROJECTS',
+            'ADD_PROJECT',
         ]),
 
         addProject() {
-
+            this.ADD_PROJECT({
+                title: this.title,
+            })
+            .then(() => {
+                this.title = '';
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         },
 
         getProjects(){
             this.isLoding = true;
             this.FETCH_PROJECTS()
-            .then(() => {
-                console.log(this.projects)
+            .then((data) => {
             })
             .catch((err) => {
                 console.log(err);

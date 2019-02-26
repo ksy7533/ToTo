@@ -12,7 +12,6 @@ const expiresIn = 1 * 24 * 3600; // 토큰의 유효기간 = 1일
  */
 router.post('/join', async (req, res, next) => {
     const { email, nick, password } = req.body;
-    console.log(req.body)
     try {
         const exUser = await User.find({
             where: {email}
