@@ -13,6 +13,10 @@ const mutations = {
     delete localStorage.token;
     setAuthInHeader(null);
   },
+
+  SET_PROJECTS(state, projects) {
+    state.projects = projects;
+  },
 };
 
 export default mutations;

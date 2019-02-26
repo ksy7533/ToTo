@@ -8,9 +8,15 @@ const actions = {
       });
   },
 
-  JOIN({ commit }, { email, password, nick }) {
-    console.log(email)
-    return api.auth.join(email, password, nick)
+  JOIN(_, { email, password, nick }) {
+    return api.auth.join(email, password, nick);
+  },
+
+  FETCH_PROJECTS({ commit }) {
+    return api.project.fetch()
+      .then((data) => {
+        commit('SET_PROJECTS', data.result);
+      });
   },
 };
 

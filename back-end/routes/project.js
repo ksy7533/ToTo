@@ -6,10 +6,16 @@ const { ensureAuth } = require('./middlewares');
 /*
  * project 모든 리스트 목록 가져오기
  */
-router.get('/', ensureAuth, async (req, res, next) => {
+router.get('/', ensureAuth(), async (req, res, next) => {
     try {
-        const project = await Project.findAll();
-        return res.status(200).json({project});
+        const project = await Project.findAll({
+            where: {
+                id: req.user.id,
+            }
+        });
+        return res.status(200).json({
+            result: project,
+        });
     } catch (error) {
         console.error(error);
         next(error);
@@ -19,7 +25,7 @@ router.get('/', ensureAuth, async (req, res, next) => {
 /*
  * project 추가하기
  */
-router.post('/', ensureAuth, async (req, res, next) => {
+router.post('/', ensureAuth(), async (req, res, next) => {
     try {
         const project = await Project.create({
             userId: req.user.id,
@@ -39,7 +45,7 @@ router.post('/', ensureAuth, async (req, res, next) => {
 /*
  * project 삭제하기
  */
-router.delete('/:id', ensureAuth, async (req, res, next) => {
+router.delete('/:id', ensureAuth(), async (req, res, next) => {
     try {
         await Project.destroy({
             where: {

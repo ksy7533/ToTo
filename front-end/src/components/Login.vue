@@ -49,10 +49,6 @@ export default {
         }
     },
 
-    created() {
-        this.rPath = this.$route.query.rPath || '/';
-    },
-
     methods: {
         ...mapActions([
             'LOGIN'
@@ -69,7 +65,11 @@ export default {
         onJoin() {
             this.$router.push('/join');
         }
-    }
+    },
+
+    created() {
+        this.rPath = this.$route.query.rPath || '/';
+    },
 };
 </script>
 

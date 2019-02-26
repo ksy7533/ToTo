@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import { auth, setAuthInHeader } from '../api';
 import { mapActions } from 'vuex';
 
 export default {
@@ -69,7 +68,7 @@ export default {
             })
             .catch((err) => {
                 console.log(err)
-            })
+            });
         },
         onBack() {
             this.$router.push('/login');
