@@ -19,6 +19,13 @@ const actions = {
       });
   },
 
+  FETCH_PROJECT({ commit }, { id }) {
+    return api.project.fetch(id)
+      .then((data) => {
+        commit('SET_PROJECT', data.result);
+      });
+  },
+
   ADD_PROJECT({ dispatch }, { title }) {
     return api.project.create(title)
       .then(() => {

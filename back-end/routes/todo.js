@@ -49,7 +49,7 @@ router.delete('/:id', ensureAuth(), async (req, res, next) => {
   try {
       await Todo.destroy({
           where: {
-            id: req.body.id,
+            id: req.params.id,
             projectId: req.body.pid,
           }
       })

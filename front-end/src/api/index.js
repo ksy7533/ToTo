@@ -45,8 +45,8 @@ export const auth = {
 };
 
 export const project = {
-  fetch() {
-    return request('get', '/projects');
+  fetch(id) {
+    return id ? request('get', `/projects/${id}`) : request('get', '/projects');
   },
 
   create(title) {

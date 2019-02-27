@@ -75,7 +75,7 @@ export default {
     },
 
     created() {
-    this.getProjects();
+        this.getProjects();
     },
 };
 </script>
