@@ -14,16 +14,16 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
-  computed: {
-    ...mapState({
-        project: 'project',
-    }),
-  },
-
   data() {
     return {
       isLoading: false,
     }
+  },
+
+  computed: {
+    ...mapState({
+      project: 'project',
+    }),
   },
 
   methods: {

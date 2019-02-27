@@ -32,6 +32,15 @@ const actions = {
         dispatch('FETCH_PROJECTS');
       });
   },
+
+  // FETCH_PROJECTS({ commit }, { title }) {
+  // },
+
+  ADD_TODO({ dispatch }, { title, pid }) {
+    return api.todo.create(title, pid)
+      .then(() => {
+      });
+  },
 };
 
 export default actions;
