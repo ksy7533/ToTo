@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- header component -->
-        <Header/>
+        <Header></Header>
         <!--// header component -->
         <div class="container">
             <div v-if="!isLoding">
@@ -11,9 +11,7 @@
             </div>
             <ul>
                 <li v-for="(item, index) in projects" :key="index">
-                    <router-link tag="a" :to="`/project/${item.id}`">
-                        {{item.title}}
-                    </router-link>
+                    <router-link tag="a" :to="`/project/${item.id}/total`">{{item.title}}</router-link>
                 </li>
             </ul>
             </div>

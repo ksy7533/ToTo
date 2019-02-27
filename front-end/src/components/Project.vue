@@ -1,13 +1,15 @@
 <template>
   <div>
     <!-- header component -->
-    <Header/>
+    <Header></Header>
     <!--// header component -->
 
     <!-- AsideMenu component -->
-    <AsideMenu/>
+    <aside-menu></aside-menu>
     <!--// AsideMenu component -->
-    
+
+    <router-view></router-view>
+
   </div>
 </template>
 

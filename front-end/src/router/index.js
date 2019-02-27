@@ -4,6 +4,8 @@ import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Join from '@/components/Join';
 import Project from '@/components/Project';
+import ProjectTotal from '@/components/ProjectTotal';
+import ProjectTodo from '@/components/ProjectTodo';
 import NotFound from '@/components/NotFound';
 import store from '../store';
 
@@ -25,9 +27,23 @@ export default new Router({
     },
     {
       path: '/project/:pid',
-      name: 'project`',
+      name: 'project',
       component: Project,
       beforeEnter: requireAuth,
+      children: [
+        {
+          path: 'total',
+          name: 'projectTotal',
+          component: ProjectTotal,
+          beforeEnter: requireAuth,
+        },
+        {
+          path: 'todo',
+          name: 'projectTodo',
+          component: ProjectTodo,
+          beforeEnter: requireAuth,
+        },
+      ],
     },
     {
       path: '/login',

@@ -1,6 +1,6 @@
 <template>
-  <div class="aside-menu">
-    좌측메뉴
+  <div>
+    project total
   </div>
 </template>
 
@@ -10,7 +10,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>
-
