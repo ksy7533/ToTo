@@ -6,11 +6,11 @@ const { ensureAuth } = require('./middlewares');
 /*
  * todo 모든 리스트 목록 가져오기
  */
-router.get('/', ensureAuth(), async (req, res, next) => {
+router.get('/:pid', ensureAuth(), async (req, res, next) => {
   try {
       const todo = await Todo.findAll({
           where: {
-              projectId: req.body.pid,
+              projectId: req.params.pid,
           }
       });
       return res.status(200).json({

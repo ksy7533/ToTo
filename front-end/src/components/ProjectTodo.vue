@@ -6,11 +6,11 @@
           <input type="text" v-model="title" placeholder="업무명을 입력해주세요.">
           <button @click="addTodo">Add Todo</button>
       </div>
-      <!-- <ul>
-          <li v-for="(item, index) in todos" :key="index">
+      <ul>
+          <li v-for="(item, index) in this.todos" :key="index">
               {{item.title}}
           </li>
-      </ul> -->
+      </ul>
     </div>
   </div>
 </template>
@@ -27,13 +27,14 @@ export default {
 
   computed: {
     ...mapState({
-      project: 'project',
+      todos: 'todos',
     }),
   },
 
   methods: {
     ...mapActions([
       'ADD_TODO',
+      'FETCH_TODOS',
     ]),
 
     addTodo() {
@@ -48,10 +49,21 @@ export default {
         console.log(error);
       });
     },
+    
+    getTodos() {
+      this.FETCH_TODOS({
+        pid: this.$route.params.pid,
+      })
+      .then(() => {
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   },
 
   mounted() {
-    console.log(this.project)
+    this.getTodos();
   }
 }
 </script>

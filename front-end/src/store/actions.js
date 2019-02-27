@@ -33,12 +33,17 @@ const actions = {
       });
   },
 
-  // FETCH_PROJECTS({ commit }, { title }) {
-  // },
+  FETCH_TODOS({ commit }, { pid }) {
+    return api.todo.fetch({ pid })
+      .then((data) => {
+        commit('SET_TODOS', data.result);
+      });
+  },
 
   ADD_TODO({ dispatch }, { title, pid }) {
     return api.todo.create(title, pid)
       .then(() => {
+        dispatch('FETCH_TODOS', { pid });
       });
   },
 };

@@ -21,6 +21,10 @@ const mutations = {
   SET_PROJECT(state, project) {
     state.project = project;
   },
+
+  SET_TODOS(state, todos) {
+    state.todos = todos;
+  },
 };
 
 export default mutations;
