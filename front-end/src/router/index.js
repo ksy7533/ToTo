@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
 import Join from '@/components/Join';
+import Project from '@/components/Project';
 import NotFound from '@/components/NotFound';
 import store from '../store';
 
@@ -20,6 +21,12 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      beforeEnter: requireAuth,
+    },
+    {
+      path: '/project/:pid',
+      name: 'project`',
+      component: Project,
       beforeEnter: requireAuth,
     },
     {
