@@ -23,6 +23,25 @@ router.get('/', ensureAuth(), async (req, res, next) => {
 });
 
 /*
+ * 해당하는 id를 갖는 project 한개 가져오기
+ */
+router.get('/:id', ensureAuth(), async (req, res, next) => {
+    try {
+        const project = await Project.findOne({
+            where: {
+                id: req.body.id,
+            }
+        });
+        return res.status(200).json({
+            result: project,
+        });
+    } catch (error) {
+        console.error(error);
+        next(error);
+    }
+});
+
+/*
  * project 추가하기
  */
 router.post('/', ensureAuth(), async (req, res, next) => {
