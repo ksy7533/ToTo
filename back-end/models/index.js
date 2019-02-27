@@ -12,8 +12,12 @@ db.Sequelize = Sequelize;
 
 db.User = require('./user')(sequelize, Sequelize);
 db.Project = require('./project')(sequelize, Sequelize);
+db.Todo = require('./todo')(sequelize, Sequelize);
 
 db.User.hasMany(db.Project);
 db.Project.belongsTo(db.User);
+
+db.Project.hasMany(db.Todo);
+db.Todo.belongsTo(db.Project);
 
 module.exports = db;
