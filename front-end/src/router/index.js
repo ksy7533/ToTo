@@ -38,7 +38,7 @@ export default new Router({
           beforeEnter: requireAuth,
         },
         {
-          path: 'todo',
+          path: 'todo/:tid?',
           name: 'todo',
           component: ProjectTodo,
           beforeEnter: requireAuth,

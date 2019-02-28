@@ -56,7 +56,7 @@ export const project = {
 
 export const todo = {
   fetch({ id, pid }) {
-    return id ? request('get', `/todos/${id}`) : request('get', `/todos/${pid}`);
+    return id ? request('get', `/todos/${id}`) : request('get', `/todos/project/${pid}`);
   },
 
   create(title, pid) {

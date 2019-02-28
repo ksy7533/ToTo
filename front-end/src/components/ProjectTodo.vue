@@ -8,17 +8,31 @@
       </div>
       <ul>
           <li v-for="(item, index) in this.todos" :key="index">
-              {{item.title}}
+              <router-link tag="a" :to="{ params: { tid: item.id }}">{{item.title}}</router-link>
           </li>
       </ul>
     </div>
+
+    <!-- project-todo-detail component -->
+    <project-todo-detail></project-todo-detail>
+    <!--// project-todo-detail component -->
   </div>
 </template>
 
 <script>
+import ProjectTodoDetail from './ProjectTodoDetail';
 import { mapState, mapActions } from 'vuex';
 
+/**
+ * 1. 해당 todos를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
+ * 2. 저장한 todo의 id값을 route params에저장한다.
+ */
+
 export default {
+  components: {
+    ProjectTodoDetail,
+  },
+
   data() {
     return {
       title: '',
@@ -62,7 +76,7 @@ export default {
     }
   },
 
-  mounted() {
+  created() {
     this.getTodos();
   }
 }

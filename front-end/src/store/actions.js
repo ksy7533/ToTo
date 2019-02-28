@@ -40,6 +40,10 @@ const actions = {
       });
   },
 
+  FETCH_TODO(_, { id }) {
+    return api.todo.fetch({ id });
+  },
+
   ADD_TODO({ dispatch }, { title, pid }) {
     return api.todo.create(title, pid)
       .then(() => {
