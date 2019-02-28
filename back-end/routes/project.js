@@ -32,7 +32,6 @@ router.get('/:id', ensureAuth(), async (req, res, next) => {
                 id: req.params.id,
             }
         });
-        console.log(project)
         return res.status(200).json({
             result: project,
         });

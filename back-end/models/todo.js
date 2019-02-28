@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       progress: {
         type: DataTypes.INTEGER,
         allowNull: true,
+        defaultValue: 1,
       },
 
       /**

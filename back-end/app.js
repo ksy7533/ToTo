@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/project');
 const todoRouter = require('./routes/todo');
+const problemRouter = require('./routes/problem');
 
 const { sequelize } = require('./models');
 require('./passport');
@@ -21,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('port', process.env.PORT || 8001);
 
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public'))); // /main.css
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -30,6 +31,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
 app.use('/todos', todoRouter);
+app.use('/problem', problemRouter);
 
 app.use((req, res, next) => {
     const err = new Error('Not found');
