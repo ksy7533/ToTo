@@ -56,8 +56,9 @@ export default {
         title: this.title,
         pid: this.$route.params.pid,
       })
-      .then(() => {
+      .then((data) => {
         this.title = '';
+        this.$router.push({params: { tid : data.result.id }});
       })
       .catch((error) => {
         console.log(error);

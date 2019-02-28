@@ -46,8 +46,9 @@ const actions = {
 
   ADD_TODO({ dispatch }, { title, pid }) {
     return api.todo.create(title, pid)
-      .then(() => {
+      .then((data) => {
         dispatch('FETCH_TODOS', { pid });
+        return data;
       });
   },
 };

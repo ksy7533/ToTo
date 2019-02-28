@@ -55,7 +55,9 @@ router.post('/', ensureAuth(), async (req, res, next) => {
           completedDate: req.body.completedDate,
           userId: req.user.id,
       });
-      return res.status(201).json({todo});
+      return res.status(201).json({
+        result: todo,
+      });
   } catch (error) {
       console.error(error);
       next(error);
