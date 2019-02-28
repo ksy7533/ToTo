@@ -50,8 +50,8 @@ router.post('/', ensureAuth(), async (req, res, next) => {
         const project = await Project.create({
             userId: req.user.id,
             title: req.body.title,
-            start_date: req.body.start_date,
-            end_date: req.body.end_date,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
             content: req.body.content,
             support: req.body.support
         });

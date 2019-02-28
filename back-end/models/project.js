@@ -5,12 +5,12 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
 
-        start_date: {
+        startDate: {
             type: DataTypes.DATE,
             allowNull: true,
         },
 
-        end_date: {
+        endDate: {
             type: DataTypes.DATE,
             allowNull: true,
         },

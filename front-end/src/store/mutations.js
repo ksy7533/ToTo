@@ -27,7 +27,6 @@ const mutations = {
   },
 
   SET_GNB(state, gnb) {
-    console.log(gnb)
     state.gnb = gnb;
   },
 };

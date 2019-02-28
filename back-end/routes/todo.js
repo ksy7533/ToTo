@@ -33,7 +33,8 @@ router.post('/', ensureAuth(), async (req, res, next) => {
           content: req.body.content,
           progress: req.body.progress,
           priority: req.body.priority,
-          completed_date: req.body.completed_date,
+          completedDate: req.body.completedDate,
+          userId: req.user.id,
       });
       return res.status(201).json({todo});
   } catch (error) {

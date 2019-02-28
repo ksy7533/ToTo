@@ -32,9 +32,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
 
-      completed_date: {
+      completedDate: {
         type: DataTypes.DATE,
         allowNull: true,
+      },
+
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       }
   }, {
       timestamps: true

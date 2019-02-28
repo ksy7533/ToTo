@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: 'local',
         },
-        
+
         snsId: {
             type: DataTypes.STRING(30), // 카카오로 로그인 했을 경우에만 카카오 아이디를 갖는다
             allowNull: true,
