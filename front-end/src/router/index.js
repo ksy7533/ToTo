@@ -33,13 +33,13 @@ export default new Router({
       children: [
         {
           path: 'total',
-          name: 'projectTotal',
+          name: 'total',
           component: ProjectTotal,
           beforeEnter: requireAuth,
         },
         {
           path: 'todo',
-          name: 'projectTodo',
+          name: 'todo',
           component: ProjectTodo,
           beforeEnter: requireAuth,
         },

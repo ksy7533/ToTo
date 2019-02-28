@@ -25,6 +25,11 @@ const mutations = {
   SET_TODOS(state, todos) {
     state.todos = todos;
   },
+
+  SET_GNB(state, gnb) {
+    console.log(gnb)
+    state.gnb = gnb;
+  },
 };
 
 export default mutations;

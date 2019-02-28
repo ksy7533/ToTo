@@ -53,6 +53,7 @@ export default {
         ...mapActions([
             'LOGIN'
         ]),
+
         onSubmit() {
             this.LOGIN({email:this.email, password:this.password})
             .then((data) => {
@@ -62,6 +63,7 @@ export default {
                 console.log(err)
             })
         },
+        
         onJoin() {
             this.$router.push('/join');
         }
