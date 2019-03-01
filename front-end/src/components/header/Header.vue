@@ -29,7 +29,7 @@ export default {
 
     onLogout(){
         this.LOGOUT()
-        this.$router.push('/login');
+        this.$router.push('/auth/login');
     },
   }
 }

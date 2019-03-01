@@ -65,7 +65,7 @@ export default {
     onSubmit() {
       this.JOIN({ email: this.email, password: this.password, nick: this.nick })
         .then(() => {
-          this.$router.push('/login');
+          this.$router.push('/auth/login');
         })
         .catch((err) => {
           console.log(err);
@@ -73,7 +73,7 @@ export default {
     },
 
     onBack() {
-      this.$router.push('/login');
+      this.$router.push('/auth/login');
     },
   },
 };

@@ -64,7 +64,7 @@ export default {
     },
 
     onJoin() {
-      this.$router.push('/join');
+      this.$router.push('/auth/join');
     },
   },
 
