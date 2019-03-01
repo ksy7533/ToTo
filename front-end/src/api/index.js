@@ -62,6 +62,16 @@ export const todo = {
   },
 };
 
+export const problem = {
+  fetch({ id, pid }) {
+    return id ? request('get', `/problems/${id}`) : request('get', `/problems/project/${pid}`);
+  },
+
+  create(title, pid) {
+    return request('post', '/problems', { title, pid });
+  },
+};
+
 export const setAuthInHeader = (token) => {
   axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 };

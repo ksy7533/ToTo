@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
-import Login from '@/components/Login';
-import Join from '@/components/Join';
-import Project from '@/components/Project';
-import ProjectTotal from '@/components/ProjectTotal';
-import ProjectTodo from '@/components/ProjectTodo';
-import ProjectProblem from '@/components/ProjectProblem';
-import NotFound from '@/components/NotFound';
+import Login from '@/components/auth/Login';
+import Join from '@/components/auth/Join';
+import Home from '@/components/container/Home';
+import Project from '@/components/container/Project';
+import ProjectTotal from '@/components/project/ProjectTotal';
+import ProjectTodo from '@/components/project/ProjectTodo';
+import ProjectProblem from '@/components/project/ProjectProblem';
+import NotFound from '@/components/common/NotFound';
 import store from '../store';
 
 Vue.use(Router);

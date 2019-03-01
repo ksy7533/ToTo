@@ -31,7 +31,7 @@ app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
 app.use('/todos', todoRouter);
-app.use('/problem', problemRouter);
+app.use('/problems', problemRouter);
 
 app.use((req, res, next) => {
     const err = new Error('Not found');

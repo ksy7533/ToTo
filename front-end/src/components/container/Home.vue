@@ -24,7 +24,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import Header from './Header';
+import Header from '../header/Header';
 
 export default {
   components: { Header },

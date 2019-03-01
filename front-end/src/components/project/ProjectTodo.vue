@@ -64,6 +64,7 @@ export default {
           console.log(error);
         });
     },
+    
     getTodos() {
       this.FETCH_TODOS({
         pid: this.$route.params.pid,

@@ -19,8 +19,8 @@
 /**
  * Project에 관련된 이벤트는 해당 콤포넌트에서 작업합니다.
  */
-import Header from './Header';
-import AsideMenu from './AsideMenu';
+import Header from '../header/Header';
+import AsideMenu from '../asideMenu/AsideMenu';
 
 export default {
   components: { 

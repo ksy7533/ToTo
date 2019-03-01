@@ -51,6 +51,25 @@ const actions = {
         return data;
       });
   },
+
+  FETCH_PROBLEMS({ commit }, { pid }) {
+    return api.problem.fetch({ pid })
+      .then((data) => {
+        commit('SET_PROBLEMS', data.result);
+      });
+  },
+
+  FETCH_PROBLEM(_, { id }) {
+    return api.problem.fetch({ id });
+  },
+
+  ADD_PROBLEM({ dispatch }, { title, pid }) {
+    return api.problem.create(title, pid)
+      .then((data) => {
+        dispatch('FETCH_PROBLEMS', { pid });
+        return data;
+      });
+  },
 };
 
 export default actions;

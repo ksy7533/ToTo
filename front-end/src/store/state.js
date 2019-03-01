@@ -3,6 +3,7 @@ const state = {
   projects: [], // 모든 project
   project: null, // 현재 선택된 project
   todos: [], // 모든 todo
+  problems: [], // 모든 problems
   lnbRoutes: [ // lnb목록
     {
       name: 'total',
