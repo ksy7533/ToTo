@@ -5,7 +5,9 @@
     <!--// header component -->
 
     <!-- AsideMenu component -->
-    <aside-menu></aside-menu>
+    <aside-menu
+      :pid="this.$route.params.pid"
+    ></aside-menu>
     <!--// AsideMenu component -->
 
     <router-view></router-view>
@@ -26,29 +28,8 @@ export default {
     Header,
     AsideMenu
   },
-
-  watch: {
-    '$route' (to, from) {
-      this.setGnb(to.name);
-    }
-  },
-
-  methods: {
-    ...mapMutations([
-      'SET_GNB',
-    ]),
-
-    setGnb(gnb) {
-      this.SET_GNB(gnb);
-    }
-  },
-
-  created() {
-    this.setGnb(this.$route.name);
-  }
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

@@ -6,6 +6,7 @@ import Join from '@/components/Join';
 import Project from '@/components/Project';
 import ProjectTotal from '@/components/ProjectTotal';
 import ProjectTodo from '@/components/ProjectTodo';
+import ProjectProblem from '@/components/ProjectProblem';
 import NotFound from '@/components/NotFound';
 import store from '../store';
 
@@ -41,6 +42,12 @@ export default new Router({
           path: 'todo/:tid?',
           name: 'todo',
           component: ProjectTodo,
+          beforeEnter: requireAuth,
+        },
+        {
+          path: 'problem/:pbid?',
+          name: 'problem',
+          component: ProjectProblem,
           beforeEnter: requireAuth,
         },
       ],

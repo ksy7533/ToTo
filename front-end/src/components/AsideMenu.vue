@@ -1,18 +1,54 @@
 <template>
   <div class="aside-menu">
     좌측메뉴<br>
-    {{this.gnb}}
+
+    <ul v-if="this.items.length">
+      <li v-for="(item, index) in this.items" :key="index">
+        <router-link tag="a" :to="`/project/${pid}/${item.name}`">{{item.title}}</router-link>
+      </li>
+    </ul>
+
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
+  props: [
+    'pid',
+  ],
+
   computed: {
     ...mapState({
-      gnb: 'gnb',
+      lnbRoutes: 'lnbRoutes',
     }),
   },
+
+  data() {
+    return {
+      items: [],
+    }
+  },
+
+  watch: {
+    '$route' (to, from) {
+      this.setItems(to.name);
+    }
+  },
+
+  methods: {
+    setItems(lnb) {
+      this.lnbRoutes.map((item) => {
+        if(item.name === lnb){
+          return this.items = item.items;
+        }
+      });
+    }
+  },
+
+  created() {
+    this.setItems(this.$route.name);
+  }
 }
 </script>
 

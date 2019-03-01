@@ -26,8 +26,8 @@ const mutations = {
     state.todos = todos;
   },
 
-  SET_GNB(state, gnb) {
-    state.gnb = gnb;
+  SET_LNB(state, lnb) {
+    state.lnb = lnb;
   },
 };
 
