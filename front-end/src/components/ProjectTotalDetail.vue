@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       isLoading: false,
-    }
+    };
   },
 
   computed: {
@@ -36,22 +36,22 @@ export default {
       this.FETCH_PROJECT({
         id: this.$route.params.pid,
       })
-      .then(() => {
-        console.log('성공!');
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        this.isLoading = false;
-      });
-    }
+        .then(() => {
+          console.log('성공!');
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
+    },
   },
 
   mounted() {
     this.getProject();
-  }
-}
+  },
+};
 </script>
 
 <style>

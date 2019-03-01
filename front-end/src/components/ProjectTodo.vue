@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import ProjectTodoDetail from './ProjectTodoDetail';
 import { mapState, mapActions } from 'vuex';
+import ProjectTodoDetail from './ProjectTodoDetail';
 
 /**
  * 1. 해당 todos를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       title: '',
-    }
+    };
   },
 
   computed: {
@@ -56,31 +56,31 @@ export default {
         title: this.title,
         pid: this.$route.params.pid,
       })
-      .then((data) => {
-        this.title = '';
-        this.$router.push({params: { tid : data.result.id }});
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((data) => {
+          this.title = '';
+          this.$router.push({ params: { tid: data.result.id } });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    
     getTodos() {
       this.FETCH_TODOS({
         pid: this.$route.params.pid,
       })
-      .then(() => {
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
+        .then(() => {
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 
   created() {
     this.getTodos();
-  }
-}
+  },
+};
+
 </script>
 
 <style>

@@ -9,11 +9,12 @@
 
 <script>
 import ProjectTotalDetail from './ProjectTotalDetail';
+
 export default {
   components: {
     ProjectTotalDetail,
-  }
-}
+  },
+};
 </script>
 
 <style>

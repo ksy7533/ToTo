@@ -21,14 +21,14 @@
  */
 import Header from './Header';
 import AsideMenu from './AsideMenu';
-import { mapMutations } from 'vuex';
 
 export default {
   components: { 
     Header,
-    AsideMenu
+    AsideMenu,
   },
-}
+};
+
 </script>
 
 <style lang="scss" scoped>

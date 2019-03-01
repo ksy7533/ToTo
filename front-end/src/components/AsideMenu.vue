@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState } from 'vuex';
+
 export default {
   props: [
     'pid',
@@ -27,29 +28,30 @@ export default {
   data() {
     return {
       items: [],
-    }
+    };
   },
 
   watch: {
-    '$route' (to, from) {
+    '$route'(to) {
       this.setItems(to.name);
-    }
+    },
   },
 
   methods: {
     setItems(lnb) {
       this.lnbRoutes.map((item) => {
-        if(item.name === lnb){
-          return this.items = item.items;
+        if (item.name === lnb) {
+          this.items = item.items;
+          return;
         }
       });
-    }
+    },
   },
 
   created() {
     this.setItems(this.$route.name);
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>

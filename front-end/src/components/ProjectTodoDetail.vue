@@ -15,13 +15,13 @@ export default {
   data() {
     return {
       todo: null,
-    }
+    };
   },
 
   watch: {
-    '$route' (to, from) {
+    '$route'(to) {
       this.getTodo(to.params.tid);
-    }
+    },
   },
 
   methods: {
@@ -33,19 +33,19 @@ export default {
       this.FETCH_TODO({
         id: tid,
       })
-      .then((data) => {
-        this.todo = data.result;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    }
+        .then((data) => {
+          this.todo = data.result;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 
   created() {
     this.getTodo(this.$route.params.tid);
-  }
-}
+  },
+};
 </script>
 
 <style>
