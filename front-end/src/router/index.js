@@ -1,12 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from '@/components/auth/Login';
-import Join from '@/components/auth/Join';
-
 import Auth from '@/views/Auth';
 import Home from '@/views/Home';
 import Project from '@/views/Project';
-
+import Login from '@/components/auth/Login';
+import Join from '@/components/auth/Join';
 import ProjectTotal from '@/components/project/ProjectTotal';
 import ProjectTodo from '@/components/project/ProjectTodo';
 import ProjectProblem from '@/components/project/ProjectProblem';
@@ -17,7 +15,7 @@ Vue.use(Router);
 
 const requireAuth = (to, from, next) => {
   const loginPath = `/auth/login?rPath=${encodeURIComponent(to.path)}`; // login페이지로가서 로그인 한뒤 다시 리다이렉트할 경로를 rPath 쿼리 스트링에 넣어준다. encodeURIComponent는 모든문자를 인코딩해주는 함수이다.
-  store.getters.isAuth ? next() : next(loginPath);
+  store.state.token ? next() : next(loginPath);
 };
 
 export default new Router({
