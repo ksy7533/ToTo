@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import GnbNavigation from './GnbNavigation';
 import { mapMutations } from 'vuex';
+import GnbNavigation from './GnbNavigation';
 
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
         this.LOGOUT()
         this.$router.push('/auth/login');
     },
-  }
+  },
 }
 </script>
 

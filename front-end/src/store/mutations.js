@@ -29,10 +29,6 @@ const mutations = {
   SET_PROBLEMS(state, problems) {
     state.problems = problems;
   },
-
-  SET_LNB(state, lnb) {
-    state.lnb = lnb;
-  },
 };
 
 export default mutations;

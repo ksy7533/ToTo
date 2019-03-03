@@ -2,11 +2,8 @@
   <div>
     <nav>
       <ul>
-        <li>
-          <router-link tag="a" :to="`/project/${this.$route.params.pid}/total`">홈</router-link>
-        </li>
-        <li>
-          <router-link tag="a" :to="`/project/${this.$route.params.pid}/todo`">업무</router-link>
+        <li v-for="(item, index) in this.routes" :key="index">
+          <router-link tag="a" :to="`/project/${project.id}/${item.name}`">{{item.title}}</router-link>
         </li>
       </ul>
     </nav>
@@ -14,7 +11,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+
+  computed: {
+    ...mapState({
+      routes: 'routes',
+      project: 'project',
+    })
+  },
 }
 </script>
 

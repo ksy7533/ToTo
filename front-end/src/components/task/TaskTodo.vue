@@ -14,14 +14,14 @@
     </div>
 
     <!-- project-todo-detail component -->
-    <project-todo-detail></project-todo-detail>
+    <task-todo-detail></task-todo-detail>
     <!--// project-todo-detail component -->
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import ProjectTodoDetail from './ProjectTodoDetail';
+import TaskTodoDetail from './TaskTodoDetail';
 
 /**
  * 1. 해당 todos를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -30,7 +30,7 @@ import ProjectTodoDetail from './ProjectTodoDetail';
 
 export default {
   components: {
-    ProjectTodoDetail,
+    TaskTodoDetail,
   },
 
   data() {
@@ -42,6 +42,7 @@ export default {
   computed: {
     ...mapState({
       todos: 'todos',
+      project: 'project',
     }),
   },
 
@@ -54,7 +55,7 @@ export default {
     addTodo() {
       this.ADD_TODO({
         title: this.title,
-        pid: this.$route.params.pid,
+        pid: this.project.id,
       })
         .then((data) => {
           this.title = '';
@@ -67,7 +68,7 @@ export default {
     
     getTodos() {
       this.FETCH_TODOS({
-        pid: this.$route.params.pid,
+        pid: this.project.id,
       })
         .then(() => {
         })

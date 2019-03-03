@@ -11,7 +11,7 @@
         </div>
         <ul>
           <li v-for="(item, index) in projects" :key="index">
-            <router-link tag="a" :to="`/project/${item.id}/total`">{{item.title}}</router-link>
+            <router-link tag="a" :to="`/project/${item.id}/home`">{{item.title}}</router-link>
           </li>
         </ul>
       </div>

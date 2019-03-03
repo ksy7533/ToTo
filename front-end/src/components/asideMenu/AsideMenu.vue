@@ -1,10 +1,10 @@
 <template>
-  <div class="aside-menu">
+  <div class="aside-menu" v-if="this.items.length">
     좌측메뉴<br>
 
-    <ul v-if="this.items.length">
+    <ul>
       <li v-for="(item, index) in this.items" :key="index">
-        <router-link tag="a" :to="`/project/${pid}/${item.name}`">{{item.title}}</router-link>
+        <router-link tag="a" :to="`/project/${project.id}/${category}/${item.name}`">{{item.title}}</router-link>
       </li>
     </ul>
 
@@ -15,19 +15,17 @@
 import { mapState } from 'vuex';
 
 export default {
-  props: [
-    'pid',
-  ],
-
   computed: {
     ...mapState({
-      lnbRoutes: 'lnbRoutes',
+      routes: 'routes',
+      project: 'project',
     }),
   },
 
   data() {
     return {
       items: [],
+      category: '',
     };
   },
 
@@ -39,9 +37,10 @@ export default {
 
   methods: {
     setItems(lnb) {
-      this.lnbRoutes.map((item) => {
+      this.routes.map((item) => {
         if (item.name === lnb) {
           this.items = item.items;
+          this.category = this.$route.matched[1].name;
           return;
         }
       });
@@ -49,7 +48,7 @@ export default {
   },
 
   created() {
-    this.setItems(this.$route.name);
+    this.setItems(this.$route.matched[1].name);
   },
 };
 </script>

@@ -1,13 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Auth from '@/views/Auth';
-import Home from '@/views/Home';
+import Main from '@/views/Main';
 import Project from '@/views/Project';
 import Login from '@/components/auth/Login';
 import Join from '@/components/auth/Join';
-import ProjectTotal from '@/components/project/ProjectTotal';
-import ProjectTodo from '@/components/project/ProjectTodo';
-import ProjectProblem from '@/components/project/ProjectProblem';
+import ProjectHome from '@/components/project/ProjectHome';
+import ProjectTask from '@/components/project/ProjectTask';
+
+import TaskTodo from '@/components/task/TaskTodo';
+import TaskProblem from '@/components/task/TaskProblem';
+
 import NotFound from '@/components/common/NotFound';
 import store from '../store';
 
@@ -23,8 +26,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'main',
+      component: Main,
       beforeEnter: requireAuth,
     },
     {
@@ -34,22 +37,30 @@ export default new Router({
       beforeEnter: requireAuth,
       children: [
         {
-          path: 'total',
-          name: 'total',
-          component: ProjectTotal,
+          path: 'home',
+          name: 'home',
+          component: ProjectHome,
           beforeEnter: requireAuth,
         },
         {
-          path: 'todo/:tid?',
-          name: 'todo',
-          component: ProjectTodo,
+          path: 'task',
+          name: 'task',
+          component: ProjectTask,
           beforeEnter: requireAuth,
-        },
-        {
-          path: 'problem/:pbid?',
-          name: 'problem',
-          component: ProjectProblem,
-          beforeEnter: requireAuth,
+          children: [
+            {
+              path: 'todo/:tid?',
+              name: 'todo',
+              component: TaskTodo,
+              beforeEnter: requireAuth,
+            },
+            {
+              path: 'problem/:pbid?',
+              name: 'problem',
+              component: TaskProblem,
+              beforeEnter: requireAuth,
+            },
+          ],
         },
       ],
     },
