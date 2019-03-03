@@ -19,20 +19,20 @@ import GnbNavigation from './GnbNavigation';
 
 export default {
   components: {
-    GnbNavigation
+    GnbNavigation,
   },
 
   methods: {
     ...mapMutations([
-        'LOGOUT'
+      'LOGOUT',
     ]),
 
     onLogout(){
-        this.LOGOUT()
-        this.$router.push('/auth/login');
+      this.LOGOUT();
+      this.$router.push('/auth/login');
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

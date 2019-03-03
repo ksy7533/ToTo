@@ -37,10 +37,10 @@ export default {
 
   methods: {
     setItems(lnb) {
-      this.routes.map((item) => {
+      this.category = this.$route.matched[1].name;
+      this.routes.forEach((item) => {
         if (item.name === lnb) {
           this.items = item.items;
-          this.category = this.$route.matched[1].name;
           return;
         }
       });
