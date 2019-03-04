@@ -36,7 +36,7 @@ const actions = {
   FETCH_TODOS({ commit }, { pid }) {
     return api.todo.fetch({ pid })
       .then((data) => {
-        commit('SET_TODOS', data.result);
+        commit('SET_TASKS', data.result);
       });
   },
 
@@ -55,7 +55,7 @@ const actions = {
   FETCH_PROBLEMS({ commit }, { pid }) {
     return api.problem.fetch({ pid })
       .then((data) => {
-        commit('SET_PROBLEMS', data.result);
+        commit('SET_TASKS', data.result);
       });
   },
 

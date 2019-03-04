@@ -2,12 +2,12 @@
   <div>
     prorject todo
     <div>
-      <div class="add-todo">
+      <div class="add-task">
           <input type="text" v-model="title" placeholder="업무명을 입력해주세요.">
-          <button @click="addTodo">Add Todo</button>
+          <button @click="addTask">Add Todo</button>
       </div>
       <ul>
-          <li v-for="(item, index) in this.todos" :key="index">
+          <li v-for="(item, index) in this.tasks" :key="index">
               <router-link tag="a" :to="{ params: { tid: item.id }}">{{item.title}}</router-link>
           </li>
       </ul>
@@ -24,7 +24,7 @@ import { mapState, mapActions } from 'vuex';
 import TaskTodoDetail from './TaskTodoDetail';
 
 /**
- * 1. 해당 todos를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
+ * 1. 해당 tasks를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
  * 2. 저장한 todo의 id값을 route params에저장한다.
  */
 
@@ -41,7 +41,7 @@ export default {
 
   computed: {
     ...mapState({
-      todos: 'todos',
+      tasks: 'tasks',
       project: 'project',
     }),
   },
@@ -52,7 +52,7 @@ export default {
       'FETCH_TODOS',
     ]),
 
-    addTodo() {
+    addTask() {
       this.ADD_TODO({
         title: this.title,
         pid: this.project.id,
@@ -66,7 +66,7 @@ export default {
         });
     },
     
-    getTodos() {
+    getTasks() {
       this.FETCH_TODOS({
         pid: this.project.id,
       })
@@ -79,7 +79,7 @@ export default {
   },
 
   created() {
-    this.getTodos();
+    this.getTasks();
   },
 };
 

@@ -2,8 +2,7 @@ const state = {
   toekn: null, // 유저 토큰 정보
   projects: [], // 모든 project
   project: null, // 현재 선택된 project
-  todos: [], // 모든 todo
-  problems: [], // 모든 problems
+  tasks: [], // 현재 선택된 tasks
   routes: [ // route 목록, depth : 1(gnb), depth: 2(lnb)
     {
       name: 'home',

@@ -7,10 +7,8 @@ import Login from '@/components/auth/Login';
 import Join from '@/components/auth/Join';
 import ProjectHome from '@/components/project/ProjectHome';
 import ProjectTask from '@/components/project/ProjectTask';
-
 import TaskTodo from '@/components/task/TaskTodo';
 import TaskProblem from '@/components/task/TaskProblem';
-
 import NotFound from '@/components/common/NotFound';
 import store from '../store';
 

@@ -22,12 +22,8 @@ const mutations = {
     state.project = project;
   },
 
-  SET_TODOS(state, todos) {
-    state.todos = todos;
-  },
-
-  SET_PROBLEMS(state, problems) {
-    state.problems = problems;
+  SET_TASKS(state, tasks) {
+    state.tasks = tasks;
   },
 };
 

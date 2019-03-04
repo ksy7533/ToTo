@@ -1,6 +1,6 @@
 <template>
-  <div v-if="this.$route.params.tid">
-    Project Todo Detail 영역
+  <div v-if="this.$route.params.pbid">
+    Project Problem Detail 영역
     
     <div>
       {{this.task}}
@@ -20,18 +20,18 @@ export default {
 
   watch: {
     '$route'(to) {
-      this.getTask(to.params.tid);
+      this.getTask(to.params.pbid);
     },
   },
 
   methods: {
     ...mapActions([
-      'FETCH_TODO',
+      'FETCH_PROBLEM',
     ]),
 
-    getTask(tid) {
-      this.FETCH_TODO({
-        id: tid,
+    getTask(pbid) {
+      this.FETCH_PROBLEM({
+        id: pbid,
       })
         .then((data) => {
           this.task = data.result;
@@ -43,7 +43,7 @@ export default {
   },
 
   created() {
-    this.getTask(this.$route.params.tid);
+    this.getTask(this.$route.params.pbid);
   },
 };
 </script>
