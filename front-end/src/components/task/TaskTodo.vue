@@ -85,6 +85,9 @@ export default {
 
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.add-task {
+  color: $black;
+}
 </style>
+
