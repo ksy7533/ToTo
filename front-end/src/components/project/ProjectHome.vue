@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div>
       project Home
     </div>
@@ -17,6 +17,9 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.container {
+  float: left;
+}
 </style>
+

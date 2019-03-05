@@ -8,7 +8,13 @@ const state = {
       name: 'home',
       title: '홈',
       depth: 1,
-      items: [],
+      items: [
+        {
+          name: '',
+          title: '프로젝트 홈',
+          depth: 2,
+        },
+      ],
     },
     {
       name: 'task',

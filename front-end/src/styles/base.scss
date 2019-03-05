@@ -20,37 +20,53 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 // HTML5 display-role reset for older browsers
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 /* custom base scss */
-html {
+html, body {
   width: 100%;
   height: 100%;
-  line-height: 1.2px;
+}
+
+body {
+  line-height: 1.2;
+  letter-spacing: -.4px;
   color: #000;
   font-size: 16px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   word-break: break-all;
-  background-color:#f9f9f9;
+  background-color: $background-color;
+}
+
+a {
+  text-decoration: none;
+  color: $secondary-font-color;
 }

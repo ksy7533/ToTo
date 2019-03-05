@@ -37,10 +37,31 @@ export default {
 
 <style lang="scss" scoped>
 .main-header {
-  background-color: green;
+  header {
+    @extend %float-clear;
+    padding: 10px;
+    background-color: $primary-color;
 
-  h1 {
-    font-size: 30px;
+    h1 {
+      float: left;
+      color: $primary-font-color;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .util {
+      float: right;
+
+      button {
+        cursor: pointer;
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 14px;
+        border: 0;
+        color: $primary-font-color;
+        background-color: $primary-light-color;
+      }
+    }
   }
 }
 </style>

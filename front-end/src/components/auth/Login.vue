@@ -1,11 +1,11 @@
 <template>
   <div class="login">
-    <h1>ToTo<br>(Today TodoList)</h1>
+    <h2>로그인</h2>
     <div class="wrap-box">
       <form @submit.prevent="onSubmit">
         <div class="row">
           <p class="title">
-            <label for="email">EMAIL</label>
+            <label for="email">Email</label>
           </p>
           <p class="wrap-input">
             <input type="text" id="email" v-model.trim="email" autofocus placeholder="이메일을 입력 해주세요.">
@@ -13,7 +13,7 @@
         </div>
         <div class="row">
           <p class="title">
-            <label for="password">PASSWORD</label>
+            <label for="password">Password</label>
           </p>
           <p class="wrap-input">
             <input type="password" id="password" v-model.trim="password" placeholder="암호를 입력 해주세요.">
@@ -76,21 +76,16 @@ export default {
 
 <style lang="scss" scoped>
 .login {
-  margin: 120px auto 0; 
-  padding-bottom: 40px;
-  width: 400px;
-  background-color: #dbdbdb;
-  border-radius: 4px;
-
-  h1 {
+  h2 {
     text-align: center;
-    padding: 50px 0 20px 0;
-    font-size: 30px;
-    font-weight: bold;
+    padding: 30px 0;
+    color: rgba(#000, .7);
+    font-size: 24px;
+    font-weight: normal;
   }
 
   .wrap-box {
-    padding: 20px;
+    padding: 20px 40px 40px;
 
     .row {
       margin-top: 20px;
@@ -101,6 +96,7 @@ export default {
 
       .title {
         margin-bottom: 10px;
+        color: rgba(#000, .3);
         font-size: 22px;
       }
 
@@ -115,8 +111,7 @@ export default {
           outline: 0;
         }
 
-        background-color: #fff;
-        border-bottom: 2px solid #666;
+        border-bottom: 2px solid $border-color;
       }
   }
 
@@ -133,8 +128,8 @@ export default {
         border: 0;
 
         &.success {
-          color: #fff;
-          background-color: #333;
+          color: $primary-font-color;
+          background-color: $primary-color;
         }
       }
     }
@@ -142,7 +137,7 @@ export default {
     .info {
       text-align: center;
       margin-top: 20px;
-      color: red;
+      color: $error-color;
     }
   }
 }

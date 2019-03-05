@@ -1,5 +1,5 @@
 <template>
-  <div v-if="project">
+  <div class="project" v-if="project">
     <!-- header component -->
     <Header></Header>
     <!--// header component -->
@@ -59,4 +59,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.project {
+  @extend %float-clear;
+  height: 100%;
+}
 </style>

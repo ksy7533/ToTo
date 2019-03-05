@@ -1,7 +1,5 @@
 <template>
   <div class="aside-menu" v-if="this.items.length">
-    좌측메뉴<br>
-
     <ul>
       <li v-for="(item, index) in this.items" :key="index">
         <router-link tag="a" :to="`/project/${project.id}/${category}/${item.name}`">{{item.title}}</router-link>
@@ -54,6 +52,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.aside-menu {
+  float: left;
+  width: 200px;
+  height: calc(100% - 87px);
+  background-color: #eef0f2;
+}
 </style>
 
