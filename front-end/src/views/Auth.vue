@@ -1,12 +1,26 @@
 <template>
-  <div class="auth-wrap">
+  <!-- <div class="auth-wrap">
     <div class="auth-box">
       <h1>TOTO</h1>
       <div class="auth">
         <router-view></router-view>
       </div>
     </div>
-  </div>
+  </div> -->
+
+  <v-app id="inspire">
+    <v-content>
+      <v-container fluid fill-height>
+        <v-layout align-center justify-center>
+          <v-flex xs12 sm8 md4>
+            <v-card class="elevation-12">
+              <router-view></router-view>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
