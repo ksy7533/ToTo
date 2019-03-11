@@ -6,7 +6,7 @@
     fixed
     app
   >
-    <v-list>
+    <v-list dense>
       <template v-for="(depth1, indexDepth1) in this.routes">
         <v-list-tile
           v-if="!depth1.items.length"

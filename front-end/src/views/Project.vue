@@ -1,7 +1,7 @@
 <template>
   <v-app v-if="project">
-    <Header></Header>
     <aside-menu></aside-menu>
+    <Header></Header>
     <router-view></router-view>
   </v-app>
 </template>

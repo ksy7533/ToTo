@@ -11,7 +11,10 @@ router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
       const todo = await Todo.findAll({
           where: {
               projectId: req.params.pid,
-          }
+          },
+          order: [
+              ['createdAt', 'DESC'],
+          ],
       });
       return res.status(200).json({
           result: todo,
