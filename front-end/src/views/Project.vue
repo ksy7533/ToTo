@@ -1,15 +1,9 @@
 <template>
-  <div class="project" v-if="project">
-    <!-- header component -->
+  <v-app v-if="project">
     <Header></Header>
-    <!--// header component -->
-
-    <!-- AsideMenu component -->
     <aside-menu></aside-menu>
-    <!--// AsideMenu component -->
-
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -59,8 +53,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.project {
-  @extend %float-clear;
-  height: 100%;
-}
 </style>

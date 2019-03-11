@@ -1,25 +1,37 @@
 <template>
-  <div class="main-header">
-    <header>
-      <router-link tag="h1" :to="'/'">ToTo</router-link>
-      <div class="util">
-        <button class="btn-logout" @click="onLogout">로그아웃</button>
-      </div>
-    </header>
+  <v-toolbar
+    color="blue darken-3"
+    dark
+    app
+    fixed
+    clipped-left
+    dense
+  >
+    <v-toolbar-title class="mr-5">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <span>Today TodoList</span>
+    </v-toolbar-title>
 
-    <!-- GnbNavigation component -->
-    <gnb-navigation v-if="this.$route.params.pid"></gnb-navigation>
-    <!--// GnbNavigation component -->
-  </div>
+    <v-spacer></v-spacer>
+    
+    <v-btn flat @click="onLogout">로그아웃</v-btn>
+    <v-btn
+      icon
+      to="/"
+    >
+      <v-icon>dashboard</v-icon>
+    </v-btn>
+  </v-toolbar>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import GnbNavigation from './GnbNavigation';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
-  components: {
-    GnbNavigation,
+  data() {
+    return {
+      drawer: null,
+    }
   },
 
   methods: {
@@ -36,32 +48,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main-header {
-  header {
-    @extend %float-clear;
-    padding: 10px;
-    background-color: $primary-color;
-
-    h1 {
-      float: left;
-      color: $primary-font-color;
-      font-size: 24px;
-      cursor: pointer;
-    }
-
-    .util {
-      float: right;
-
-      button {
-        cursor: pointer;
-        display: inline-block;
-        padding: 5px 10px;
-        font-size: 14px;
-        border: 0;
-        color: $primary-font-color;
-        background-color: $primary-light-color;
-      }
-    }
-  }
-}
 </style>

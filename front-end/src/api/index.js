@@ -5,7 +5,7 @@ const DOMAIN = 'http://localhost:8001';
 const UNAUTHORIZED = 401;
 
 const onUnauthorized = () => {
-  router.push(`/login?returnPath=${encodeURIComponent(location.pathname)}`);
+  router.push(`/auth/login?returnPath=${encodeURIComponent(location.pathname)}`);
 };
 
 const request = (method, url, data) => {

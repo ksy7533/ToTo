@@ -3,6 +3,7 @@
     <v-toolbar dark color="primary">
       <v-toolbar-title>회원가입</v-toolbar-title>
     </v-toolbar>
+
     <v-card-text>
       <v-form>
         <v-text-field prepend-icon="email" name="Email" label="Email" type="text" v-model.trim="email"></v-text-field>
@@ -10,6 +11,7 @@
         <v-text-field prepend-icon="person" name="Nickname" label="Nickname" type="text" v-model.trim="nick"></v-text-field>
       </v-form>
     </v-card-text>
+    
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="secondary" @click="onBack">뒤로</v-btn>

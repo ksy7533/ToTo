@@ -5,8 +5,8 @@ import Main from '@/views/Main';
 import Project from '@/views/Project';
 import Login from '@/components/auth/Login';
 import Join from '@/components/auth/Join';
-import ProjectHome from '@/components/project/ProjectHome';
-import ProjectTask from '@/components/project/ProjectTask';
+import ProjectHome from '@/views/ProjectHome';
+import ProjectTask from '@/views/ProjectTask';
 import TaskTodo from '@/components/task/TaskTodo';
 import TaskProblem from '@/components/task/TaskProblem';
 import NotFound from '@/components/common/NotFound';
@@ -15,7 +15,7 @@ import store from '../store';
 Vue.use(Router);
 
 const requireAuth = (to, from, next) => {
-  const loginPath = `/auth/login?rPath=${encodeURIComponent(to.path)}`; // login페이지로가서 로그인 한뒤 다시 리다이렉트할 경로를 rPath 쿼리 스트링에 넣어준다. encodeURIComponent는 모든문자를 인코딩해주는 함수이다.
+  const loginPath = `/auth/login?returnPath=${encodeURIComponent(to.path)}`; // login페이지로가서 로그인 한뒤 다시 리다이렉트할 경로를 rPath 쿼리 스트링에 넣어준다. encodeURIComponent는 모든문자를 인코딩해주는 함수이다.
   store.state.token ? next() : next(loginPath);
 };
 

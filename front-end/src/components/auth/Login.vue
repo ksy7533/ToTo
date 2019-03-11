@@ -1,14 +1,16 @@
 <template>
-  <v-card class="elevation-12">
+  <v-card class="elevation-12" >
     <v-toolbar dark color="primary">
       <v-toolbar-title>로그인</v-toolbar-title>
     </v-toolbar>
+
     <v-card-text>
       <v-form>
         <v-text-field prepend-icon="email" name="Email" label="Email" type="text" v-model.trim="email"></v-text-field>
         <v-text-field id="password" prepend-icon="lock" name="password" label="Password" type="password" v-model.trim="password"></v-text-field>
       </v-form>
     </v-card-text>
+    
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="primary" @click="onSubmit" :disabled="invalidForm">로그인</v-btn>

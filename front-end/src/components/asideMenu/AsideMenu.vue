@@ -1,12 +1,44 @@
 <template>
-  <div class="aside-menu" v-if="this.items.length">
-    <ul>
-      <li v-for="(item, index) in this.items" :key="index">
-        <router-link tag="a" :to="`/project/${project.id}/${category}/${item.name}`">{{item.title}}</router-link>
-      </li>
-    </ul>
-
-  </div>
+  <v-navigation-drawer
+    permanent
+    v-model="drawer"
+    clipped
+    fixed
+    app
+  >
+    <v-list>
+      <template v-for="(depth1, indexDepth1) in this.routes">
+        <v-list-tile
+          v-if="!depth1.items.length"
+          :key="indexDepth1"
+          :to="`/project/${project.id}/${depth1.name}`"
+        >
+          <v-list-tile-title>{{depth1.title}}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-group
+          v-else
+          :key="indexDepth1"
+          value="true"
+        >
+          <template v-slot:activator>
+            <v-list-tile>
+              <v-list-tile-title>{{depth1.title}}</v-list-tile-title>
+            </v-list-tile>
+          </template>
+          <v-list-tile
+            v-for="(depth2, index) in depth1.items"
+            :key="index"
+            :to="`/project/${project.id}/${depth1.name}/${depth2.name}`"
+          >
+            <v-list-tile-action>
+              <v-icon>{{depth2.icon}}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title>{{depth2.title}}</v-list-tile-title>
+          </v-list-tile>
+        </v-list-group>
+      </template>
+    </v-list>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -22,41 +54,12 @@ export default {
 
   data() {
     return {
-      items: [],
-      category: '',
+      drawer: null,
     };
-  },
-
-  watch: {
-    '$route'(to) {
-      this.setItems(to.name);
-    },
-  },
-
-  methods: {
-    setItems(lnb) {
-      this.category = this.$route.matched[1].name;
-      this.routes.forEach((item) => {
-        if (item.name === lnb) {
-          this.items = item.items;
-          return;
-        }
-      });
-    },
-  },
-
-  created() {
-    this.setItems(this.$route.matched[1].name);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.aside-menu {
-  float: left;
-  width: 200px;
-  height: calc(100% - 87px);
-  background-color: #eef0f2;
-}
 </style>
 

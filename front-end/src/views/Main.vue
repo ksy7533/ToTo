@@ -1,30 +1,75 @@
 <template>
-  <div class="wrap">
-    <!-- header component -->
+  <v-app>
     <Header></Header>
-    <!--// header component -->
-    <div class="container">
-      <template v-if="!isLoding">
-        <div class="add-project">
-          <div class="wrap-input">
-            <input type="text" v-model="title" placeholder="프로젝트명을 입력해주세요.">
-          </div>
-          <button @click="addProject">Add Project</button>
-        </div>
-        <ul class="list">
-          <li v-for="(item, index) in projects" :key="index">
-            <router-link tag="a" :to="`/project/${item.id}/home`">
-              <p class="title">Project</p>
-              <p class="sub-title">{{item.title}}</p>
-            </router-link>
-          </li>
-        </ul>
-      </template>
-      <template v-else>
-        Loading...
-      </template>
-    </div>
-  </div>
+    
+    <v-content>
+      <v-container grid-list-md fluid>
+        <v-layout row wrap align-start justify-start>
+          <v-flex
+              v-for="(item, index) in projects"
+              :key="index"
+              pa-1
+              justify-space-between
+            >
+            <v-card
+              hover
+              :to="`/project/${item.id}/home`"
+            >
+              <v-card-title primary-title>
+                <p class="mb-0">{{item.title}}</p>
+              </v-card-title>
+              <v-divider light></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn icon @click="">
+                  <v-icon>delete</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-content>
+
+    <v-btn
+      fab
+      bottom
+      right
+      color="pink"
+      dark
+      fixed
+      @click="dialog = !dialog"
+    >
+      <v-icon>add</v-icon>
+    </v-btn>
+
+    <v-dialog v-model="dialog" width="500px">
+      <v-card>
+        <v-card-title
+          class="grey lighten-4 py-4 title"
+        >
+          프로젝트 생성
+        </v-card-title>
+        <v-container grid-list-sm class="pa-4">
+          <v-layout row wrap>
+            <v-flex>
+              <v-text-field
+                v-model="title"
+                prepend-icon="notes"
+                placeholder="프로젝트 이름을 입력해주세요"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn flat color="primary" @click="dialog = false">취소</v-btn>
+          <v-btn flat @click="addProject">저장</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+  </v-app>
 </template>
 
 <script>
@@ -38,6 +83,8 @@ export default {
     return {
       isLoding: false,
       title: '',
+
+      dialog: false,
     };
   },
 
@@ -59,6 +106,7 @@ export default {
       })
         .then(() => {
           this.title = '';
+          this.dialog = false;
         })
         .catch((err) => {
           console.log(err);
@@ -86,70 +134,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-  .container {
-    .add-project {
-      text-align: center;
-      margin: 100px auto;
-      width: 400px;
-
-      .wrap-input {
-        padding: 10px;
-        border-bottom: 2px solid $border-color;
-
-        input {
-          text-align: center;
-          width: 100%;
-          font-size: 24px;
-          border: 0;
-          outline: 0;
-        }
-      }
-
-      button {
-        cursor: pointer;
-        display: inline-block;
-        margin-top: 20px;
-        padding: 10px 0;
-        width: 100px;
-        font-size: 14px;
-        border: 0;
-        color: $primary-font-color;
-        background-color: $primary-light-color;
-      }
-    }
-
-    .list {
-      @extend %float-clear;
-
-      li {
-        float:left;
-        box-sizing: border-box;
-        width: 200px;
-        margin: 0 10px; 
-        box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12);
-        border-radius: 4px;
-
-        a {
-          display: block;
-          box-sizing: border-box;
-          padding: 20px;
-
-          .title {
-            padding-bottom: 10px;
-            color: rgba(#000, .5);
-            font-size: 14px;
-            border-bottom: 1px solid $border-color;
-          }
-
-          .sub-title {
-            text-align: center;
-            padding: 10px 0;
-          }
-        }
-      }
-    }
-  }
-}
 </style>
 

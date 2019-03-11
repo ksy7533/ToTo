@@ -8,28 +8,26 @@ const state = {
       name: 'home',
       title: '홈',
       depth: 1,
-      items: [
-        {
-          name: '',
-          title: '프로젝트 홈',
-          depth: 2,
-        },
-      ],
+      icon: 'home',
+      items: [],
     },
     {
       name: 'task',
       title: '업무',
       depth: 1,
+      icon: 'list',
       items: [
         {
           name: 'todo',
           title: '할일',
           depth: 2,
+          icon: 'list',
         },
         {
           name: 'problem',
           title: '문제점',
           depth: 2,
+          icon: 'list',
         },
       ],
     },
