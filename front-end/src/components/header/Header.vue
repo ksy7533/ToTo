@@ -5,7 +5,7 @@
     app
     fixed
     clipped-left
-    dense
+    height="64"
   >
     <v-toolbar-title class="mr-5">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>

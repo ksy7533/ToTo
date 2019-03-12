@@ -20,10 +20,10 @@
                 <v-list-tile-title v-html="item.title"></v-list-tile-title>
                 <v-list-tile-sub-title>{{item.createdAt}}</v-list-tile-sub-title>
               </v-list-tile-content>
+              <v-list-tile-avatar>
+                <v-icon color="pink lighten-1" v-if="item.priority">priority_high</v-icon>
+              </v-list-tile-avatar>
               <v-list-tile-action>
-                <v-btn icon ripple>
-                  <v-icon color="red lighten-1">priority_high</v-icon>
-                </v-btn>
                 <v-btn icon ripple>
                   <v-icon color="grey lighten-1">delete</v-icon>
                 </v-btn>
@@ -41,41 +41,21 @@
       color="pink"
       dark
       fixed
-      @click="dialog = !dialog"
+      @click="showModalUpdate = true"
     >
       <v-icon>add</v-icon>
     </v-btn>
 
-    <v-dialog v-model="dialog" width="500px">
-      <v-card>
-        <v-card-title
-          class="grey lighten-4 py-4 title"
-        >
-          할일 생성
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex>
-              <v-text-field
-                v-model="title"
-                prepend-icon="notes"
-                placeholder="할일 이름을 입력해주세요"
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = false">취소</v-btn>
-          <v-btn flat @click="addTask">저장</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <modal-task-todo-update
+      v-model="showModalUpdate"
+    ></modal-task-todo-update>
+
   </v-layout>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import ModalTaskTodoUpdate from '../modal/ModalTaskTodoUpdate';
 
 /**
  * 1. 해당 tasks를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -83,11 +63,14 @@ import { mapState, mapActions } from 'vuex';
  */
 
 export default {
+  components: {
+    ModalTaskTodoUpdate,
+  },
+
   data() {
     return {
-      title: '',
-      dialog: false,
       isUpdating: false,
+      showModalUpdate: false,
     };
   },
 
@@ -104,27 +87,12 @@ export default {
       'FETCH_TODOS',
       'UPDATE_TODO',
     ]),
-
-    addTask() {
-      this.ADD_TODO({
-        title: this.title,
-        pid: this.project.id,
-      })
-        .then((data) => {
-          this.title = '';
-          this.dialog = false;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     
     getTasks() {
       this.FETCH_TODOS({
         pid: this.project.id,
       })
         .then(() => {
-          console.log(this.tasks)
         })
         .catch((error) => {
           console.log(error);
@@ -148,8 +116,9 @@ export default {
     },
 
     onCheckBox(id, isChecked) {
+      console.log(event)
       this.updateTask(id, {completed: isChecked})
-    }
+    },
   },
 
   created() {
@@ -164,6 +133,7 @@ export default {
   .completed {
     .v-list__tile__title, .v-list__tile__sub-title {
       text-decoration: line-through;
+      color: grey;
     }
   }
 }
