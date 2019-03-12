@@ -11,9 +11,10 @@
             <v-list-tile
               :key="item.createdAt"
               :to="{ params: { tid: item.id }}"
+              :class="{completed: item.completed}"
             >
               <v-list-tile-action>
-                <v-checkbox></v-checkbox>
+                <v-checkbox :disabled="isUpdating" :input-value="item.completed" @change="onCheckBox(item.id, $event)"></v-checkbox>
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title v-html="item.title"></v-list-tile-title>
@@ -86,6 +87,7 @@ export default {
     return {
       title: '',
       dialog: false,
+      isUpdating: false,
     };
   },
 
@@ -100,6 +102,7 @@ export default {
     ...mapActions([
       'ADD_TODO',
       'FETCH_TODOS',
+      'UPDATE_TODO',
     ]),
 
     addTask() {
@@ -110,7 +113,6 @@ export default {
         .then((data) => {
           this.title = '';
           this.dialog = false;
-          // this.$router.push({ params: { tid: data.result.id } });
         })
         .catch((error) => {
           console.log(error);
@@ -122,11 +124,32 @@ export default {
         pid: this.project.id,
       })
         .then(() => {
+          console.log(this.tasks)
         })
         .catch((error) => {
           console.log(error);
         });
     },
+
+    updateTask(id, payload) {
+      this.isUpdating = true;
+      this.UPDATE_TODO({
+        id,
+        payload,
+      })
+        .then((data) => {
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isUpdating = false;
+        });
+    },
+
+    onCheckBox(id, isChecked) {
+      this.updateTask(id, {completed: isChecked})
+    }
   },
 
   created() {
@@ -137,5 +160,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.v-list {
+  .completed {
+    .v-list__tile__title, .v-list__tile__sub-title {
+      text-decoration: line-through;
+    }
+  }
+}
 </style>
 

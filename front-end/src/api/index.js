@@ -60,6 +60,10 @@ export const todo = {
   create(title, pid) {
     return request('post', '/todos', { title, pid });
   },
+
+  update(id, payload) {
+    return request('put', `/todos/${id}`, payload);
+  },
 };
 
 export const problem = {

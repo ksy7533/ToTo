@@ -10,32 +10,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
 
-      /**
-       * progress / 진행여부
-       * 1 : 준비
-       * 2 : 진행중
-       * 3 : 완료
-       */
-      progress: {
-        type: DataTypes.INTEGER,
+      completed: {
+        type: DataTypes.BOOLEAN,
         allowNull: true,
-        defaultValue: 1,
+        defaultValue: false,
       },
 
-      /**
-       * priority / 우선순위
-       * 1 : 1순위
-       * 2 : 2순위
-       * 3 : 3순위
-       */
       priority: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BOOLEAN,
         allowNull: true,
-      },
-
-      completedDate: {
-        type: DataTypes.DATE,
-        allowNull: true,
+        defaultValue: false,
       },
 
       userId: {

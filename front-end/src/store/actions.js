@@ -52,6 +52,13 @@ const actions = {
       });
   },
 
+  UPDATE_TODO({ dispatch, state }, { id, payload }) {
+    return api.todo.update(id, payload)
+      .then(() => {
+        dispatch('FETCH_TODOS', { pid: state.project.id });
+      });
+  },
+
   FETCH_PROBLEMS({ commit }, { pid }) {
     return api.problem.fetch({ pid })
       .then((data) => {

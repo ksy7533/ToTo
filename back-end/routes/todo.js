@@ -68,6 +68,33 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 });
 
 /*
+* todo 수정하기
+*/
+router.put('/:id', ensureAuth(), async (req, res, next) => {
+  const {id} = req.params
+  let body = req.body
+
+  try {
+    if (!id) return res.status(400);
+    const todo = await Todo.findOne({
+      where: { id }
+    });
+    if (!todo) return res.status(404);
+    Object.keys(body).forEach(key => {
+      let value = body[key];
+      if (typeof value === 'string') value = value.trim();
+      todo[key] = value;
+    });
+    await todo.save();
+    res.status(201).json({ result: todo });
+  } catch (error) {
+      console.error(error);
+      next(error);
+  }
+});
+
+
+/*
 * todo 삭제하기
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
