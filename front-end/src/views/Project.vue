@@ -13,11 +13,13 @@
 import { mapState, mapActions } from 'vuex';
 import Header from '../components/header/Header';
 import AsideMenu from '../components/asideMenu/AsideMenu';
+import Confirm from '../components/common/Confirm';
 
 export default {
   components: { 
     Header,
     AsideMenu,
+    Confirm,
   },
 
   computed: {

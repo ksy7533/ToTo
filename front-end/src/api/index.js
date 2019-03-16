@@ -64,6 +64,10 @@ export const todo = {
   update(id, payload) {
     return request('put', `/todos/${id}`, payload);
   },
+
+  destory(id, payload) {
+    return request('delete', `/todos/${id}`, payload);
+  },
 };
 
 export const problem = {

@@ -23,12 +23,22 @@
                 <v-icon color="pink lighten-1" v-if="item.priority">priority_high</v-icon>
               </v-list-tile-avatar>
               <v-list-tile-action>
-                <v-btn icon ripple :to="{name: 'todoDetail', params: {tid: item.id}}">
-                  <v-icon color="grey lighten-1">add</v-icon>
-                </v-btn>
-                <v-btn icon ripple>
-                  <v-icon color="grey lighten-1">delete</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon ripple v-on="on" :to="{name: 'todoDetail', params: {tid: item.id}}">
+                      <v-icon color="grey lighten-1">add</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>상세보기</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon ripple v-on="on" @click="onDelete(item.id)">
+                      <v-icon color="grey lighten-1">delete</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>삭제하기</span>
+                </v-tooltip>
               </v-list-tile-action>
             </v-list-tile>
           </template>
@@ -52,6 +62,8 @@
       v-model="showModalUpdate"
     ></modal-task-todo-add>
 
+    <confirm ref="confirm"></confirm>
+
     <!-- ModalTaskTodoDetail -->
     <router-view></router-view>
     <!--// ModalTaskTodoDetail -->
@@ -61,6 +73,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ModalTaskTodoAdd from '../modal/ModalTaskTodoAdd';
+import Confirm from '../common/Confirm';
 
 /**
  * 1. 해당 tasks를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -70,12 +83,14 @@ import ModalTaskTodoAdd from '../modal/ModalTaskTodoAdd';
 export default {
   components: {
     ModalTaskTodoAdd,
+    Confirm,
   },
 
   data() {
     return {
       isUpdating: false,
       showModalUpdate: false,
+      showModalConfirm: false,
     };
   },
 
@@ -88,9 +103,9 @@ export default {
 
   methods: {
     ...mapActions([
-      'ADD_TODO',
       'FETCH_TODOS',
       'UPDATE_TODO',
+      'DELETE_TODO',
     ]),
     
     getTasks() {
@@ -122,6 +137,25 @@ export default {
 
     onCheckBox(id, isChecked) {
       this.updateTask(id, {completed: isChecked})
+    },
+
+    deleteTask(id) {
+      this.DELETE_TODO({
+        id,
+      })
+        .then((data) => {
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    onDelete(id) {
+      this.$refs.confirm.open('삭제', '정말 삭제 하시겠습니까?', { color: 'orange' })
+        .then((confirm) => {
+          if(confirm) this.deleteTask(id);
+          else return;
+        });
     },
   },
 

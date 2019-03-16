@@ -59,6 +59,15 @@ const actions = {
       });
   },
 
+  DELETE_TODO({ dispatch, state }, { id }) {
+    return api.todo.destory(id, {
+      pid: state.project.id,
+    })
+      .then(() => {
+        dispatch('FETCH_TODOS', { pid: state.project.id });
+      });
+  },
+
   FETCH_PROBLEMS({ commit }, { pid }) {
     return api.problem.fetch({ pid })
       .then((data) => {
