@@ -10,7 +10,6 @@
             ></v-divider>
             <v-list-tile
               :key="item.createdAt"
-              :to="{ params: { tid: item.id }}"
               :class="{completed: item.completed}"
             >
               <v-list-tile-action>
@@ -24,6 +23,9 @@
                 <v-icon color="pink lighten-1" v-if="item.priority">priority_high</v-icon>
               </v-list-tile-avatar>
               <v-list-tile-action>
+                <v-btn icon ripple :to="{name: 'todoDetail', params: {tid: item.id}}">
+                  <v-icon color="grey lighten-1">add</v-icon>
+                </v-btn>
                 <v-btn icon ripple>
                   <v-icon color="grey lighten-1">delete</v-icon>
                 </v-btn>
@@ -46,16 +48,19 @@
       <v-icon>add</v-icon>
     </v-btn>
 
-    <modal-task-todo-update
+    <modal-task-todo-add
       v-model="showModalUpdate"
-    ></modal-task-todo-update>
+    ></modal-task-todo-add>
 
+    <!-- ModalTaskTodoDetail -->
+    <router-view></router-view>
+    <!--// ModalTaskTodoDetail -->
   </v-layout>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import ModalTaskTodoUpdate from '../modal/ModalTaskTodoUpdate';
+import ModalTaskTodoAdd from '../modal/ModalTaskTodoAdd';
 
 /**
  * 1. 해당 tasks를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -64,7 +69,7 @@ import ModalTaskTodoUpdate from '../modal/ModalTaskTodoUpdate';
 
 export default {
   components: {
-    ModalTaskTodoUpdate,
+    ModalTaskTodoAdd,
   },
 
   data() {
@@ -116,7 +121,6 @@ export default {
     },
 
     onCheckBox(id, isChecked) {
-      console.log(event)
       this.updateTask(id, {completed: isChecked})
     },
   },

@@ -3,12 +3,15 @@ import Router from 'vue-router';
 import Auth from '@/views/Auth';
 import Main from '@/views/Main';
 import Project from '@/views/Project';
-import Login from '@/components/auth/Login';
-import Join from '@/components/auth/Join';
 import ProjectHome from '@/views/ProjectHome';
 import ProjectTask from '@/views/ProjectTask';
+import Login from '@/components/auth/Login';
+import Join from '@/components/auth/Join';
 import TaskTodo from '@/components/task/TaskTodo';
 import TaskProblem from '@/components/task/TaskProblem';
+
+import ModalTaskTodoDetail from '@/components/modal/ModalTaskTodoDetail';
+
 import NotFound from '@/components/common/NotFound';
 import store from '../store';
 
@@ -47,10 +50,18 @@ export default new Router({
           beforeEnter: requireAuth,
           children: [
             {
-              path: 'todo/:tid?',
+              path: 'todo',
               name: 'todo',
               component: TaskTodo,
               beforeEnter: requireAuth,
+              children: [
+                {
+                  path: ':tid',
+                  name: 'todoDetail',
+                  component: ModalTaskTodoDetail,
+                  beforeEnter: requireAuth,
+                },
+              ],
             },
             {
               path: 'problem/:pbid?',
