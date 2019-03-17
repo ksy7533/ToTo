@@ -69,6 +69,32 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 });
 
 /*
+* problem 수정하기
+*/
+router.put('/:id', ensureAuth(), async (req, res, next) => {
+  const {id} = req.params
+  let body = req.body
+
+  try {
+    if (!id) return res.status(400);
+    const problem = await Problem.findOne({
+      where: { id }
+    });
+    if (!problem) return res.status(404);
+    Object.keys(body).forEach(key => {
+      let value = body[key];
+      if (typeof value === 'string') value = value.trim();
+      problem[key] = value;
+    });
+    await problem.save();
+    res.status(201).json({ result: problem });
+  } catch (error) {
+      console.error(error);
+      next(error);
+  }
+});
+
+/*
 * problem 삭제하기
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {

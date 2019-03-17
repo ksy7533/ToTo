@@ -10,9 +10,10 @@
             ></v-divider>
             <v-list-tile
               :key="item.createdAt"
+              :class="{completed: item.completed}"
             >
               <v-list-tile-action>
-                <v-checkbox></v-checkbox>
+                <v-checkbox :disabled="isUpdating" :input-value="item.completed" @change="onCheckBox(item.id, $event)"></v-checkbox>
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title v-html="item.title"></v-list-tile-title>
@@ -58,6 +59,7 @@ export default {
 
   data() {
     return {
+      isUpdating: false,
       showModalAdd: false,
     };
   },
@@ -72,6 +74,7 @@ export default {
   methods: {
     ...mapActions([
       'FETCH_PROBLEMS',
+      'UPDATE_PROBLEM',
     ]),
     
     getTasks() {
@@ -84,6 +87,26 @@ export default {
           console.log(error);
         });
     },
+
+    updateTask(id, payload) {
+      this.isUpdating = true;
+      this.UPDATE_PROBLEM({
+        id,
+        payload,
+      })
+        .then((data) => {
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isUpdating = false;
+        });
+    },
+
+    onCheckBox(id, isChecked) {
+      this.updateTask(id, {completed: isChecked})
+    },
   },
 
   created() {
@@ -92,6 +115,14 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.v-list {
+  .completed {
+    .v-list__tile__title, .v-list__tile__sub-title {
+      text-decoration: line-through;
+      color: grey;
+    }
+  }
+}
 </style>
+

@@ -78,6 +78,10 @@ export const problem = {
   create(title, pid) {
     return request('post', '/problems', { title, pid });
   },
+
+  update(id, payload) {
+    return request('put', `/problems/${id}`, payload);
+  },
 };
 
 export const setAuthInHeader = (token) => {

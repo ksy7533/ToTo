@@ -86,6 +86,13 @@ const actions = {
         return data;
       });
   },
+
+  UPDATE_PROBLEM({ dispatch, state }, { id, payload }) {
+    return api.problem.update(id, payload)
+      .then(() => {
+        dispatch('FETCH_PROBLEMS', { pid: state.project.id });
+      });
+  },
 };
 
 export default actions;
