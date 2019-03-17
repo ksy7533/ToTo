@@ -53,13 +53,13 @@
       color="pink"
       dark
       fixed
-      @click="showModalUpdate = true"
+      @click="showModalAdd = true"
     >
       <v-icon>add</v-icon>
     </v-btn>
 
     <modal-task-todo-add
-      v-model="showModalUpdate"
+      v-model="showModalAdd"
     ></modal-task-todo-add>
 
     <confirm ref="confirm"></confirm>
@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       isUpdating: false,
-      showModalUpdate: false,
+      showModalAdd: false,
       showModalConfirm: false,
     };
   },

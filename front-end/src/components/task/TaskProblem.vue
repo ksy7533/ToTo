@@ -10,7 +10,6 @@
             ></v-divider>
             <v-list-tile
               :key="item.createdAt"
-              :to="{ params: { pbid: item.id }}"
             >
               <v-list-tile-action>
                 <v-checkbox></v-checkbox>
@@ -37,47 +36,29 @@
       color="pink"
       dark
       fixed
-      @click="dialog = !dialog"
+      @click="showModalAdd = true"
     >
       <v-icon>add</v-icon>
     </v-btn>
 
-    <v-dialog v-model="dialog" width="500px">
-      <v-card>
-        <v-card-title
-          class="grey lighten-4 py-4 title"
-        >
-          문제점 생성
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex>
-              <v-text-field
-                v-model="title"
-                prepend-icon="notes"
-                placeholder="문제점 이름을 입력해주세요"
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = false">취소</v-btn>
-          <v-btn flat @click="addTask">저장</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <modal-task-problem-add
+      v-model="showModalAdd"
+    ></modal-task-problem-add>
   </v-layout>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import ModalTaskProblemAdd from '../modal/ModalTaskProblemAdd';
 
 export default {
+  components: {
+    ModalTaskProblemAdd,
+  },
+
   data() {
     return {
-      title: '',
-      dialog: false,
+      showModalAdd: false,
     };
   },
 
@@ -90,23 +71,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'ADD_PROBLEM',
       'FETCH_PROBLEMS',
     ]),
-
-    addTask() {
-      this.ADD_PROBLEM({
-        title: this.title,
-        pid: this.project.id,
-      })
-        .then((data) => {
-          this.title = '';
-          this.$router.push({ params: { pbid: data.result.id } });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
     
     getTasks() {
       this.FETCH_PROBLEMS({

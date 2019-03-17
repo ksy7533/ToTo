@@ -26,11 +26,6 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
       },
 
-      completedDate: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
