@@ -20,6 +20,15 @@
                 <v-list-tile-sub-title>{{item.createdAt}}</v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon ripple v-on="on" :to="{name: 'problemDetail', params: {pbid: item.id}}">
+                      <v-icon color="grey lighten-1">add</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>상세보기</span>
+                </v-tooltip>
+
                 <v-btn icon ripple>
                   <v-icon color="grey lighten-1">delete</v-icon>
                 </v-btn>
@@ -45,6 +54,10 @@
     <modal-task-problem-add
       v-model="showModalAdd"
     ></modal-task-problem-add>
+
+    <!-- ModalTaskProblemDetail -->
+    <router-view></router-view>
+    <!--// ModalTaskProblemDetail -->
   </v-layout>
 </template>
 

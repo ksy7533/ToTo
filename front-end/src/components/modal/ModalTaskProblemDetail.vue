@@ -4,20 +4,14 @@
       <v-card-title
         class="grey lighten-4 py-4 title"
       >
-        할일 상세정보
+        문제점 상세정보
       </v-card-title>
       <v-container grid-list-sm class="pa-4">
         <v-layout row wrap>
-          <v-flex xs6>
+          <v-flex xs12>
             <v-checkbox
               v-model="form.completed"
               :label="`완료여부`"
-            ></v-checkbox>
-          </v-flex>
-          <v-flex xs6>
-            <v-checkbox
-              v-model="form.priority"
-              :label="`우선선위`"
             ></v-checkbox>
           </v-flex>
           <v-flex xs12>
@@ -30,9 +24,27 @@
           </v-flex>
           <v-flex xs12>
             <v-textarea
-              v-model="form.content"
+              v-model="form.situation"
               auto-grow
-              label="내용"
+              label="상황"
+              rows="1"
+              prepend-inner-icon="notes"
+            ></v-textarea>
+          </v-flex>
+          <v-flex xs12>
+            <v-textarea
+              v-model="form.cause"
+              auto-grow
+              label="원인"
+              rows="1"
+              prepend-inner-icon="notes"
+            ></v-textarea>
+          </v-flex>
+          <v-flex xs12>
+            <v-textarea
+              v-model="form.solution"
+              auto-grow
+              label="해결방안"
               rows="1"
               prepend-inner-icon="notes"
             ></v-textarea>
@@ -65,7 +77,7 @@ export default {
   watch: {
     showModal (val) {
       if(!val) {
-        this.$router.push({ name: 'todo' });
+        this.$router.push({ name: 'problem' });
       }
     }
   },
@@ -79,13 +91,13 @@ export default {
 
   methods: {
     ...mapActions([
-      'FETCH_TODO',
-      'UPDATE_TODO',
+      'FETCH_PROBLEM',
+      'UPDATE_PROBLEM',
     ]),
 
     onSubmit() {
-      this.UPDATE_TODO({
-        id: this.$route.params.tid,
+      this.UPDATE_PROBLEM({
+        id: this.$route.params.pbid,
         payload: this.form,
       })
         .then((data) => {
@@ -97,8 +109,8 @@ export default {
     },
 
     getTask() {
-      this.FETCH_TODO({
-        id: this.$route.params.tid,
+      this.FETCH_PROBLEM({
+        id: this.$route.params.pbid,
       })
         .then((data) => {
           this.form = data.result;
@@ -110,7 +122,7 @@ export default {
 
     close() {
       this.showModal = false;
-      return this.$router.push({ name: 'todo' });
+      return this.$router.push({ name: 'problem' });
     }
   },
 

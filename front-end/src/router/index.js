@@ -11,6 +11,7 @@ import TaskTodo from '@/components/task/TaskTodo';
 import TaskProblem from '@/components/task/TaskProblem';
 
 import ModalTaskTodoDetail from '@/components/modal/ModalTaskTodoDetail';
+import ModalTaskProblemDetail from '@/components/modal/ModalTaskProblemDetail';
 
 import NotFound from '@/components/common/NotFound';
 import store from '../store';
@@ -64,10 +65,18 @@ export default new Router({
               ],
             },
             {
-              path: 'problem/:pbid?',
+              path: 'problem',
               name: 'problem',
               component: TaskProblem,
               beforeEnter: requireAuth,
+              children: [
+                {
+                  path: ':pbid',
+                  name: 'problemDetail',
+                  component: ModalTaskProblemDetail,
+                  beforeEnter: requireAuth,
+                },
+              ],
             },
           ],
         },
