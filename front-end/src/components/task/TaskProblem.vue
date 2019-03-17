@@ -28,10 +28,14 @@
                   </template>
                   <span>상세보기</span>
                 </v-tooltip>
-
-                <v-btn icon ripple>
-                  <v-icon color="grey lighten-1">delete</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon ripple v-on="on" @click="onDelete(item.id)">
+                      <v-icon color="grey lighten-1">delete</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>삭제하기</span>
+                </v-tooltip>
               </v-list-tile-action>
             </v-list-tile>
           </template>
@@ -55,6 +59,8 @@
       v-model="showModalAdd"
     ></modal-task-problem-add>
 
+    <confirm ref="confirm"></confirm>
+
     <!-- ModalTaskProblemDetail -->
     <router-view></router-view>
     <!--// ModalTaskProblemDetail -->
@@ -64,16 +70,19 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ModalTaskProblemAdd from '../modal/ModalTaskProblemAdd';
+import Confirm from '../common/Confirm';
 
 export default {
   components: {
     ModalTaskProblemAdd,
+    Confirm,
   },
 
   data() {
     return {
       isUpdating: false,
       showModalAdd: false,
+      showModalConfirm: false,
     };
   },
 
@@ -88,6 +97,7 @@ export default {
     ...mapActions([
       'FETCH_PROBLEMS',
       'UPDATE_PROBLEM',
+      'DELETE_PROBLEM',
     ]),
     
     getTasks() {
@@ -119,6 +129,25 @@ export default {
 
     onCheckBox(id, isChecked) {
       this.updateTask(id, {completed: isChecked})
+    },
+
+    deleteTask(id) {
+      this.DELETE_PROBLEM({
+        id,
+      })
+        .then((data) => {
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    onDelete(id) {
+      this.$refs.confirm.open('삭제', '정말 삭제 하시겠습니까?', { color: 'orange' })
+        .then((confirm) => {
+          if(confirm) this.deleteTask(id);
+          else return;
+        });
     },
   },
 

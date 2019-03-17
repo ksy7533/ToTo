@@ -93,6 +93,15 @@ const actions = {
         dispatch('FETCH_PROBLEMS', { pid: state.project.id });
       });
   },
+
+  DELETE_PROBLEM({ dispatch, state }, { id }) {
+    return api.problem.destory(id, {
+      pid: state.project.id,
+    })
+      .then(() => {
+        dispatch('FETCH_PROBLEMS', { pid: state.project.id });
+      });
+  },
 };
 
 export default actions;

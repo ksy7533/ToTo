@@ -82,6 +82,10 @@ export const problem = {
   update(id, payload) {
     return request('put', `/problems/${id}`, payload);
   },
+
+  destory(id, payload) {
+    return request('delete', `/problems/${id}`, payload);
+  },
 };
 
 export const setAuthInHeader = (token) => {
