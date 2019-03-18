@@ -13,7 +13,6 @@
             >
             <v-card
               hover
-              :to="`/project/${item.id}/home`"
             >
               <v-card-title class="primary lighten-1 white--text title">
                 <p class="mb-0">{{item.title}}</p>
@@ -41,10 +40,9 @@
               </v-card-text>
               <v-divider light></v-divider>
               <v-card-actions>
+                <v-btn flat small :to="`/project/${item.id}/home`">더보기</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn icon @click="">
-                  <v-icon>delete</v-icon>
-                </v-btn>
+                <v-btn flat small @click="">삭제</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -59,53 +57,34 @@
       color="pink"
       dark
       fixed
-      @click="dialog = !dialog"
+      @click="showModalAdd = true"
     >
       <v-icon>add</v-icon>
     </v-btn>
 
-    <v-dialog v-model="dialog" width="500px">
-      <v-card>
-        <v-card-title
-          class="grey lighten-4 py-4 title"
-        >
-          프로젝트 생성
-        </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex>
-              <v-text-field
-                v-model="title"
-                prepend-icon="notes"
-                placeholder="프로젝트 이름을 입력해주세요"
-              ></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn flat color="primary" @click="dialog = false">취소</v-btn>
-          <v-btn flat @click="addProject">저장</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
+    <modal-main-add
+      v-model="showModalAdd"
+    ></modal-main-add>
+    
   </v-app>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 import Header from '../components/header/Header';
+import ModalMainAdd from '../components/modal/ModalMainAdd';
 
 export default {
-  components: { Header },
+  components: {
+    Header,
+    ModalMainAdd,
+  },
 
   data() {
     return {
       isLoding: false,
       title: '',
-
-      dialog: false,
+      showModalAdd: false,
     };
   },
 
@@ -118,21 +97,7 @@ export default {
   methods: {
     ...mapActions([
       'FETCH_PROJECTS',
-      'ADD_PROJECT',
     ]),
-
-    addProject() {
-      this.ADD_PROJECT({
-        title: this.title,
-      })
-        .then(() => {
-          this.title = '';
-          this.dialog = false;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
 
     getProjects() {
       this.isLoding = true;

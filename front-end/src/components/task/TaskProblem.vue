@@ -11,6 +11,7 @@
             <v-list-tile
               :key="item.createdAt"
               :class="{completed: item.completed}"
+              @click=""
             >
               <v-list-tile-action>
                 <v-checkbox :disabled="isUpdating" :input-value="item.completed" @change="onCheckBox(item.id, $event)"></v-checkbox>
