@@ -9,15 +9,36 @@
               v-for="(item, index) in projects"
               :key="index"
               pa-1
-              justify-space-between
+              xs2
             >
             <v-card
               hover
               :to="`/project/${item.id}/home`"
             >
-              <v-card-title primary-title>
+              <v-card-title class="primary lighten-1 white--text title">
                 <p class="mb-0">{{item.title}}</p>
               </v-card-title>
+              <v-card-text>
+                <p>할일 ({{calcCompleteCount(item.todos)}}/{{item.todos.length}})</p>
+                <v-progress-linear
+                  color="blue"
+                  height="10"
+                  :value="calcRate(calcCompleteCount(item.todos), item.todos.length)"
+                  query
+                ></v-progress-linear>
+                <p>문제점 ({{calcCompleteCount(item.problems)}}/{{item.problems.length}})</p>
+                <v-progress-linear
+                  color="pink"
+                  height="10"
+                  :value="calcRate(calcCompleteCount(item.problems), item.problems.length)"
+                ></v-progress-linear>
+                <p>고민사항 (4/10)</p>
+                <v-progress-linear
+                  color="purple"
+                  height="10"
+                  value="45"
+                ></v-progress-linear>
+              </v-card-text>
               <v-divider light></v-divider>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -116,7 +137,7 @@ export default {
     getProjects() {
       this.isLoding = true;
       this.FETCH_PROJECTS()
-        .then(() => {
+        .then((result) => {
         })
         .catch((err) => {
           console.log(err);
@@ -125,6 +146,16 @@ export default {
           this.isLoding = false;
         });
     },
+
+    calcCompleteCount(arr) {
+      const result = arr.filter((item) => item.completed);
+      return result.length;
+    },
+
+    calcRate(num, total) {
+      if(num === 0) return 0;
+      return parseInt((num / total) * 100);
+    }
   },
 
   created() {

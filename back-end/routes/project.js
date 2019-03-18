@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Project} = require('../models');
+const {Project, Todo, Problem} = require('../models');
 const { ensureAuth } = require('./middlewares');
 
 /*
@@ -11,7 +11,15 @@ router.get('/', ensureAuth(), async (req, res, next) => {
         const project = await Project.findAll({
             where: {
                 userId: req.user.id,
-            }
+            },
+            include: [
+                {
+                    model: Todo,
+                },
+                {
+                    model: Problem,
+                }
+            ],
         });
         return res.status(200).json({
             result: project,

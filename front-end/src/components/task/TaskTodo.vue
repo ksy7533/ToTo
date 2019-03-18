@@ -50,7 +50,7 @@
       fab
       bottom
       right
-      color="pink"
+      color="blue"
       dark
       fixed
       @click="showModalAdd = true"
