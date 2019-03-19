@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { Problem } = require('../models');
+const { Concern } = require('../models');
 const { ensureAuth } = require('./middlewares');
 
 /*
- * problem 모든 리스트 목록 가져오기
+ * concern 모든 리스트 목록 가져오기
  */
 router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
   try {
-    const problem = await Problem.findAll({
+    const concern = await Concern.findAll({
       where: {
         projectId: req.params.pid,
       },
@@ -17,7 +17,7 @@ router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
       ],
     });
     return res.status(200).json({
-      result: problem,
+      result: concern,
     });
   } catch (error) {
     console.error(error);
@@ -26,17 +26,17 @@ router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
 });
 
 /*
- * 해당하는 id의 problem 한개 가져오기
+ * 해당하는 id의 concern 한개 가져오기
  */
 router.get('/:id', ensureAuth(), async (req, res, next) => {
   try {
-    const problem = await Problem.findOne({
+    const concern = await Concern.findOne({
       where: {
         id: req.params.id,
       }
     });
     return res.status(200).json({
-      result: problem,
+      result: concern,
     });
   } catch (error) {
     console.error(error);
@@ -45,22 +45,21 @@ router.get('/:id', ensureAuth(), async (req, res, next) => {
 });
 
 /*
-* problem 추가하기
+* concern 추가하기
 */
 router.post('/', ensureAuth(), async (req, res, next) => {
   try {
-    const problem = await Problem.create({
+    const concern = await Concern.create({
       projectId: req.body.pid,
       title: req.body.title,
       situation: req.body.situation,
-      cause: req.body.cause,
       solution: req.body.solution,
       completed: req.body.completed,
       completedDate: req.body.completedDate,
       userId: req.user.id,
     });
     return res.status(201).json({
-      result: problem,
+      result: concern,
     });
   } catch (error) {
     console.error(error);
@@ -69,24 +68,24 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 });
 
 /*
-* problem 수정하기
+* concern 수정하기
 */
 router.put('/:id', ensureAuth(), async (req, res, next) => {
   const {id} = req.params
   let body = req.body
   try {
     if (!id) return res.status(400);
-    const problem = await Problem.findOne({
+    const concern = await Concern.findOne({
       where: { id }
     });
-    if (!problem) return res.status(404);
+    if (!concern) return res.status(404);
     Object.keys(body).forEach(key => {
       let value = body[key];
       if (typeof value === 'string') value = value.trim();
-      problem[key] = value;
+      concern[key] = value;
     });
-    await problem.save();
-    res.status(201).json({ result: problem });
+    await concern.save();
+    res.status(201).json({ result: concern });
   } catch (error) {
     console.error(error);
     next(error);
@@ -94,16 +93,16 @@ router.put('/:id', ensureAuth(), async (req, res, next) => {
 });
 
 /*
-* problem 삭제하기
+* concern 삭제하기
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
   try {
-    await Problem.destroy({
+    await Concern.destroy({
       where: {
-      id: req.params.id,
-      projectId: req.body.pid,
+        id: req.params.id,
+        projectId: req.body.pid,
       }
-    })
+    });
     return res.status(204).end();
   } catch (error) {
     console.error(error);

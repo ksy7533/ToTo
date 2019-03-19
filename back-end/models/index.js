@@ -14,6 +14,7 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Project = require('./project')(sequelize, Sequelize);
 db.Todo = require('./todo')(sequelize, Sequelize);
 db.Problem = require('./problem')(sequelize, Sequelize);
+db.Concern = require('./concern')(sequelize, Sequelize);
 
 db.User.hasMany(db.Project);
 db.Project.belongsTo(db.User);
@@ -23,5 +24,8 @@ db.Todo.belongsTo(db.Project);
 
 db.Project.hasMany(db.Problem);
 db.Problem.belongsTo(db.Project);
+
+db.Project.hasMany(db.Concern);
+db.Concern.belongsTo(db.Project);
 
 module.exports = db;

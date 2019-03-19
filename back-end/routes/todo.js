@@ -8,20 +8,20 @@ const { ensureAuth } = require('./middlewares');
  */
 router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
   try {
-      const todo = await Todo.findAll({
-          where: {
-              projectId: req.params.pid,
-          },
-          order: [
-              ['createdAt', 'DESC'],
-          ],
-      });
-      return res.status(200).json({
-          result: todo,
-      });
+    const todo = await Todo.findAll({
+      where: {
+        projectId: req.params.pid,
+      },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+    });
+    return res.status(200).json({
+      result: todo,
+    });
   } catch (error) {
-      console.error(error);
-      next(error);
+    console.error(error);
+    next(error);
   }
 });
 
@@ -30,17 +30,17 @@ router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
  */
 router.get('/:id', ensureAuth(), async (req, res, next) => {
   try {
-      const todo = await Todo.findOne({
-          where: {
-              id: req.params.id,
-          }
-      });
-      return res.status(200).json({
-          result: todo,
-      });
+    const todo = await Todo.findOne({
+      where: {
+        id: req.params.id,
+      }
+    });
+    return res.status(200).json({
+      result: todo,
+    });
   } catch (error) {
-      console.error(error);
-      next(error);
+    console.error(error);
+    next(error);
   }
 });
 
@@ -49,21 +49,21 @@ router.get('/:id', ensureAuth(), async (req, res, next) => {
 */
 router.post('/', ensureAuth(), async (req, res, next) => {
   try {
-      const todo = await Todo.create({
-          projectId: req.body.pid,
-          title: req.body.title,
-          content: req.body.content,
-          progress: req.body.progress,
-          priority: req.body.priority,
-          completedDate: req.body.completedDate,
-          userId: req.user.id,
-      });
-      return res.status(201).json({
-        result: todo,
-      });
+    const todo = await Todo.create({
+      projectId: req.body.pid,
+      title: req.body.title,
+      content: req.body.content,
+      progress: req.body.progress,
+      priority: req.body.priority,
+      completedDate: req.body.completedDate,
+      userId: req.user.id,
+    });
+    return res.status(201).json({
+      result: todo,
+    });
   } catch (error) {
-      console.error(error);
-      next(error);
+    console.error(error);
+    next(error);
   }
 });
 
@@ -73,7 +73,6 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 router.put('/:id', ensureAuth(), async (req, res, next) => {
   const {id} = req.params
   let body = req.body
-
   try {
     if (!id) return res.status(400);
     const todo = await Todo.findOne({
@@ -88,8 +87,8 @@ router.put('/:id', ensureAuth(), async (req, res, next) => {
     await todo.save();
     res.status(201).json({ result: todo });
   } catch (error) {
-      console.error(error);
-      next(error);
+    console.error(error);
+    next(error);
   }
 });
 
@@ -99,16 +98,16 @@ router.put('/:id', ensureAuth(), async (req, res, next) => {
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
   try {
-      await Todo.destroy({
-          where: {
-            id: req.params.id,
-            projectId: req.body.pid,
-          }
-      })
-      return res.status(204).end();
+    await Todo.destroy({
+      where: {
+        id: req.params.id,
+        projectId: req.body.pid,
+      }
+    })
+    return res.status(204).end();
   } catch (error) {
-      console.error(error);
-      next(error);
+    console.error(error);
+    next(error);
   }
 });
 

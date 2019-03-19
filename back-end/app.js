@@ -10,6 +10,7 @@ const authRouter = require('./routes/auth');
 const projectRouter = require('./routes/project');
 const todoRouter = require('./routes/todo');
 const problemRouter = require('./routes/problem');
+const concernRouter = require('./routes/concern');
 
 const { sequelize } = require('./models');
 require('./passport');
@@ -32,19 +33,20 @@ app.use('/auth', authRouter);
 app.use('/projects', projectRouter);
 app.use('/todos', todoRouter);
 app.use('/problems', problemRouter);
+app.use('/concerns', concernRouter);
 
 app.use((req, res, next) => {
-    const err = new Error('Not found');
-    err.status = 404;
-    next(err);
+  const err = new Error('Not found');
+  err.status = 404;
+  next(err);
 });
 
 app.use((err, req, res, next) => {
-    console.log(err)
-    res.status(res.statusCode || 500)
-    res.json({ error: err.message || 'internal server error' })
+  console.log(err)
+  res.status(res.statusCode || 500)
+  res.json({ error: err.message || 'internal server error' })
 });
 
 app.listen(app.get('port'), () => {
-    console.log('8001번 포트에서 서버 실행중')
+  console.log('8001번 포트에서 서버 실행중')
 });
