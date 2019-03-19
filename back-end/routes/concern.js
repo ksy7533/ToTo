@@ -71,8 +71,8 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 * concern 수정하기
 */
 router.put('/:id', ensureAuth(), async (req, res, next) => {
-  const {id} = req.params
-  let body = req.body
+  const {id} = req.params;
+  let body = req.body;
   try {
     if (!id) return res.status(400);
     const concern = await Concern.findOne({

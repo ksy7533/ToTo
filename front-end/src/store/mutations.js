@@ -22,6 +22,10 @@ const mutations = {
     state.project = project;
   },
 
+  SET_PROJECT_ID(state, id) {
+    state.projectId = id;
+  },
+
   SET_TASKS(state, tasks) {
     state.tasks = tasks;
   },

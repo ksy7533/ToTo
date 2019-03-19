@@ -4,7 +4,7 @@
       <v-card-title
         class="grey lighten-4 py-4 title"
       >
-        문제점 상세정보
+        고민사항 상세정보
       </v-card-title>
       <v-container grid-list-sm class="pa-4">
         <v-layout row wrap>
@@ -27,15 +27,6 @@
               v-model="form.situation"
               auto-grow
               label="상황"
-              rows="1"
-              prepend-inner-icon="notes"
-            ></v-textarea>
-          </v-flex>
-          <v-flex xs12>
-            <v-textarea
-              v-model="form.cause"
-              auto-grow
-              label="원인"
               rows="1"
               prepend-inner-icon="notes"
             ></v-textarea>
@@ -73,7 +64,7 @@ export default {
   watch: {
     showModal (val) {
       if(!val) {
-        this.$router.push({ name: 'problem' });
+        this.$router.push({ name: 'concern' });
       }
     }
   },
@@ -87,13 +78,13 @@ export default {
 
   methods: {
     ...mapActions([
-      'FETCH_PROBLEM',
-      'UPDATE_PROBLEM',
+      'FETCH_CONCERN',
+      'UPDATE_CONCERN',
     ]),
 
     onSubmit() {
-      this.UPDATE_PROBLEM({
-        id: this.$route.params.pbid,
+      this.UPDATE_CONCERN({
+        id: this.$route.params.cid,
         payload: this.form,
       })
         .then((data) => {
@@ -105,8 +96,8 @@ export default {
     },
 
     getTask() {
-      this.FETCH_PROBLEM({
-        id: this.$route.params.pbid,
+      this.FETCH_CONCERN({
+        id: this.$route.params.cid,
       })
         .then((data) => {
           this.form = data.result;
@@ -118,7 +109,7 @@ export default {
 
     close() {
       this.showModal = false;
-      return this.$router.push({ name: 'problem' });
+      return this.$router.push({ name: 'concern' });
     }
   },
 

@@ -95,23 +95,23 @@
                     :rotate="-90"
                     :size="150"
                     :width="15"
-                    :value="10"
+                    :value="calcRate(calcCompleteCount(project.concerns), project.concerns.length)"
                     color="purple"
                   >
-                    {{ 10 }}
+                    {{calcRate(calcCompleteCount(project.concerns), project.concerns.length)}}%
                   </v-progress-circular>
                 </v-flex>
                 <v-flex xs5>
-                  <p>합계 : 10</p>
-                  <p>완료 : 5</p>
-                  <p style="margin-bottom:0">미완료 : 5</p>
+                  <p>합계 : {{project.concerns.length}}</p>
+                  <p>완료 : {{calcCompleteCount(project.concerns)}}</p>
+                  <p style="margin-bottom:0">미완료 : {{project.concerns.length - calcCompleteCount(project.concerns)}}</p>
                 </v-flex>
               </v-layout>
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn flat>더보기</v-btn>
+              <v-btn flat :to="`/project/${project.id}/task/concern`">더보기</v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>

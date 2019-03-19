@@ -35,11 +35,11 @@
                   height="10"
                   :value="calcRate(calcCompleteCount(item.problems), item.problems.length)"
                 ></v-progress-linear>
-                <p>고민사항 (4/10)</p>
+                <p>고민사항 ({{calcCompleteCount(item.concerns)}}/{{item.concerns.length}})</p>
                 <v-progress-linear
                   color="purple"
                   height="10"
-                  value="45"
+                  :value="calcRate(calcCompleteCount(item.concerns), item.concerns.length)"
                 ></v-progress-linear>
               </v-card-text>
               <v-divider light></v-divider>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Project, Todo, Problem} = require('../models');
+const {Project, Todo, Problem, Concern} = require('../models');
 const { ensureAuth } = require('./middlewares');
 
 /*
@@ -18,6 +18,9 @@ router.get('/', ensureAuth(), async (req, res, next) => {
         },
         {
           model: Problem,
+        },
+        {
+          model: Concern,
         }
       ],
     });
@@ -45,6 +48,9 @@ router.get('/:id', ensureAuth(), async (req, res, next) => {
         },
         {
           model: Problem,
+        },
+        {
+          model: Concern,
         }
       ],
     });

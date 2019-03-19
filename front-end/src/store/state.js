@@ -2,6 +2,7 @@ const state = {
   toekn: null, // 유저 토큰 정보
   projects: [], // 모든 project
   project: null, // 현재 선택된 project
+  projectId: '', // 현재 선택된 project id
   tasks: [], // 현재 선택된 tasks
   routes: [ // route 목록, depth : 1(gnb), depth: 2(lnb)
     {
@@ -26,6 +27,12 @@ const state = {
         {
           name: 'problem',
           title: '문제점',
+          depth: 2,
+          icon: 'list',
+        },
+        {
+          name: 'concern',
+          title: '고민사항',
           depth: 2,
           icon: 'list',
         },

@@ -4,7 +4,7 @@
       <v-card-title
         class="grey lighten-4 py-4 title"
       >
-        문제점 생성
+        고민사항 생성
       </v-card-title>
       <v-container grid-list-sm class="pa-4">
         <v-layout row wrap>
@@ -12,7 +12,7 @@
             <v-text-field
               v-model="title"
               prepend-icon="notes"
-              placeholder="문제점 이름을 입력해주세요"
+              placeholder="고민사항 이름을 입력해주세요"
             ></v-text-field>
           </v-flex>
         </v-layout>
@@ -58,11 +58,11 @@ export default {
 
   methods: {
     ...mapActions([
-      'ADD_PROBLEM',
+      'ADD_CONCERN',
     ]),
 
     addTask() {
-      this.ADD_PROBLEM({
+      this.ADD_CONCERN({
         title: this.title,
         pid: this.$route.params.pid,
       })

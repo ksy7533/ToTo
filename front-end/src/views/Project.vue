@@ -10,7 +10,7 @@
 /**
  * Project에 관련된 이벤트는 해당 콤포넌트에서 작업합니다.
  */
-import { mapState, mapActions } from 'vuex';
+import { mapMutations } from 'vuex';
 import Header from '../components/header/Header';
 import AsideMenu from '../components/asideMenu/AsideMenu';
 import Confirm from '../components/common/Confirm';
@@ -21,8 +21,17 @@ export default {
     AsideMenu,
     Confirm,
   },
-};
 
+  methods: {
+    ...mapMutations([
+      'SET_PROJECT_ID',
+    ]),
+  },
+
+  mounted() {
+    this.SET_PROJECT_ID(this.$route.params.pid);
+  },
+};
 </script>
 
 <style lang="scss" scoped>

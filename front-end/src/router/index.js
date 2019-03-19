@@ -9,10 +9,10 @@ import Login from '@/components/auth/Login';
 import Join from '@/components/auth/Join';
 import TaskTodo from '@/components/task/TaskTodo';
 import TaskProblem from '@/components/task/TaskProblem';
-
+import TaskConcern from '@/components/task/TaskConcern';
 import ModalTaskTodoDetail from '@/components/modal/ModalTaskTodoDetail';
 import ModalTaskProblemDetail from '@/components/modal/ModalTaskProblemDetail';
-
+import ModalTaskConcernDetail from '@/components/modal/ModalTaskConcernDetail';
 import NotFound from '@/components/common/NotFound';
 import store from '../store';
 
@@ -74,6 +74,20 @@ export default new Router({
                   path: ':pbid',
                   name: 'problemDetail',
                   component: ModalTaskProblemDetail,
+                  beforeEnter: requireAuth,
+                },
+              ],
+            },
+            {
+              path: 'concern',
+              name: 'concern',
+              component: TaskConcern,
+              beforeEnter: requireAuth,
+              children: [
+                {
+                  path: ':cid',
+                  name: 'concernDetail',
+                  component: ModalTaskConcernDetail,
                   beforeEnter: requireAuth,
                 },
               ],

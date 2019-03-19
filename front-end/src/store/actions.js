@@ -62,16 +62,16 @@ const actions = {
   UPDATE_TODO({ dispatch, state }, { id, payload }) {
     return api.todo.update(id, payload)
       .then(() => {
-        dispatch('FETCH_TODOS', { pid: state.project.id });
+        dispatch('FETCH_TODOS', { pid: state.projectId });
       });
   },
 
   DELETE_TODO({ dispatch, state }, { id }) {
     return api.todo.destory(id, {
-      pid: state.project.id,
+      pid: state.projectId,
     })
       .then(() => {
-        dispatch('FETCH_TODOS', { pid: state.project.id });
+        dispatch('FETCH_TODOS', { pid: state.projectId });
       });
   },
 
@@ -97,16 +97,51 @@ const actions = {
   UPDATE_PROBLEM({ dispatch, state }, { id, payload }) {
     return api.problem.update(id, payload)
       .then(() => {
-        dispatch('FETCH_PROBLEMS', { pid: state.project.id });
+        dispatch('FETCH_PROBLEMS', { pid: state.projectId });
       });
   },
 
   DELETE_PROBLEM({ dispatch, state }, { id }) {
     return api.problem.destory(id, {
-      pid: state.project.id,
+      pid: state.projectId,
     })
       .then(() => {
-        dispatch('FETCH_PROBLEMS', { pid: state.project.id });
+        dispatch('FETCH_PROBLEMS', { pid: state.projectId });
+      });
+  },
+
+  FETCH_CONCERNS({ commit }, { pid }) {
+    return api.concern.fetch({ pid })
+      .then((data) => {
+        commit('SET_TASKS', data.result);
+      });
+  },
+
+  FETCH_CONCERN(_, { id }) {
+    return api.concern.fetch({ id });
+  },
+
+  ADD_CONCERN({ dispatch }, { title, pid }) {
+    return api.concern.create(title, pid)
+      .then((data) => {
+        dispatch('FETCH_CONCERNS', { pid });
+        return data;
+      });
+  },
+
+  UPDATE_CONCERN({ dispatch, state }, { id, payload }) {
+    return api.concern.update(id, payload)
+      .then(() => {
+        dispatch('FETCH_CONCERNS', { pid: state.projectId });
+      });
+  },
+
+  DELETE_CONCERN({ dispatch, state }, { id }) {
+    return api.concern.destory(id, {
+      pid: state.projectId,
+    })
+      .then(() => {
+        dispatch('FETCH_CONCERNS', { pid: state.projectId });
       });
   },
 };
