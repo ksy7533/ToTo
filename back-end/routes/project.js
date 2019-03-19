@@ -38,7 +38,15 @@ router.get('/:id', ensureAuth(), async (req, res, next) => {
         const project = await Project.findOne({
             where: {
                 id: req.params.id,
-            }
+            },
+            include: [
+                {
+                    model: Todo,
+                },
+                {
+                    model: Problem,
+                }
+            ],
         });
         return res.status(200).json({
             result: project,

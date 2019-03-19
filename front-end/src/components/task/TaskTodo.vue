@@ -1,5 +1,5 @@
 <template>
-  <v-layout fill-height>
+  <v-layout fill-height v-if="tasks">
     <v-flex>
       <v-card>
         <v-list two-line style="padding:0">
@@ -88,6 +88,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       isUpdating: false,
       showModalAdd: false,
       showModalConfirm: false,
@@ -97,7 +98,6 @@ export default {
   computed: {
     ...mapState({
       tasks: 'tasks',
-      project: 'project',
     }),
   },
 
@@ -109,13 +109,17 @@ export default {
     ]),
     
     getTasks() {
+      this.isLoading = true;
       this.FETCH_TODOS({
-        pid: this.project.id,
+        pid: this.$route.params.pid,
       })
         .then(() => {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
 

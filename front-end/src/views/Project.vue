@@ -1,5 +1,5 @@
 <template>
-  <v-app v-if="project">
+  <v-app>
     <aside-menu></aside-menu>
     <Header></Header>
     <router-view></router-view>
@@ -20,35 +20,6 @@ export default {
     Header,
     AsideMenu,
     Confirm,
-  },
-
-  computed: {
-    ...mapState({
-      project: 'project',
-    })
-  },
-
-  methods: {
-    ...mapActions([
-      'FETCH_PROJECT',
-    ]),
-
-    getProject() {
-      this.isLoading = true;
-      this.FETCH_PROJECT({
-        id: this.$route.params.pid,
-      })
-        .then(() => {
-          console.log('getProject 성공!');
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    },
-  },
-
-  created() {
-    this.getProject();
   },
 };
 

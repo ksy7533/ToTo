@@ -11,7 +11,7 @@
         <v-list-tile
           v-if="!depth1.items.length"
           :key="indexDepth1"
-          :to="`/project/${project.id}/${depth1.name}`"
+          :to="`/project/${projectId}/${depth1.name}`"
         >
           <v-list-tile-title>{{depth1.title}}</v-list-tile-title>
         </v-list-tile>
@@ -28,7 +28,7 @@
           <v-list-tile
             v-for="(depth2, index) in depth1.items"
             :key="index"
-            :to="`/project/${project.id}/${depth1.name}/${depth2.name}`"
+            :to="`/project/${projectId}/${depth1.name}/${depth2.name}`"
           >
             <v-list-tile-action>
               <v-icon>{{depth2.icon}}</v-icon>
@@ -48,13 +48,13 @@ export default {
   computed: {
     ...mapState({
       routes: 'routes',
-      project: 'project',
     }),
   },
 
   data() {
     return {
       drawer: null,
+      projectId: this.$route.params.pid,
     };
   },
 };

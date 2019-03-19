@@ -2,7 +2,7 @@
   <v-app>
     <Header></Header>
     
-    <v-content>
+    <v-content v-if="projects">
       <v-container grid-list-md fluid>
         <v-layout row wrap align-start justify-start>
           <v-flex
@@ -140,14 +140,13 @@ export default {
     },
 
     calcCompleteCount(arr) {
-      const result = arr.filter((item) => item.completed);
-      return result.length;
+      return (arr.filter((item) => item.completed)).length;
     },
 
     calcRate(num, total) {
       if(num === 0) return 0;
       return parseInt((num / total) * 100);
-    }
+    },
   },
 
   created() {
