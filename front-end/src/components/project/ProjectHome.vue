@@ -2,8 +2,13 @@
   <v-content>
     <v-container grid-list-md fluid>
       <v-layout row wrap align-start justify-start>
-        <v-flex xs4>
-          <v-card class="text-xs-center">
+        <v-flex
+          pa-2
+          xs12
+          sm12
+          md4
+        >
+          <v-card class="text-xs-center" hover>
             <v-card-title class="blue white--text">
               <span class="title">할일</span>
             </v-card-title>
@@ -25,8 +30,13 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-        <v-flex xs4>
-          <v-card class="text-xs-center">
+        <v-flex
+          pa-2
+          xs12
+          sm12
+          md4
+        >
+          <v-card class="text-xs-center" hover>
             <v-card-title class="pink white--text">
               <span class="title">문제점</span>
             </v-card-title>
@@ -49,8 +59,13 @@
             </v-card-actions>
           </v-card>
         </v-flex>
-        <v-flex xs4>
-          <v-card class="text-xs-center">
+        <v-flex
+          pa-2
+          xs12
+          sm12
+          md4
+        >
+          <v-card class="text-xs-center" hover>
             <v-card-title class="purple white--text">
               <span class="title">고민사항</span>
             </v-card-title>

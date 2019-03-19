@@ -11,7 +11,6 @@
             <v-list-tile
               :key="item.createdAt"
               :class="{completed: item.completed}"
-              @click=""
             >
               <v-list-tile-action>
                 <v-checkbox :disabled="isUpdating" :input-value="item.completed" @change="onCheckBox(item.id, $event)"></v-checkbox>
@@ -152,7 +151,7 @@ export default {
     },
 
     onDelete(id) {
-      this.$refs.confirm.open('삭제', '정말 삭제 하시겠습니까?', { color: 'orange' })
+      this.$refs.confirm.open('할일 삭제', '정말 삭제 하시겠습니까?', { color: 'orange' })
         .then((confirm) => {
           if(confirm) this.deleteTask(id);
           else return;

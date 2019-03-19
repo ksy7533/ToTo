@@ -8,8 +8,12 @@
           <v-flex
               v-for="(item, index) in projects"
               :key="index"
-              pa-1
-              xs2
+              pa-2
+              xs12
+              sm4
+              md3
+              lg3
+              xl2
             >
             <v-card
               hover
@@ -42,7 +46,7 @@
               <v-card-actions>
                 <v-btn flat small :to="`/project/${item.id}/home`">더보기</v-btn>
                 <v-spacer></v-spacer>
-                <v-btn flat small @click="">삭제</v-btn>
+                <v-btn flat small @click="onDelete(item.id)">삭제</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -65,6 +69,8 @@
     <modal-main-add
       v-model="showModalAdd"
     ></modal-main-add>
+
+    <confirm ref="confirm"></confirm>
     
   </v-app>
 </template>
@@ -73,11 +79,13 @@
 import { mapState, mapActions } from 'vuex';
 import Header from '../components/header/Header';
 import ModalMainAdd from '../components/modal/ModalMainAdd';
+import Confirm from '../components/common/Confirm';
 
 export default {
   components: {
     Header,
     ModalMainAdd,
+    Confirm,
   },
 
   data() {
@@ -85,6 +93,7 @@ export default {
       isLoding: false,
       title: '',
       showModalAdd: false,
+      showModalConfirm: false,
     };
   },
 
@@ -97,6 +106,7 @@ export default {
   methods: {
     ...mapActions([
       'FETCH_PROJECTS',
+      'DELETE_PROJECT',
     ]),
 
     getProjects() {
@@ -109,6 +119,23 @@ export default {
         })
         .finally(() => {
           this.isLoding = false;
+        });
+    },
+
+    deleteProject(id) {
+      this.DELETE_PROJECT({ id })
+        .then(() => {
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
+
+    onDelete(id) {
+      this.$refs.confirm.open('프로젝트 삭제', '정말 삭제 하시겠습니까?', { color: 'orange' })
+        .then((confirm) => {
+          if(confirm) this.deleteProject(id);
+          else return;
         });
     },
 

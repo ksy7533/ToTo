@@ -33,6 +33,13 @@ const actions = {
       });
   },
 
+  DELETE_PROJECT({ dispatch }, { id }) {
+    return api.project.destory(id)
+      .then(() => {
+        dispatch('FETCH_PROJECTS');
+      });
+  },
+
   FETCH_TODOS({ commit }, { pid }) {
     return api.todo.fetch({ pid })
       .then((data) => {

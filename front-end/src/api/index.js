@@ -50,6 +50,10 @@ export const project = {
   create(title) {
     return request('post', '/projects', { title });
   },
+
+  destory(id) {
+    return request('delete', `/projects/${id}`);
+  },
 };
 
 export const todo = {
