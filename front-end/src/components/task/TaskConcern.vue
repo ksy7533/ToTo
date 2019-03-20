@@ -2,6 +2,9 @@
   <v-layout fill-height v-if="tasks">
     <v-flex>
       <v-card>
+        <v-toolbar dense dark flat color="purple">
+          <v-toolbar-title>고민사항</v-toolbar-title>
+        </v-toolbar>
         <v-list two-line style="padding:0">
           <template v-for="(item, index) in this.tasks">
             <v-divider

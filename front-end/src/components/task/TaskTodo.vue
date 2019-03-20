@@ -1,9 +1,12 @@
 <template>
-  <v-layout fill-height v-if="tasks">
+  <v-layout fill-height>
     <v-flex>
       <v-card>
+        <v-toolbar dense dark flat color="blue">
+          <v-toolbar-title>오늘할일</v-toolbar-title>
+        </v-toolbar>
         <v-list two-line style="padding:0">
-          <template v-for="(item, index) in this.tasks">
+          <template v-for="(item, index) in this.todayTasks">
             <v-divider
               v-if="index !== 0"
               :key="`${item.title}-${index}`"
@@ -17,7 +20,54 @@
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                <v-list-tile-sub-title>{{item.createdAt}}</v-list-tile-sub-title>
+                <v-list-tile-sub-title>{{item.regDate}}</v-list-tile-sub-title>
+              </v-list-tile-content>
+              <v-list-tile-avatar>
+                <v-icon color="pink lighten-1" v-if="item.priority">priority_high</v-icon>
+              </v-list-tile-avatar>
+              <v-list-tile-action>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon ripple v-on="on" :to="{name: 'todoDetail', params: {tid: item.id}}">
+                      <v-icon color="grey lighten-1">add</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>상세보기</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-btn icon ripple v-on="on" @click="onDelete(item.id)">
+                      <v-icon color="grey lighten-1">delete</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>삭제하기</span>
+                </v-tooltip>
+              </v-list-tile-action>
+            </v-list-tile>
+          </template>
+        </v-list>
+      </v-card>
+
+      <v-card style="margin-top:40px">
+        <v-toolbar dense dark flat color="secondary lighten-2">
+          <v-toolbar-title>지난할일</v-toolbar-title>
+        </v-toolbar>
+        <v-list two-line style="padding:0">
+          <template v-for="(item, index) in this.notTodayTasks">
+            <v-divider
+              v-if="index !== 0"
+              :key="`${item.title}-${index}`"
+            ></v-divider>
+            <v-list-tile
+              :key="item.createdAt"
+              :class="{completed: item.completed}"
+            >
+              <v-list-tile-action>
+                <v-checkbox :disabled="isUpdating" :input-value="item.completed" @change="onCheckBox(item.id, $event)"></v-checkbox>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title v-html="item.title"></v-list-tile-title>
+                <v-list-tile-sub-title>{{item.regDate}}</v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-avatar>
                 <v-icon color="pink lighten-1" v-if="item.priority">priority_high</v-icon>
@@ -74,6 +124,7 @@
 import { mapState, mapActions } from 'vuex';
 import ModalTaskTodoAdd from '../modal/ModalTaskTodoAdd';
 import Confirm from '../common/Confirm';
+import moment from 'moment';
 
 /**
  * 1. 해당 tasks를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -99,6 +150,16 @@ export default {
     ...mapState({
       tasks: 'tasks',
     }),
+
+    todayTasks() {
+      const today = moment().format("YYYY-MM-DD");
+      return this.tasks.filter(item => item.regDate === today);
+    },
+
+    notTodayTasks() {
+      const today = moment().format("YYYY-MM-DD");
+      return this.tasks.filter(item => item.regDate !== today);
+    },
   },
 
   methods: {
@@ -140,7 +201,7 @@ export default {
     },
 
     onCheckBox(id, isChecked) {
-      this.updateTask(id, {completed: isChecked})
+      this.updateTask(id, {completed: isChecked});
     },
 
     deleteTask(id) {

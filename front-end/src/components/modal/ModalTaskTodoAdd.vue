@@ -68,7 +68,7 @@ export default {
     addTask() {
       this.ADD_TODO({
         title: this.title,
-        pid: this.project.id,
+        pid: this.$route.params.pid,
       })
         .then((data) => {
           this.title = '';
