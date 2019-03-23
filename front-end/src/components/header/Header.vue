@@ -8,7 +8,10 @@
     height="64"
   >
     <v-toolbar-title class="mr-5">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="onDrawer" v-if="projectId"></v-toolbar-side-icon>
+      <v-toolbar-side-icon v-else>
+        <v-icon>web</v-icon>
+      </v-toolbar-side-icon>
       <span>Today TodoList</span>
     </v-toolbar-title>
 
@@ -28,21 +31,27 @@
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  data() {
-    return {
-      drawer: null,
-    }
+  computed: {
+    ...mapState({
+      drawer: 'drawer',
+      projectId: 'projectId',
+    }),
   },
 
   methods: {
     ...mapMutations([
       'LOGOUT',
+      'SET_DRAWER',
     ]),
 
-    onLogout(){
+    onLogout() {
       this.LOGOUT();
       this.$router.push('/auth/login');
     },
+
+    onDrawer(){
+      this.SET_DRAWER();
+    }
   },
 };
 </script>

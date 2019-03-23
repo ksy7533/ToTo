@@ -29,6 +29,15 @@ const mutations = {
   SET_TASKS(state, tasks) {
     state.tasks = tasks;
   },
+
+  SET_DRAWER(state) {
+    if (state.drawer) {
+      state.drawer = false;
+    } else {
+      state.drawer = true;
+    }
+    console.log(state.drawer)
+  },
 };
 
 export default mutations;

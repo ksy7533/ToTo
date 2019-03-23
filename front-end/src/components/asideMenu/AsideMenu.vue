@@ -1,7 +1,6 @@
 <template>
   <v-navigation-drawer
-    permanent
-    v-model="drawer"
+    v-model="onDrawer"
     clipped
     fixed
     app
@@ -42,19 +41,26 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   computed: {
     ...mapState({
       routes: 'routes',
+      drawer: 'drawer',
+      projectId: 'projectId',
     }),
+  },
+
+  watch: {
+    drawer: function (val) {
+      this.onDrawer = val;
+    },
   },
 
   data() {
     return {
-      drawer: null,
-      projectId: this.$route.params.pid,
+      onDrawer: this.drawer,
     };
   },
 };

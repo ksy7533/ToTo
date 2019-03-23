@@ -4,6 +4,7 @@ const state = {
   project: null, // 현재 선택된 project
   projectId: '', // 현재 선택된 project id
   tasks: [], // 현재 선택된 tasks
+  drawer: true, // drawer 열림여부
   routes: [ // route 목록, depth : 1(gnb), depth: 2(lnb)
     {
       name: 'home',

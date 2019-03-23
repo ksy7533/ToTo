@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <Header></Header>
-    
     <v-content v-if="projects">
       <v-container grid-list-md fluid>
         <v-layout row wrap align-start justify-start>
