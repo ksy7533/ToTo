@@ -23,22 +23,28 @@
                 <v-list-tile-sub-title>{{item.createdAt}}</v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-btn icon ripple v-on="on" :to="{name: 'concernDetail', params: {cid: item.id}}">
-                      <v-icon color="grey lighten-1">add</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>상세보기</span>
-                </v-tooltip>
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-btn icon ripple v-on="on" @click="onDelete(item.id)">
-                      <v-icon color="grey lighten-1">delete</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>삭제하기</span>
-                </v-tooltip>
+                <v-layout>
+                  <v-flex ml-3>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn color="purple" fab small dark v-on="on" :to="{name: 'concernDetail', params: {cid: item.id}}">
+                          <v-icon>edit</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>상세보기</span>
+                    </v-tooltip>
+                  </v-flex>
+                  <v-flex ml-3>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn fab small v-on="on" @click="onDelete(item.id)">
+                          <v-icon>delete</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>삭제하기</span>
+                    </v-tooltip>
+                  </v-flex>
+                </v-layout>
               </v-list-tile-action>
             </v-list-tile>
           </template>

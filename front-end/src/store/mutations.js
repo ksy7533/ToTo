@@ -36,7 +36,6 @@ const mutations = {
     } else {
       state.drawer = true;
     }
-    console.log(state.drawer)
   },
 };
 
