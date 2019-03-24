@@ -5,7 +5,7 @@
         <v-toolbar dense dark flat color="purple">
           <v-toolbar-title>고민사항</v-toolbar-title>
         </v-toolbar>
-        <v-list two-line style="padding:0">
+        <v-list two-line style="padding:0" v-noneItem="{items: this.tasks, text: '등록된 고민사항이 없습니다. 고민사항을 등록해주세요!'}">
           <template v-for="(item, index) in this.tasks">
             <v-divider
               v-if="index !== 0"

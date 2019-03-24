@@ -5,7 +5,7 @@
         <v-toolbar dense dark flat color="blue">
           <v-toolbar-title>오늘할일</v-toolbar-title>
         </v-toolbar>
-        <v-list two-line style="padding:0">
+        <v-list two-line style="padding:0" v-noneItem="{items: this.todayTasks, text: '등록된 할일이 없습니다. 할일을 등록해주세요!'}">
           <template v-for="(item, index) in this.todayTasks">
             <v-divider
               v-if="index !== 0"
@@ -52,7 +52,7 @@
         <v-toolbar dense dark flat color="secondary lighten-2">
           <v-toolbar-title>지난할일</v-toolbar-title>
         </v-toolbar>
-        <v-list two-line style="padding:0">
+        <v-list two-line style="padding:0" v-noneItem="{items: this.notTodayTasks, text: '등록된 할일이 없습니다. 할일을 등록해주세요!'}">
           <template v-for="(item, index) in this.notTodayTasks">
             <v-divider
               v-if="index !== 0"
