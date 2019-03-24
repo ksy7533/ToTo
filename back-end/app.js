@@ -15,6 +15,7 @@ const concernRouter = require('./routes/concern');
 const { sequelize } = require('./models');
 require('./passport');
 const app = express();
+app.use(require('connect-history-api-fallback')());
 app.use(cors())
 sequelize.sync();
 
