@@ -61,6 +61,10 @@ export const todo = {
     return id ? request('get', `/todos/${id}`) : request('get', `/todos/project/${pid}`);
   },
 
+  fetchIncomplete({ pid }) {
+    return request('get', `/todos/incomplete/${pid}`);
+  },
+
   create(title, pid) {
     return request('post', '/todos', { title, pid });
   },

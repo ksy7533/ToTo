@@ -154,7 +154,6 @@ export default {
       isLoading: false,
       isUpdating: false,
       showModalAdd: false,
-      showModalConfirm: false,
     };
   },
 

@@ -115,30 +115,77 @@
             </v-card-actions>
           </v-card>
         </v-flex>
+
+        <v-flex
+          pa-2
+          xs12
+          sm12
+          md4
+        >
+          <v-card hover>
+            <v-card-title class="orange white--text">
+              <span class="title">미완료된 지난 할일</span>
+            </v-card-title>
+            <v-data-table
+              :rows-per-page-items="rowsPerPageItems"
+              :items="pastIncompletedItems"
+              hide-headers
+              v-if="incompletedItems.length"
+            >
+              <template v-slot:items="props">
+                <td>
+                  <v-chip color="red" text-color="white" v-if="props.item.priority">급함</v-chip>
+                  <v-chip color="blue" text-color="white" v-else>보통</v-chip>
+                </td>
+                <td>{{ props.item.title }}</td>
+                <td>{{ props.item.regDate }}</td>
+                <td><v-btn small color="orange" outline @click="onRegTodayTodo(props.item.id)">오늘 할일 등록</v-btn></td>
+              </template>
+            </v-data-table>
+          </v-card>
+        </v-flex>
       </v-layout>
     </v-container>
+
+    <confirm ref="confirm"></confirm>
+
   </v-content>
 </template>
 
 <script>
+import Confirm from '../common/Confirm';
 import { mapState, mapActions } from 'vuex';
+import moment from 'moment';
+
 export default {
+  components: {
+    Confirm,
+  },
 
   computed: {
     ...mapState({
       project: 'project',
     }),
+
+    pastIncompletedItems() {
+      const today = moment().format("YYYY-MM-DD");
+      return this.incompletedItems.filter(item => item.regDate !== today);
+    }
   },
 
   data() {
     return {
       isLoading: false,
+      incompletedItems: [], // 미완료된 할일
+      rowsPerPageItems: [],
     }
   },
 
   methods: {
     ...mapActions([
       'FETCH_PROJECT',
+      'FETCH_TODO_INCOMPLETE',
+      'UPDATE_TODO',
     ]),
 
     getProject() {
@@ -157,6 +204,46 @@ export default {
         });
     },
 
+    getTodoIncomplete() {
+      this.FETCH_TODO_INCOMPLETE({
+        pid: this.$route.params.pid,
+      })
+        .then((result) => {
+          this.incompletedItems = result;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          
+        });
+    },
+
+    updateTask(id, payload) {
+      this.UPDATE_TODO({
+        id,
+        payload,
+      })
+        .then((data) => {
+          this.getTodoIncomplete();
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isUpdating = false;
+        });
+    },
+
+    onRegTodayTodo(id) {
+      this.$refs.confirm.open('할일 등록', '오늘 할일로 등록 하시겠습니까?', { color: 'orange' })
+        .then((confirm) => {
+          const today = moment().format("YYYY-MM-DD");
+          if(confirm) this.updateTask(id, {regDate: today});
+          else return;
+        });
+    },
+
     calcCompleteCount(arr) {
       return (arr.filter((item) => item.completed)).length;
     },
@@ -169,6 +256,7 @@ export default {
 
   created() {
     this.getProject();
+    this.getTodoIncomplete();
   },
 };
 </script>

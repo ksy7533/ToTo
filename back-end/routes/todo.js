@@ -26,6 +26,29 @@ router.get('/project/:pid', ensureAuth(), async (req, res, next) => {
 });
 
 /*
+ * todo 미완료된 할일 리스트 가져오기
+ */
+router.get('/incomplete/:pid', ensureAuth(), async (req, res, next) => {
+  try {
+    const todo = await Todo.findAll({
+      where: {
+        projectId: req.params.pid,
+        completed: false,
+      },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+    });
+    return res.status(200).json({
+      result: todo,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+/*
  * 해당하는 id의 todo 한개 가져오기
  */
 router.get('/:id', ensureAuth(), async (req, res, next) => {

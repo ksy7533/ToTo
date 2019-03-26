@@ -51,6 +51,11 @@ const actions = {
     return api.todo.fetch({ id });
   },
 
+  FETCH_TODO_INCOMPLETE(_, { pid }) {
+    return api.todo.fetchIncomplete({ pid })
+      .then(data => data.result);
+  },
+
   ADD_TODO({ dispatch }, { title, pid }) {
     return api.todo.create(title, pid)
       .then((data) => {
