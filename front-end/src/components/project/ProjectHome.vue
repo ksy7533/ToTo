@@ -123,14 +123,14 @@
           md4
         >
           <v-card hover>
-            <v-card-title class="orange white--text">
-              <span class="title">미완료된 지난 할일</span>
+            <v-card-title class="red white--text">
+              <span class="title">미완료된 오늘 할일</span>
             </v-card-title>
             <v-data-table
+              no-data-text="등록된 할일이 없습니다"
               :rows-per-page-items="rowsPerPageItems"
-              :items="pastIncompletedItems"
+              :items="todayIncompletedItems"
               hide-headers
-              v-if="incompletedItems.length"
             >
               <template v-slot:items="props">
                 <td>
@@ -139,7 +139,34 @@
                 </td>
                 <td>{{ props.item.title }}</td>
                 <td>{{ props.item.regDate }}</td>
-                <td><v-btn small color="orange" outline @click="onRegTodayTodo(props.item.id)">오늘 할일 등록</v-btn></td>
+              </template>
+            </v-data-table>
+          </v-card>
+        </v-flex>
+
+        <v-flex
+          pa-2
+          xs12
+          sm12
+          md4
+        >
+          <v-card hover>
+            <v-card-title class="grey white--text">
+              <span class="title">미완료된 지난 할일</span>
+            </v-card-title>
+            <v-data-table
+              :rows-per-page-items="rowsPerPageItems"
+              :items="pastIncompletedItems"
+              hide-headers
+            >
+              <template v-slot:items="props">
+                <td width="20%">
+                  <v-chip color="red" text-color="white" v-if="props.item.priority">급함</v-chip>
+                  <v-chip color="blue" text-color="white" v-else>보통</v-chip>
+                </td>
+                <td width="40%">{{ props.item.title }}</td>
+                <td width="25%">{{ props.item.regDate }}</td>
+                <td width="15%"><v-btn color="orange" flat icon @click="onRegTodayTodo(props.item.id)"><v-icon>add_alert</v-icon></v-btn></td>
               </template>
             </v-data-table>
           </v-card>
@@ -170,6 +197,11 @@ export default {
     pastIncompletedItems() {
       const today = moment().format("YYYY-MM-DD");
       return this.incompletedItems.filter(item => item.regDate !== today);
+    },
+
+    todayIncompletedItems() {
+      const today = moment().format("YYYY-MM-DD");
+      return this.incompletedItems.filter(item => item.regDate === today);
     }
   },
 
@@ -177,7 +209,7 @@ export default {
     return {
       isLoading: false,
       incompletedItems: [], // 미완료된 할일
-      rowsPerPageItems: [],
+      rowsPerPageItems: [5],
     }
   },
 
