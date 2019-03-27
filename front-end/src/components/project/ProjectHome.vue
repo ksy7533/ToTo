@@ -155,6 +155,7 @@
               <span class="title">미완료된 지난 할일</span>
             </v-card-title>
             <v-data-table
+              no-data-text="등록된 할일이 없습니다"
               :rows-per-page-items="rowsPerPageItems"
               :items="pastIncompletedItems"
               hide-headers

@@ -5,7 +5,7 @@
         <v-toolbar dense dark flat color="pink">
           <v-toolbar-title>문제점</v-toolbar-title>
         </v-toolbar>
-        <v-list two-line style="padding:0" v-noneItem="{items: this.tasks, text: '등록된 문제점이 없습니다. 문제점을 등록해주세요!'}">
+        <v-list two-line style="padding:0" v-if="this.tasks.length">
           <template v-for="(item, index) in this.tasks">
             <v-divider
               v-if="index !== 0"
@@ -48,6 +48,11 @@
               </v-list-tile-action>
             </v-list-tile>
           </template>
+        </v-list>
+        <v-list v-else>
+          <v-list-tile>
+            <v-list-tile-title style="text-align:center">등록된 문제점이 없습니다.</v-list-tile-title>
+          </v-list-tile>
         </v-list>
       </v-card>
     </v-flex>

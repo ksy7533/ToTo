@@ -5,7 +5,7 @@
         <v-toolbar dense dark flat color="blue">
           <v-toolbar-title>오늘할일</v-toolbar-title>
         </v-toolbar>
-        <v-list two-line style="padding:0" v-noneItem="{items: this.todayTasks, text: '등록된 할일이 없습니다. 할일을 등록해주세요!'}">
+        <v-list two-line style="padding:0" v-if="this.todayTasks.length">
           <template v-for="(item, index) in this.todayTasks">
             <v-divider
               v-if="index !== 0"
@@ -52,13 +52,18 @@
             </v-list-tile>
           </template>
         </v-list>
+        <v-list v-else>
+          <v-list-tile>
+            <v-list-tile-title style="text-align:center">등록된 할일이 없습니다.</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
       </v-card>
 
       <v-card style="margin-top:40px">
         <v-toolbar dense dark flat color="secondary lighten-2">
           <v-toolbar-title>지난할일</v-toolbar-title>
         </v-toolbar>
-        <v-list two-line style="padding:0" v-noneItem="{items: this.notTodayTasks, text: '등록된 할일이 없습니다. 할일을 등록해주세요!'}">
+        <v-list two-line style="padding:0" v-if="this.notTodayTasks.length">
           <template v-for="(item, index) in this.notTodayTasks">
             <v-divider
               v-if="index !== 0"
@@ -104,6 +109,11 @@
               </v-list-tile-action>
             </v-list-tile>
           </template>
+        </v-list>
+        <v-list v-else>
+          <v-list-tile>
+            <v-list-tile-title style="text-align:center">등록된 할일이 없습니다.</v-list-tile-title>
+          </v-list-tile>
         </v-list>
       </v-card>
     </v-flex>
