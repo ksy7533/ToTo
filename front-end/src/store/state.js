@@ -17,7 +17,7 @@ const state = {
       name: 'task',
       title: '업무',
       depth: 1,
-      icon: 'list',
+      icon: 'view_list',
       items: [
         {
           name: 'todo',
@@ -43,14 +43,14 @@ const state = {
       name: 'calendar',
       title: '일정',
       depth: 1,
-      icon: 'home',
+      icon: 'timeline',
       items: [],
     },
     {
       name: 'statistic',
       title: '통계',
       depth: 1,
-      icon: 'home',
+      icon: 'bar_chart',
       items: [],
     },
   ],

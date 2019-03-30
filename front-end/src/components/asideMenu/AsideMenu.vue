@@ -12,6 +12,9 @@
           :key="indexDepth1"
           :to="`/project/${projectId}/${depth1.name}`"
         >
+          <v-list-tile-action>
+            <v-icon>{{depth1.icon}}</v-icon>
+          </v-list-tile-action>
           <v-list-tile-title>{{depth1.title}}</v-list-tile-title>
         </v-list-tile>
         <v-list-group
@@ -21,6 +24,9 @@
         >
           <template v-slot:activator>
             <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>{{depth1.icon}}</v-icon>
+              </v-list-tile-action>
               <v-list-tile-title>{{depth1.title}}</v-list-tile-title>
             </v-list-tile>
           </template>
