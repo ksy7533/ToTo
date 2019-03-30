@@ -39,6 +39,20 @@ const state = {
         },
       ],
     },
+    {
+      name: 'calendar',
+      title: '일정',
+      depth: 1,
+      icon: 'home',
+      items: [],
+    },
+    {
+      name: 'statistic',
+      title: '통계',
+      depth: 1,
+      icon: 'home',
+      items: [],
+    },
   ],
 };
 

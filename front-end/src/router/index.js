@@ -5,6 +5,8 @@ import Main from '@/views/Main';
 import Project from '@/views/Project';
 import ProjectHome from '@/components/project/ProjectHome';
 import ProjectTask from '@/components/project/ProjectTask';
+import ProjectCalendar from '@/components/project/ProjectCalendar';
+import ProjectStatistic from '@/components/project/ProjectStatistic';
 import Login from '@/components/auth/Login';
 import Join from '@/components/auth/Join';
 import TaskTodo from '@/components/task/TaskTodo';
@@ -93,6 +95,18 @@ export default new Router({
               ],
             },
           ],
+        },
+        {
+          path: 'calendar',
+          name: 'calendar',
+          component: ProjectCalendar,
+          beforeEnter: requireAuth,
+        },
+        {
+          path: 'statistic',
+          name: 'statistic',
+          component: ProjectStatistic,
+          beforeEnter: requireAuth,
         },
       ],
     },

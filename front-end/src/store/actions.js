@@ -149,6 +149,14 @@ const actions = {
         dispatch('FETCH_CONCERNS', { pid: state.projectId });
       });
   },
+
+  FETCH_CALENDAR({ state }, { startDateOfMonth, endDateOfMonth }) {
+    return api.calendar.fetch(
+      state.projectId,
+      startDateOfMonth,
+      endDateOfMonth,
+    );
+  },
 };
 
 export default actions;

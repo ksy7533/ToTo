@@ -114,6 +114,12 @@ export const concern = {
   },
 };
 
+export const calendar = {
+  fetch(pid, startDateOfMonth, endDateOfMonth) {
+    // return request('get', `/calendars/${pid}`, payload);
+  },
+};
+
 export const setAuthInHeader = (token) => {
   axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
 };

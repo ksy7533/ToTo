@@ -28,7 +28,7 @@ export default {
     ]),
   },
 
-  mounted() {
+  created() {
     this.SET_PROJECT_ID(this.$route.params.pid);
   },
 };
