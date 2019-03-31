@@ -59,7 +59,7 @@
         </v-list>
       </v-card>
 
-      <v-card style="margin-top:40px">
+      <v-card style="margin-top:20px">
         <v-toolbar dense dark flat color="secondary lighten-2">
           <v-toolbar-title>지난할일</v-toolbar-title>
         </v-toolbar>
@@ -253,13 +253,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-list {
-  .completed {
-    .v-list__tile__title, .v-list__tile__sub-title {
-      text-decoration: line-through;
-      color: grey;
+  .v-list {
+    .completed {
+      .v-list__tile__title, .v-list__tile__sub-title {
+        text-decoration: line-through;
+        color: grey;
+      }
     }
   }
-}
 </style>
 

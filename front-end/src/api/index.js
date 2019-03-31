@@ -47,6 +47,10 @@ export const project = {
     return id ? request('get', `/projects/${id}`) : request('get', '/projects');
   },
 
+  fetchCalendar(id, payload) {
+    return request('post', `/projects/${id}/calendar`, payload);
+  },
+
   create(title) {
     return request('post', '/projects', { title });
   },
@@ -61,7 +65,7 @@ export const todo = {
     return id ? request('get', `/todos/${id}`) : request('get', `/todos/project/${pid}`);
   },
 
-  fetchIncomplete({ pid }) {
+  fetchIncomplete(pid) {
     return request('get', `/todos/incomplete/${pid}`);
   },
 
@@ -111,12 +115,6 @@ export const concern = {
 
   destory(id, payload) {
     return request('delete', `/concerns/${id}`, payload);
-  },
-};
-
-export const calendar = {
-  fetch(pid, startDateOfMonth, endDateOfMonth) {
-    // return request('get', `/calendars/${pid}`, payload);
   },
 };
 

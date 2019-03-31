@@ -147,7 +147,7 @@ export default {
         id: this.$route.params.pid,
       })
         .then(() => {
-          console.log('getProject 성공!');
+          // console.log(this.project);
         })
         .catch((err) => {
           console.log(err);

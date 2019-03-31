@@ -13,21 +13,23 @@
               no-data-text="등록된 할일이 없습니다"
               :rows-per-page-items="rowsPerPageItems"
               :items="todayIncompletedItems"
-              hide-headers
+              :headers="todayIncompletedHeaders"
             >
               <template v-slot:items="props">
-                <td>
-                  <v-chip color="red" text-color="white" v-if="props.item.priority">급함</v-chip>
-                  <v-chip color="blue" text-color="white" v-else>보통</v-chip>
+                <td width="20%">
+                  <span class="red--text" v-if="props.item.priority">급함</span>
+                  <span v-else>보통</span>
                 </td>
-                <td>{{ props.item.title }}</td>
-                <td>{{ props.item.regDate }}</td>
+                <td width="60%">{{ props.item.title }}</td>
+                <td width="20%">{{ props.item.regDate }}</td>
               </template>
             </v-data-table>
           </v-card>
         </v-flex>
+
         <v-flex
           xs12
+          style="margin-top:20px"
         >
           <v-card hover>
             <v-card-title class="grey white--text">
@@ -37,16 +39,16 @@
               no-data-text="등록된 할일이 없습니다"
               :rows-per-page-items="rowsPerPageItems"
               :items="pastIncompletedItems"
-              hide-headers
+              :headers="pastIncompletedHeaders"
             >
               <template v-slot:items="props">
                 <td width="20%">
-                  <v-chip color="red" text-color="white" v-if="props.item.priority">급함</v-chip>
-                  <v-chip color="blue" text-color="white" v-else>보통</v-chip>
+                  <span class="red--text" v-if="props.item.priority">급함</span>
+                  <span v-else>보통</span>
                 </td>
                 <td width="40%">{{ props.item.title }}</td>
                 <td width="25%">{{ props.item.regDate }}</td>
-                <td width="15%"><v-btn color="orange" flat icon @click="onRegTodayTodo(props.item.id)"><v-icon>add_alert</v-icon></v-btn></td>
+                <td width="15%"><v-btn color="orange" flat icon @click="onRegTodayTodo(props.item.id)"><v-icon>add_circle_outline</v-icon></v-btn></td>
               </template>
             </v-data-table>
           </v-card>
@@ -85,27 +87,40 @@ export default {
     return {
       incompletedItems: [], // 미완료된 할일
       rowsPerPageItems: [5],
+
+      todayIncompletedHeaders: [
+        { text: '우선순위', value: 'priority', sortable: false, },
+        { text: '제목', value: 'title', sortable: false, },
+        { text: '등록일', value: 'regDate' },
+      ],
+
+      pastIncompletedHeaders: [
+        { text: '우선순위', value: 'priority', sortable: false, },
+        { text: '제목', value: 'title', sortable: false, },
+        { text: '등록일', value: 'regDate' },
+        { text: '오늘업무등록', sortable: false, },
+      ],
     }
   },
 
   methods: {
     ...mapActions([
-      'FETCH_TODO_INCOMPLETE',
+      'FETCH_TODOS_INCOMPLETE',
       'UPDATE_TODO',
     ]),
 
-    getTodoIncomplete() {
-      this.FETCH_TODO_INCOMPLETE({
+    getIncompleteTodos() {
+      this.FETCH_TODOS_INCOMPLETE({
         pid: this.$route.params.pid,
       })
         .then((result) => {
+          console.log(result)
           this.incompletedItems = result;
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
-          
         });
     },
 
@@ -115,7 +130,7 @@ export default {
         payload,
       })
         .then((data) => {
-          this.getTodoIncomplete();
+          this.getIncompleteTodos();
         })
         .catch((error) => {
           console.log(error);
@@ -136,11 +151,27 @@ export default {
   },
 
   created() {
-    this.getTodoIncomplete();
+    this.getIncompleteTodos();
+
   },
 };
 </script>
 
 <style lang="scss" scoped>
+/deep/ table{
+  &.v-table {
+    thead {
+      th {
+        font-size: 16px;
+      }
+    }
+
+    tbody {
+      td {
+        font-size: 16px;
+      }
+    }
+  }
+}
 </style>
 

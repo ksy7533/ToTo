@@ -26,6 +26,11 @@ const actions = {
       });
   },
 
+  FETCH_PROJECT_CALENDAR(_, { pid, duration }) {
+    return api.project.fetchCalendar(pid, duration)
+      .then(data => data.result);
+  },
+
   ADD_PROJECT({ dispatch }, { title }) {
     return api.project.create(title)
       .then(() => {
@@ -51,8 +56,8 @@ const actions = {
     return api.todo.fetch({ id });
   },
 
-  FETCH_TODO_INCOMPLETE(_, { pid }) {
-    return api.todo.fetchIncomplete({ pid })
+  FETCH_TODOS_INCOMPLETE(_, { pid }) {
+    return api.todo.fetchIncomplete(pid)
       .then(data => data.result);
   },
 
@@ -148,14 +153,6 @@ const actions = {
       .then(() => {
         dispatch('FETCH_CONCERNS', { pid: state.projectId });
       });
-  },
-
-  FETCH_CALENDAR({ state }, { startDateOfMonth, endDateOfMonth }) {
-    return api.calendar.fetch(
-      state.projectId,
-      startDateOfMonth,
-      endDateOfMonth,
-    );
   },
 };
 

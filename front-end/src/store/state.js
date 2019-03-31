@@ -43,7 +43,7 @@ const state = {
       name: 'calendar',
       title: '일정',
       depth: 1,
-      icon: 'timeline',
+      icon: 'calendar_today',
       items: [],
     },
     {

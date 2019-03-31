@@ -2,31 +2,32 @@
   <v-content>
     <v-container fluid fill-height style="padding:0" >
       <v-layout wrap>
-        <v-flex
-          xs2
-          class="text-sm-left text-xs-center"
-        >
-          <v-card>
-            <v-btn fab @click="$refs.calendar.prev()">
+        <v-flex xs12>
+          <v-toolbar flat height="56px" style="border-bottom:1px solid rgba(0,0,0,.12)">
+            <v-toolbar-title>오늘 : {{this.now}}</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn color="white" @click="$refs.calendar.prev()">
               <v-icon
                 dark
               >
                 keyboard_arrow_left
               </v-icon>
             </v-btn>
-            <v-btn fab @click="$refs.calendar.next()">
+            <v-btn color="primary" class="white--text" @click="goToday">
+              오늘로 이동
+            </v-btn>
+            <v-btn color="white" @click="$refs.calendar.next()">
               <v-icon
                 dark
               >
                 keyboard_arrow_right
               </v-icon>
             </v-btn>
-          </v-card>
-        </v-flex>
-        <v-flex xs10>
-          <v-sheet height="100%">
+          </v-toolbar>
+
+          <v-sheet height="calc(100% - 57px)" v-if="!this.isLoading">
             <v-calendar
-              :now="today"
+              :now="now"
               v-model="today"
               :value="today"
               :type="type"
@@ -34,21 +35,17 @@
               ref="calendar"
             >
               <template v-slot:day="{ date }">
-                <template v-for="event in eventsMap[date]">
+                <template v-if="todoEventsMap[date]">
                   <v-menu
-                    :key="event.title"
-                    v-model="event.open"
                     full-width
                     offset-x
                   >
                     <template v-slot:activator="{ on }">
                       <div
-                        v-if="!event.time"
                         v-ripple
-                        class="my-event"
+                        class="my-event todo"
                         v-on="on"
-                        v-html="event.title"
-                      ></div>
+                      >할일 +{{todoEventsMap[date].length}}</div>
                     </template>
                     <v-card
                       color="grey lighten-4"
@@ -56,38 +53,111 @@
                       flat
                     >
                       <v-toolbar
-                        color="primary"
+                        color="blue"
                         dark
                       >
-                        <v-btn icon>
-                          <v-icon>edit</v-icon>
-                        </v-btn>
-                        <v-toolbar-title v-html="event.title"></v-toolbar-title>
-                        <v-spacer></v-spacer>
-                        <v-btn icon>
-                          <v-icon>favorite</v-icon>
-                        </v-btn>
-                        <v-btn icon>
-                          <v-icon>more_vert</v-icon>
-                        </v-btn>
+                        <v-toolbar-title>할일</v-toolbar-title>
                       </v-toolbar>
-                      <v-card-title primary-title>
-                        <span v-html="event.details"></span>
-                      </v-card-title>
-                      <v-card-actions>
-                        <v-btn
-                          flat
-                          color="secondary"
+                      <v-list>
+                        <v-list-tile
+                          v-for="event in todoEventsMap[date]"
+                          :key="event.title"
+                          avatar
+                          @click=""
                         >
-                          Cancel
-                        </v-btn>
-                      </v-card-actions>
+                          <v-list-tile-content>
+                            <v-list-tile-title v-text="event.title"></v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
                     </v-card>
                   </v-menu>
                 </template>
+
+                <template v-if="problemEventsMap[date]">
+                  <v-menu
+                    full-width
+                    offset-x
+                  >
+                    <template v-slot:activator="{ on }">
+                      <div
+                        v-ripple
+                        class="my-event problem"
+                        v-on="on"
+                      >문제점 +{{problemEventsMap[date].length}}</div>
+                    </template>
+                    <v-card
+                      color="grey lighten-4"
+                      min-width="350px"
+                      flat
+                    >
+                      <v-toolbar
+                        color="pink"
+                        dark
+                      >
+                        <v-toolbar-title>문제점</v-toolbar-title>
+                      </v-toolbar>
+                      <v-list>
+                        <v-list-tile
+                          v-for="event in problemEventsMap[date]"
+                          :key="event.title"
+                          avatar
+                          @click=""
+                        >
+                          <v-list-tile-content>
+                            <v-list-tile-title v-text="event.title"></v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                    </v-card>
+                  </v-menu>
+                </template>
+
+                <template v-if="concernEventsMap[date]">
+                  <v-menu
+                    full-width
+                    offset-x
+                  >
+                    <template v-slot:activator="{ on }">
+                      <div
+                        v-ripple
+                        class="my-event concern"
+                        v-on="on"
+                      >고민사항 +{{concernEventsMap[date].length}}</div>
+                    </template>
+                    <v-card
+                      color="grey lighten-4"
+                      min-width="350px"
+                      flat
+                    >
+                      <v-toolbar
+                        color="purple"
+                        dark
+                      >
+                        <v-toolbar-title>고민사항</v-toolbar-title>
+                      </v-toolbar>
+                      <v-list>
+                        <v-list-tile
+                          v-for="event in concernEventsMap[date]"
+                          :key="event.title"
+                          avatar
+                          @click=""
+                        >
+                          <v-list-tile-content>
+                            <v-list-tile-title v-text="event.title"></v-list-tile-title>
+                          </v-list-tile-content>
+                        </v-list-tile>
+                      </v-list>
+                    </v-card>
+                  </v-menu>
+                </template>
+
               </template>
             </v-calendar>
           </v-sheet>
+          <div v-else>
+            loading...
+          </div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -95,75 +165,50 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment,{ duration } from 'moment';
 import { mapActions } from 'vuex';
 
 export default {
-  data: () => ({
-    today: '',
-    type: 'month',
-    events: [
-      {
-        title: 'Vacation',
-        details: 'Going to the beach!',
-        date: '2018-12-30',
-        open: false
-      },
-      {
-        title: 'Vacation',
-        details: 'Going to the beach!',
-        date: '2018-12-31',
-        open: false
-      },
-      {
-        title: 'Vacation',
-        details: 'Going to the beach!',
-        date: '2019-01-01',
-        open: false
-      },
-      {
-        title: 'Meeting',
-        details: 'Spending time on how we do not have enough time',
-        date: '2019-01-07',
-        open: false
-      },
-      {
-        title: '30th Birthday',
-        details: 'Celebrate responsibly',
-        date: '2019-01-03',
-        open: false
-      },
-      {
-        title: 'New Year',
-        details: 'Eat chocolate until you pass out',
-        date: '2019-01-01',
-        open: false
-      },
-      {
-        title: 'Conference',
-        details: 'Mute myself the whole time and wonder why I am on this call',
-        date: '2019-01-21',
-        open: false
-      },
-      {
-        title: 'Hackathon',
-        details: 'Code like there is no tommorrow',
-        date: '2019-02-01',
-        open: false
-      }
-    ]
-  }),
-  computed: {
-    // convert the list of events into a map of lists keyed by date
-    eventsMap () {
-      const map = {}
-      this.events.forEach(e => (map[e.date] = map[e.date] || []).push(e))
-      return map
+  data(){
+    return {
+      isLoading: false,
+      today: '', // 오늘을 알고 무슨달인지 알기위해
+      now: '', // 오늘이 몇일인지를 위해
+      type: 'month',
+      todoEvents: [],
+      problemEvents: [],
+      concernEvents: [],
     }
   },
+  computed: {
+    todoEventsMap () {
+      const map = {};
+      this.todoEvents.forEach(e => (map[e.regDate] = map[e.regDate] || []).push(e));
+      return map;
+    },
+
+    problemEventsMap () {
+      const map = {};
+      this.problemEvents.forEach(e => (map[e.regDate] = map[e.regDate] || []).push(e));
+      return map;
+    },
+
+    concernEventsMap () {
+      const map = {};
+      this.concernEvents.forEach(e => (map[e.regDate] = map[e.regDate] || []).push(e));
+      return map;
+    },
+  },
+
+  watch: {
+    today(oldVal, newVal) {
+      this.getCalendar();
+    },
+  },
+
   methods: {
     ...mapActions([
-      'FETCH_CALENDAR',
+      'FETCH_PROJECT_CALENDAR',
     ]),
 
     open (event) {
@@ -171,33 +216,39 @@ export default {
     },
 
     getCalendar() {
-      // this.isLoading = true;
+      this.isLoading = true;
       const startDateOfMonth = moment(this.today).startOf('month').format('YYYY-MM-DD');
       const endDateOfMonth = moment(this.today).endOf('month').format('YYYY-MM-DD');
 
-      this.FETCH_CALENDAR({
-        startDateOfMonth,
-        endDateOfMonth,
+      this.FETCH_PROJECT_CALENDAR({
+        pid: this.$route.params.pid,
+        duration: {
+          startDateOfMonth,
+          endDateOfMonth,
+        },
       })
-        .then(() => {
-          // console.log('getProject 성공!');
+        .then((result) => {
+          this.todoEvents = result[0].todos || [];
+          this.problemEvents = result[0].problems || [];
+          this.concernEvents = result[0].concerns || [];
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
-          // this.isLoading = false;
+          this.isLoading = false;
         });
-    }
+    },
+
+    goToday() {
+      this.today = this.now;
+    },
   },
 
   created() {
-    this.today = moment().format("YYYY-MM-DD");
+    this.now = moment().format("YYYY-MM-DD");
+    this.goToday();
   },
-
-  mounted() {
-    this.getCalendar();
-  }
 }
 </script>
 
@@ -207,14 +258,28 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     border-radius: 2px;
-    background-color: #1867c0;
     color: #ffffff;
-    border: 1px solid #1867c0;
     width: 100%;
     font-size: 12px;
     padding: 3px;
     cursor: pointer;
     margin-bottom: 1px;
+
+    &.todo {
+      background-color: #2196f3;
+      border: 1px solid #2196f3;
+    }
+
+    &.problem {
+      background-color: #e91e63;
+      border: 1px solid #e91e63;
+    }
+
+    &.concern {
+      background-color: #9c27b0;
+      border: 1px solid #9c27b0;
+    }
   }
 </style>
+
 

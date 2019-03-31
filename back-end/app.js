@@ -11,7 +11,6 @@ const projectRouter = require('./routes/project');
 const todoRouter = require('./routes/todo');
 const problemRouter = require('./routes/problem');
 const concernRouter = require('./routes/concern');
-const calendarRouter = require('./routes/calendar'); 
 
 const { sequelize } = require('./models');
 require('./passport');
@@ -36,7 +35,6 @@ app.use('/projects', projectRouter);
 app.use('/todos', todoRouter);
 app.use('/problems', problemRouter);
 app.use('/concerns', concernRouter);
-app.use('/calendars', calendarRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not found');
