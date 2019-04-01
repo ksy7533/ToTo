@@ -63,7 +63,7 @@
                           v-for="event in todoEventsMap[date]"
                           :key="event.title"
                           avatar
-                          @click=""
+                          :to="{name: 'todoDetailCalendar', params: {tid: event.id}}"
                         >
                           <v-list-tile-content>
                             <v-list-tile-title v-text="event.title"></v-list-tile-title>
@@ -102,7 +102,7 @@
                           v-for="event in problemEventsMap[date]"
                           :key="event.title"
                           avatar
-                          @click=""
+                          :to="{name: 'problemDetailCalendar', params: {pbid: event.id}}"
                         >
                           <v-list-tile-content>
                             <v-list-tile-title v-text="event.title"></v-list-tile-title>
@@ -141,7 +141,7 @@
                           v-for="event in concernEventsMap[date]"
                           :key="event.title"
                           avatar
-                          @click=""
+                          :to="{name: 'concernDetailCalendar', params: {cid: event.id}}"
                         >
                           <v-list-tile-content>
                             <v-list-tile-title v-text="event.title"></v-list-tile-title>
@@ -151,7 +151,6 @@
                     </v-card>
                   </v-menu>
                 </template>
-
               </template>
             </v-calendar>
           </v-sheet>
@@ -161,6 +160,9 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <!-- ModalTaskTodoDetail -->
+    <router-view></router-view>
+    <!--// ModalTaskTodoDetail -->
   </v-content>
 </template>
 

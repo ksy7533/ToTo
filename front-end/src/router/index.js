@@ -101,6 +101,26 @@ export default new Router({
           name: 'calendar',
           component: ProjectCalendar,
           beforeEnter: requireAuth,
+          children: [
+            {
+              path: 'todo/:tid',
+              name: 'todoDetailCalendar',
+              component: ModalTaskTodoDetail,
+              beforeEnter: requireAuth,
+            },
+            {
+              path: 'problem/:pbid',
+              name: 'problemDetailCalendar',
+              component: ModalTaskProblemDetail,
+              beforeEnter: requireAuth,
+            },
+            {
+              path: 'concern/:cid',
+              name: 'concernDetailCalendar',
+              component: ModalTaskConcernDetail,
+              beforeEnter: requireAuth,
+            },
+          ],
         },
         {
           path: 'statistic',
