@@ -60,6 +60,12 @@ export const project = {
   },
 };
 
+export const work = {
+  fetchCalendar(pid, payload) {
+    return request('post', `/works/${pid}/calendar`, payload);
+  },
+};
+
 export const todo = {
   fetch({ id, pid }) {
     return id ? request('get', `/todos/${id}`) : request('get', `/todos/project/${pid}`);
@@ -119,5 +125,5 @@ export const concern = {
 };
 
 export const setAuthInHeader = (token) => {
-  axios.defaults.headers.common['Authorization'] = token ? `Bearer ${token}` : null;
+  axios.defaults.headers.common.Authorization = token ? `Bearer ${token}` : null;
 };

@@ -34,52 +34,6 @@ router.get('/', ensureAuth(), async (req, res, next) => {
 });
 
 /*
- * 해당하는 기간의 모든 업무 리스트 목록 가져오기
- */
-router.post('/:id/calendar', ensureAuth(), async (req, res, next) => {
-  try {
-    const project = await Project.findAll({
-      where: {
-        id: req.params.id,
-      },
-      include: [
-        {
-          model: Todo,
-          where: {
-            regDate: {
-              [Sequelize.Op.between]: [req.body.startDateOfMonth, req.body.endDateOfMonth],
-            }
-          },
-        },
-        {
-          model: Problem,
-          where: {
-            regDate: {
-              [Sequelize.Op.between]: [req.body.startDateOfMonth, req.body.endDateOfMonth],
-            }
-          },
-        },
-        {
-          model: Concern,
-          where: {
-            regDate: {
-              [Sequelize.Op.between]: [req.body.startDateOfMonth, req.body.endDateOfMonth],
-            }
-          },
-        }
-      ],
-    });
-
-    return res.status(200).json({
-      result: project,
-    });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
-/*
  * 해당하는 id를 갖는 project 한개 가져오기
  */
 router.get('/:id', ensureAuth(), async (req, res, next) => {

@@ -26,8 +26,8 @@ const actions = {
       });
   },
 
-  FETCH_PROJECT_CALENDAR(_, { pid, duration }) {
-    return api.project.fetchCalendar(pid, duration)
+  FETCH_WORK_CALENDAR(_, { pid, duration }) {
+    return api.work.fetchCalendar(pid, duration)
       .then(data => data.result);
   },
 

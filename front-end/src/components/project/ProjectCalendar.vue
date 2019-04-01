@@ -208,7 +208,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'FETCH_PROJECT_CALENDAR',
+      'FETCH_WORK_CALENDAR',
     ]),
 
     open (event) {
@@ -220,7 +220,7 @@ export default {
       const startDateOfMonth = moment(this.today).startOf('month').format('YYYY-MM-DD');
       const endDateOfMonth = moment(this.today).endOf('month').format('YYYY-MM-DD');
 
-      this.FETCH_PROJECT_CALENDAR({
+      this.FETCH_WORK_CALENDAR({
         pid: this.$route.params.pid,
         duration: {
           startDateOfMonth,
@@ -228,9 +228,9 @@ export default {
         },
       })
         .then((result) => {
-          this.todoEvents = result[0].todos || [];
-          this.problemEvents = result[0].problems || [];
-          this.concernEvents = result[0].concerns || [];
+          this.todoEvents = result.todos;
+          this.problemEvents = result.problems;
+          this.concernEvents = result.concerns;
         })
         .catch((err) => {
           console.log(err);
