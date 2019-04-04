@@ -60,8 +60,8 @@
                       </v-toolbar>
                       <v-list>
                         <v-list-tile
-                          v-for="event in todoEventsMap[date]"
-                          :key="event.title"
+                          v-for="(event, index) in todoEventsMap[date]"
+                          :key="`event.title-${index}`"
                           avatar
                           :to="{name: 'todoDetailCalendar', params: {tid: event.id}}"
                         >
@@ -99,8 +99,8 @@
                       </v-toolbar>
                       <v-list>
                         <v-list-tile
-                          v-for="event in problemEventsMap[date]"
-                          :key="event.title"
+                          v-for="(event, index) in problemEventsMap[date]"
+                          :key="`event.title-${index}`"
                           avatar
                           :to="{name: 'problemDetailCalendar', params: {pbid: event.id}}"
                         >
@@ -138,8 +138,8 @@
                       </v-toolbar>
                       <v-list>
                         <v-list-tile
-                          v-for="event in concernEventsMap[date]"
-                          :key="event.title"
+                          v-for="(event, index) in concernEventsMap[date]"
+                          :key="`event.title-${index}`"
                           avatar
                           :to="{name: 'concernDetailCalendar', params: {cid: event.id}}"
                         >

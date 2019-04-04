@@ -64,15 +64,15 @@ export const work = {
   fetchCalendar(pid, payload) {
     return request('post', `/works/${pid}/calendar`, payload);
   },
+
+  fetchIncomplete(pid) {
+    return request('get', `/works/${pid}/incomplete`);
+  },
 };
 
 export const todo = {
   fetch({ id, pid }) {
     return id ? request('get', `/todos/${id}`) : request('get', `/todos/project/${pid}`);
-  },
-
-  fetchIncomplete(pid) {
-    return request('get', `/todos/incomplete/${pid}`);
   },
 
   create(title, pid) {

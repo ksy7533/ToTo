@@ -56,8 +56,8 @@ const actions = {
     return api.todo.fetch({ id });
   },
 
-  FETCH_TODOS_INCOMPLETE(_, { pid }) {
-    return api.todo.fetchIncomplete(pid)
+  FETCH_WORKS_INCOMPLETE(_, { pid }) {
+    return api.work.fetchIncomplete(pid)
       .then(data => data.result);
   },
 
