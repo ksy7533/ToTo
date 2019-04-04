@@ -1,5 +1,11 @@
 import axios from 'axios';
 import router from '../router';
+import auth from './auth';
+import project from './project';
+import work from './work';
+import todo from './todo';
+import problem from './problem';
+import concern from './concern';
 
 const DOMAIN = 'http://localhost:8001';
 const UNAUTHORIZED = 401;
@@ -21,109 +27,17 @@ const request = (method, url, data) => {
     });
 };
 
-export const auth = {
-  login(email, password) {
-    return request('post', '/auth/login', {
-      email,
-      password,
-    });
-  },
-
-  logout() {
-    return request('get', '/auth/logout');
-  },
-
-  join(email, password, nick) {
-    return request('post', '/auth/join', {
-      email,
-      password,
-      nick,
-    });
-  },
-};
-
-export const project = {
-  fetch(id) {
-    return id ? request('get', `/projects/${id}`) : request('get', '/projects');
-  },
-
-  fetchCalendar(id, payload) {
-    return request('post', `/projects/${id}/calendar`, payload);
-  },
-
-  create(title) {
-    return request('post', '/projects', { title });
-  },
-
-  destory(id) {
-    return request('delete', `/projects/${id}`);
-  },
-};
-
-export const work = {
-  fetchCalendar(pid, payload) {
-    return request('post', `/works/${pid}/calendar`, payload);
-  },
-
-  fetchIncomplete(pid) {
-    return request('get', `/works/${pid}/incomplete`);
-  },
-};
-
-export const todo = {
-  fetch({ id, pid }) {
-    return id ? request('get', `/todos/${id}`) : request('get', `/todos/project/${pid}`);
-  },
-
-  create(title, pid) {
-    return request('post', '/todos', { title, pid });
-  },
-
-  update(id, payload) {
-    return request('put', `/todos/${id}`, payload);
-  },
-
-  destory(id, payload) {
-    return request('delete', `/todos/${id}`, payload);
-  },
-};
-
-export const problem = {
-  fetch({ id, pid }) {
-    return id ? request('get', `/problems/${id}`) : request('get', `/problems/project/${pid}`);
-  },
-
-  create(title, pid) {
-    return request('post', '/problems', { title, pid });
-  },
-
-  update(id, payload) {
-    return request('put', `/problems/${id}`, payload);
-  },
-
-  destory(id, payload) {
-    return request('delete', `/problems/${id}`, payload);
-  },
-};
-
-export const concern = {
-  fetch({ id, pid }) {
-    return id ? request('get', `/concerns/${id}`) : request('get', `/concerns/project/${pid}`);
-  },
-
-  create(title, pid) {
-    return request('post', '/concerns', { title, pid });
-  },
-
-  update(id, payload) {
-    return request('put', `/concerns/${id}`, payload);
-  },
-
-  destory(id, payload) {
-    return request('delete', `/concerns/${id}`, payload);
-  },
-};
-
-export const setAuthInHeader = (token) => {
+const setAuthInHeader = (token) => {
   axios.defaults.headers.common.Authorization = token ? `Bearer ${token}` : null;
+};
+
+export {
+  request,
+  setAuthInHeader,
+  auth,
+  project,
+  work,
+  todo,
+  problem,
+  concern,
 };
