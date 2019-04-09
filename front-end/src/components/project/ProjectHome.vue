@@ -131,7 +131,6 @@ export default {
         pid: this.$route.params.pid,
       })
         .then((result) => {
-          console.log(result);
           this.incompletedItems = result;
         })
         .catch((err) => {

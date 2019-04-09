@@ -7,7 +7,8 @@ const Moment = require('moment');
 /*
  * 해당하는 기간의 모든 업무 리스트 목록 가져오기
  */
-router.post('/:pid/calendar', ensureAuth(), async (req, res, next) => {
+router.post('/calendar', ensureAuth(), async (req, res, next) => {
+  console.log("ibninbi")
   try {
     const todos = await Todo.findAll({
       where: {

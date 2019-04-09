@@ -72,8 +72,8 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 * problem 수정하기
 */
 router.put('/:id', ensureAuth(), async (req, res, next) => {
-  const {id} = req.params
-  let body = req.body
+  const {id} = req.params;
+  let body = req.body;
   try {
     if (!id) return res.status(400);
     const problem = await Problem.findOne({
@@ -97,11 +97,11 @@ router.put('/:id', ensureAuth(), async (req, res, next) => {
 * problem 삭제하기
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
+  const { id } = req.params;
   try {
     await Problem.destroy({
       where: {
-      id: req.params.id,
-      projectId: req.body.pid,
+        id,
       }
     })
     return res.status(204).end();

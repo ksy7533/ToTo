@@ -30,5 +30,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: true,
     paranoid: true, // 삭제일 기록 (복구용)
+    charset: 'utf8',
+    collate: 'utf8_general_ci',
   });
 };

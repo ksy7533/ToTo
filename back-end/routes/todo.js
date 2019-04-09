@@ -94,8 +94,8 @@ router.post('/', ensureAuth(), async (req, res, next) => {
 * todo 수정하기
 */
 router.put('/:id', ensureAuth(), async (req, res, next) => {
-  const {id} = req.params
-  let body = req.body
+  const {id} = req.params;
+  let body = req.body;
   try {
     if (!id) return res.status(400);
     const todo = await Todo.findOne({
@@ -120,11 +120,11 @@ router.put('/:id', ensureAuth(), async (req, res, next) => {
 * todo 삭제하기
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
+  const { id } = req.params;
   try {
     await Todo.destroy({
       where: {
-        id: req.params.id,
-        projectId: req.body.pid,
+        id,
       }
     })
     return res.status(204).end();

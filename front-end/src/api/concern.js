@@ -1,20 +1,41 @@
 import { request } from './index';
 
 export default {
-  fetch({ id, pid }) {
-    return id ? request('get', `/concerns/${id}`) : request('get', `/concerns/project/${pid}`);
+  fetchOne(id) {
+    return request({
+      method: 'get',
+      url: `/concerns/${id}`,
+    });
+  },
+
+  fetchAll(pid) {
+    return request({
+      method: 'get',
+      url: `/concerns/project/${pid}`,
+    });
   },
 
   create(title, pid) {
-    return request('post', '/concerns', { title, pid });
+    return request({
+      method: 'post',
+      url: '/concerns',
+      data: { title, pid },
+    });
   },
 
   update(id, payload) {
-    return request('put', `/concerns/${id}`, payload);
+    return request({
+      method: 'put',
+      url: `/concerns/${id}`,
+      data: payload,
+    });
   },
 
-  destory(id, payload) {
-    return request('delete', `/concerns/${id}`, payload);
+  delete(id) {
+    return request({
+      method: 'delete',
+      url: `/concerns/${id}`,
+    });
   },
 };
 

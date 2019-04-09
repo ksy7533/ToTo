@@ -13,21 +13,21 @@ const actions = {
   },
 
   FETCH_PROJECTS({ commit }) {
-    return api.project.fetch()
+    return api.project.fetchAll()
       .then((data) => {
         commit('SET_PROJECTS', data.result);
       });
   },
 
   FETCH_PROJECT({ commit }, { id }) {
-    return api.project.fetch(id)
+    return api.project.fetchOne(id)
       .then((data) => {
         commit('SET_PROJECT', data.result);
       });
   },
 
-  FETCH_WORK_CALENDAR(_, { pid, duration }) {
-    return api.work.fetchCalendar(pid, duration)
+  FETCH_WORK_CALENDAR(_, payload) {
+    return api.work.fetchCalendar(payload)
       .then(data => data.result);
   },
 
@@ -39,21 +39,21 @@ const actions = {
   },
 
   DELETE_PROJECT({ dispatch }, { id }) {
-    return api.project.destory(id)
+    return api.project.delete(id)
       .then(() => {
         dispatch('FETCH_PROJECTS');
       });
   },
 
   FETCH_TODOS({ commit }, { pid }) {
-    return api.todo.fetch({ pid })
+    return api.todo.fetchAll(pid)
       .then((data) => {
         commit('SET_TASKS', data.result);
       });
   },
 
   FETCH_TODO(_, { id }) {
-    return api.todo.fetch({ id });
+    return api.todo.fetchOne(id);
   },
 
   FETCH_WORKS_INCOMPLETE(_, { pid }) {
@@ -77,23 +77,21 @@ const actions = {
   },
 
   DELETE_TODO({ dispatch, state }, { id }) {
-    return api.todo.destory(id, {
-      pid: state.projectId,
-    })
+    return api.todo.delete(id)
       .then(() => {
         dispatch('FETCH_TODOS', { pid: state.projectId });
       });
   },
 
   FETCH_PROBLEMS({ commit }, { pid }) {
-    return api.problem.fetch({ pid })
+    return api.problem.fetchAll(pid)
       .then((data) => {
         commit('SET_TASKS', data.result);
       });
   },
 
   FETCH_PROBLEM(_, { id }) {
-    return api.problem.fetch({ id });
+    return api.problem.fetchOne(id);
   },
 
   ADD_PROBLEM({ dispatch }, { title, pid }) {
@@ -112,23 +110,21 @@ const actions = {
   },
 
   DELETE_PROBLEM({ dispatch, state }, { id }) {
-    return api.problem.destory(id, {
-      pid: state.projectId,
-    })
+    return api.problem.delete(id)
       .then(() => {
         dispatch('FETCH_PROBLEMS', { pid: state.projectId });
       });
   },
 
   FETCH_CONCERNS({ commit }, { pid }) {
-    return api.concern.fetch({ pid })
+    return api.concern.fetchAll(pid)
       .then((data) => {
         commit('SET_TASKS', data.result);
       });
   },
 
   FETCH_CONCERN(_, { id }) {
-    return api.concern.fetch({ id });
+    return api.concern.fetchOne(id);
   },
 
   ADD_CONCERN({ dispatch }, { title, pid }) {
@@ -147,9 +143,7 @@ const actions = {
   },
 
   DELETE_CONCERN({ dispatch, state }, { id }) {
-    return api.concern.destory(id, {
-      pid: state.projectId,
-    })
+    return api.concern.delete(id)
       .then(() => {
         dispatch('FETCH_CONCERNS', { pid: state.projectId });
       });

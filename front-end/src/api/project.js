@@ -1,20 +1,33 @@
 import { request } from './index';
 
 export default {
-  fetch(id) {
-    return id ? request('get', `/projects/${id}`) : request('get', '/projects');
+  fetchOne(id) {
+    return request({
+      method: 'get',
+      url: `/projects/${id}`,
+    });
   },
 
-  fetchCalendar(id, payload) {
-    return request('post', `/projects/${id}/calendar`, payload);
+  fetchAll() {
+    return request({
+      method: 'get',
+      url: '/projects',
+    });
   },
 
   create(title) {
-    return request('post', '/projects', { title });
+    return request({
+      method: 'post',
+      url: '/projects',
+      data: { title },
+    });
   },
 
-  destory(id) {
-    return request('delete', `/projects/${id}`);
+  delete(id) {
+    return request({
+      method: 'delete',
+      url: `/projects/${id}`,
+    });
   },
 };
 

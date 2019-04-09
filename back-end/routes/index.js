@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 
-router.get('/', function (req, res, next) {
-  console.log('in')
-  res.sendFile(path.join(__dirname, '../public', 'index.html'))
+router.get('/', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 /* 서버에서 데이터 테스트 */

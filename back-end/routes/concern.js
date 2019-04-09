@@ -96,11 +96,11 @@ router.put('/:id', ensureAuth(), async (req, res, next) => {
 * concern 삭제하기
 */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
+  const {id} = req.params;
   try {
     await Concern.destroy({
       where: {
-        id: req.params.id,
-        projectId: req.body.pid,
+        id,
       }
     });
     return res.status(204).end();

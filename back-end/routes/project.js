@@ -87,11 +87,11 @@ router.post('/', ensureAuth(), async (req, res, next) => {
  * project 삭제하기
  */
 router.delete('/:id', ensureAuth(), async (req, res, next) => {
+  const { id } = req.params;
   try {
     await Project.destroy({
       where: {
-        id: req.params.id,
-        userId: req.user.id
+        id,
       }
     })
     return res.status(204).end();
