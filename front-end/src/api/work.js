@@ -1,18 +1,18 @@
 import { request } from './index';
 
 export default {
-  fetchCalendar(payload) {
+  fetchCalendar({ pid, duration }) {
     return request({
       method: 'get',
-      url: '/works/calendar',
-      params: payload,
+      url: `/api/works/${pid}/calendar`,
+      params: duration,
     });
   },
 
   fetchIncomplete(pid) {
     return request({
       method: 'get',
-      url: `/works/${pid}/incomplete`,
+      url: `/api/works/${pid}/incomplete`,
     });
   },
 };

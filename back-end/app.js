@@ -25,7 +25,7 @@ const logger = require('./logger');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-app.set('port', process.env.PORT || 8001);
+app.set('port', process.env.PORT || 3000);
 
 if(process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
@@ -35,18 +35,18 @@ if(process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
-app.use('/auth', authRouter);
-app.use('/projects', projectRouter);
-app.use('/todos', todoRouter);
-app.use('/problems', problemRouter);
-app.use('/concerns', concernRouter);
-app.use('/works', workRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/projects', projectRouter);
+app.use('/api/todos', todoRouter);
+app.use('/api/problems', problemRouter);
+app.use('/api/concerns', concernRouter);
+app.use('/api/works', workRouter);
 
 app.use((req, res, next) => {
   const err = new Error('Not found');

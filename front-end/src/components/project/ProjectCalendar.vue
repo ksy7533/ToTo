@@ -227,7 +227,7 @@ export default {
         duration: {
           startDateOfMonth,
           endDateOfMonth,
-        },
+        }
       })
         .then((result) => {
           this.todoEvents = result.todos;
