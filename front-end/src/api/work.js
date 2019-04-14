@@ -4,7 +4,7 @@ export default {
   fetchCalendar({ pid, duration }) {
     return request({
       method: 'get',
-      url: `/api/works/${pid}/calendar`,
+      url: `/works/${pid}/calendar`,
       params: duration,
     });
   },
@@ -12,7 +12,7 @@ export default {
   fetchIncomplete(pid) {
     return request({
       method: 'get',
-      url: `/api/works/${pid}/incomplete`,
+      url: `/works/${pid}/incomplete`,
     });
   },
 };

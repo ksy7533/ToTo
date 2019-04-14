@@ -4,21 +4,21 @@ export default {
   fetchOne(id) {
     return request({
       method: 'get',
-      url: `/api/concerns/${id}`,
+      url: `/concerns/${id}`,
     });
   },
 
   fetchAll(pid) {
     return request({
       method: 'get',
-      url: `/api/concerns/project/${pid}`,
+      url: `/concerns/project/${pid}`,
     });
   },
 
   create(title, pid) {
     return request({
       method: 'post',
-      url: '/api/concerns',
+      url: '/concerns',
       data: { title, pid },
     });
   },
@@ -26,7 +26,7 @@ export default {
   update(id, payload) {
     return request({
       method: 'put',
-      url: `/api/concerns/${id}`,
+      url: `/concerns/${id}`,
       data: payload,
     });
   },
@@ -34,7 +34,7 @@ export default {
   delete(id) {
     return request({
       method: 'delete',
-      url: `/api/concerns/${id}`,
+      url: `/concerns/${id}`,
     });
   },
 };

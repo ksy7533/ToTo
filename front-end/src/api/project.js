@@ -4,21 +4,21 @@ export default {
   fetchOne(id) {
     return request({
       method: 'get',
-      url: `/api/projects/${id}`,
+      url: `/projects/${id}`,
     });
   },
 
   fetchAll() {
     return request({
       method: 'get',
-      url: '/api/projects',
+      url: '/projects',
     });
   },
 
   create(title) {
     return request({
       method: 'post',
-      url: '/api/projects',
+      url: '/projects',
       data: { title },
     });
   },
@@ -26,7 +26,7 @@ export default {
   delete(id) {
     return request({
       method: 'delete',
-      url: `/api/projects/${id}`,
+      url: `/projects/${id}`,
     });
   },
 };

@@ -4,7 +4,7 @@ export default {
   login(email, password) {
     return request({
       method: 'post',
-      url: '/api/auth/login',
+      url: '/auth/login',
       data: {
         email,
         password,
@@ -15,14 +15,14 @@ export default {
   logout() {
     return request({
       method: 'get',
-      url: '/api/auth/logout',
+      url: '/auth/logout',
     });
   },
 
   join(email, password, nick) {
     return request({
       method: 'post',
-      url: '/api/auth/join',
+      url: '/auth/join',
       data: {
         email,
         password,
