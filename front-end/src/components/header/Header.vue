@@ -25,7 +25,7 @@
       >
         <v-icon>dashboard</v-icon>
       </v-btn>
-      </template>
+    </template>
   </v-toolbar>
 </template>
 
