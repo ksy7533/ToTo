@@ -1,19 +1,19 @@
 <template>
   <v-app>
-    <Header></Header>
+    <!-- <Header></Header> -->
     <v-content v-if="projects">
-      <v-container grid-list-md fluid>
-        <v-layout row wrap align-start justify-start>
+      <v-container grid-list-md fluid style="height:100%">
+        <v-layout row wrap align-start justify-start v-if="projects.length">
           <v-flex
-              v-for="(item, index) in projects"
-              :key="index"
-              pa-2
-              xs12
-              sm4
-              md3
-              lg3
-              xl2
-            >
+            v-for="(item, index) in projects"
+            :key="index"
+            pa-2
+            xs12
+            sm4
+            md3
+            lg3
+            xl2
+          >
             <v-card
               hover
             >
@@ -49,6 +49,10 @@
               </v-card-actions>
             </v-card>
           </v-flex>
+        </v-layout>
+
+        <v-layout align-center justify-center row fill-height v-else class="title">
+          등록된 프로젝트가 없습니다. 새로운 프로젝트를 시작하세요!
         </v-layout>
       </v-container>
     </v-content>

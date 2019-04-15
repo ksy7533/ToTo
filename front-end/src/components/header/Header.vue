@@ -8,7 +8,7 @@
     height="64"
   >
     <v-toolbar-title class="mr-5">
-      <v-toolbar-side-icon @click.stop="onDrawer" v-if="projectId"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="onDrawer" v-if="pathName === 'project'"></v-toolbar-side-icon>
       <v-toolbar-side-icon v-else>
         <v-icon>web</v-icon>
       </v-toolbar-side-icon>
@@ -16,14 +16,16 @@
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
-    
-    <v-btn flat @click="onLogout">로그아웃</v-btn>
-    <v-btn
-      icon
-      to="/"
-    >
-      <v-icon>dashboard</v-icon>
-    </v-btn>
+
+    <template v-if="pathName !== 'auth'">
+      <v-btn flat @click="onLogout">로그아웃</v-btn>
+      <v-btn
+        icon
+        to="/"
+      >
+        <v-icon>dashboard</v-icon>
+      </v-btn>
+      </template>
   </v-toolbar>
 </template>
 
@@ -36,6 +38,18 @@ export default {
       drawer: 'drawer',
       projectId: 'projectId',
     }),
+  },
+
+  watch: {
+    '$route' (to, from) {
+      this.pathName = to.matched[0].name;
+    }
+  },
+
+  data() {
+    return {
+      pathName: '',
+    }
   },
 
   methods: {
@@ -53,6 +67,10 @@ export default {
       this.SET_DRAWER();
     }
   },
+
+  created() {
+    this.pathName = this.$route.matched[0].name;
+  }
 };
 </script>
 
