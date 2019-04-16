@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
   props: {
@@ -57,7 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...projectNamespace.mapActions([
       'ADD_PROJECT',
     ]),
 

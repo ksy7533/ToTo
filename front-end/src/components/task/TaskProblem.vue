@@ -82,9 +82,10 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import ModalTaskProblemAdd from '../modal/ModalTaskProblemAdd';
 import Confirm from '../common/Confirm';
+const taskNamespace = createNamespacedHelpers('taskStore');
 
 export default {
   components: {
@@ -102,13 +103,13 @@ export default {
   },
 
   computed: {
-    ...mapState({
+    ...taskNamespace.mapState({
       tasks: 'tasks',
     }),
   },
 
   methods: {
-    ...mapActions([
+    ...taskNamespace.mapActions([
       'FETCH_PROBLEMS',
       'UPDATE_PROBLEM',
       'DELETE_PROBLEM',

@@ -22,7 +22,7 @@ Vue.use(Router);
 
 const requireAuth = (to, from, next) => {
   const loginPath = `/auth/login?returnPath=${encodeURIComponent(to.path)}`; // login페이지로가서 로그인 한뒤 다시 리다이렉트할 경로를 rPath 쿼리 스트링에 넣어준다. encodeURIComponent는 모든문자를 인코딩해주는 함수이다.
-  store.state.token ? next() : next(loginPath);
+  store.state.userStore.token ? next() : next(loginPath);
 };
 
 export default new Router({

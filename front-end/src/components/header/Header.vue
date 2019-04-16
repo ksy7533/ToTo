@@ -30,14 +30,19 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, mapMutations, createNamespacedHelpers } from 'vuex';
+const projectNamespace = createNamespacedHelpers('projectStore');
+const userNamespace = createNamespacedHelpers('userStore');
 
 export default {
   computed: {
     ...mapState({
       drawer: 'drawer',
-      projectId: 'projectId',
     }),
+    
+    ...projectNamespace.mapState({
+      projectId: 'projectId',
+    })
   },
 
   watch: {
@@ -54,8 +59,11 @@ export default {
 
   methods: {
     ...mapMutations([
-      'LOGOUT',
       'SET_DRAWER',
+    ]),
+
+    ...userNamespace.mapMutations([
+      'LOGOUT',
     ]),
 
     onLogout() {

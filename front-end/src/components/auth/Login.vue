@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const userNamespace = createNamespacedHelpers('userStore');
 
 export default {
   data() {
@@ -39,7 +40,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...userNamespace.mapActions([
       'LOGIN',
     ]),
 

@@ -11,8 +11,6 @@ import concern from './concern';
 
 // production 모드인 경우 port트가 80을 가리켜야 한다.
 
-// const DOMAIN = 'http://localhost:80';  // production
-// const DOMAIN = 'http://localhost:8080'; // devleop
 const DOMAIN = process.env.ROOT_API;
 const UNAUTHORIZED = 401;
 

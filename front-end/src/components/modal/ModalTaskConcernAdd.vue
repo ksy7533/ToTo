@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const taskNamespace = createNamespacedHelpers('taskStore');
 
 export default {
   props: {
@@ -57,7 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...taskNamespace.mapActions([
       'ADD_CONCERN',
     ]),
 

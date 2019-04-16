@@ -143,10 +143,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import ModalTaskTodoAdd from '../modal/ModalTaskTodoAdd';
 import Confirm from '../common/Confirm';
 import moment from 'moment';
+const taskNamespace = createNamespacedHelpers('taskStore');
 
 /**
  * 1. 해당 tasks를 불러와서 첫번째 todo의 id 값을 가져온뒤 state todo에 저장한다.
@@ -168,7 +169,7 @@ export default {
   },
 
   computed: {
-    ...mapState({
+    ...taskNamespace.mapState({
       tasks: 'tasks',
     }),
 
@@ -184,7 +185,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...taskNamespace.mapActions([
       'FETCH_TODOS',
       'UPDATE_TODO',
       'DELETE_TODO',

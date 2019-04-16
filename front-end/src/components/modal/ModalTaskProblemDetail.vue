@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const taskNamespace = createNamespacedHelpers('taskStore');
 
 export default {
   computed: {
@@ -93,7 +94,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...taskNamespace.mapActions([
       'FETCH_PROBLEM',
       'UPDATE_PROBLEM',
     ]),

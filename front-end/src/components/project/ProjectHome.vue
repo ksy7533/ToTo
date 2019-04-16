@@ -65,9 +65,9 @@
 
 <script>
 import Confirm from '../common/Confirm';
-import { mapState, mapActions } from 'vuex';
+import { mapActions, createNamespacedHelpers } from 'vuex';
 import moment from 'moment';
-
+const taskNamespace = createNamespacedHelpers('taskStore');
 const WORK_TYPE_NAME = [{
     type: 'todo',
     name: '할일',
@@ -121,6 +121,9 @@ export default {
   methods: {
     ...mapActions([
       'FETCH_WORKS_INCOMPLETE',
+    ]),
+
+    ...taskNamespace.mapActions([
       'UPDATE_TODO',
       'UPDATE_PROBLEM',
       'UPDATE_CONCERN',

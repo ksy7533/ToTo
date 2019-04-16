@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <aside-menu></aside-menu>
-    <!-- <Header></Header> -->
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -12,10 +11,12 @@
 /**
  * Project에 관련된 이벤트는 해당 콤포넌트에서 작업합니다.
  */
-import { mapMutations } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
 import AsideMenu from '../components/asideMenu/AsideMenu';
 import Confirm from '../components/common/Confirm';
+
+const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
   components: { 
@@ -25,7 +26,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations([
+    ...projectNamespace.mapMutations([
       'SET_PROJECT_ID',
     ]),
   },

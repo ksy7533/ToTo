@@ -121,11 +121,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
   computed: {
-    ...mapState({
+    ...projectNamespace.mapState({
       project: 'project',
     }),
   },
@@ -137,7 +138,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
+    ...projectNamespace.mapActions([
       'FETCH_PROJECT',
     ]),
 

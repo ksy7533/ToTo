@@ -47,13 +47,17 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex';
+import { mapState, createNamespacedHelpers } from 'vuex';
+const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
   computed: {
     ...mapState({
       routes: 'routes',
       drawer: 'drawer',
+    }),
+
+    ...projectNamespace.mapState({
       projectId: 'projectId',
     }),
   },

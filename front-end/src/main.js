@@ -9,9 +9,7 @@ import store from './store';
 
 // import './styles/base.scss';
 
-
 Vue.use(Vuetify);
-
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

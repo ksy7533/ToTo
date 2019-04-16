@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <!-- <Header></Header> -->
     <v-content v-if="projects">
       <v-container grid-list-md fluid style="height:100%">
         <v-layout row wrap align-start justify-start v-if="projects.length">
@@ -79,10 +78,11 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
 import ModalMainAdd from '../components/modal/ModalMainAdd';
 import Confirm from '../components/common/Confirm';
+const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
   components: {
@@ -101,13 +101,13 @@ export default {
   },
 
   computed: {
-    ...mapState({
+    ...projectNamespace.mapState({
       projects: 'projects',
     }),
   },
 
   methods: {
-    ...mapActions([
+    ...projectNamespace.mapActions([
       'FETCH_PROJECTS',
       'DELETE_PROJECT',
     ]),
