@@ -82,10 +82,13 @@ import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
 import ModalMainAdd from '../components/modal/ModalMainAdd';
 import Confirm from '../components/common/Confirm';
+import viewsMixin from '../mixins/viewsMixin.js';
 const userNamespace = createNamespacedHelpers('userStore');
 const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
+  mixins: [viewsMixin],
+
   components: {
     Header,
     ModalMainAdd,
@@ -95,7 +98,7 @@ export default {
   computed: {
     ...userNamespace.mapState({
       user: 'user',
-    })
+    }),
   },
 
   data() {
@@ -104,7 +107,6 @@ export default {
       title: '',
       showModalAdd: false,
       showModalConfirm: false,
-
       projects: [],
     };
   },
@@ -114,18 +116,6 @@ export default {
       'FETCH_PROJECTS',
       'DELETE_PROJECT',
     ]),
-
-    ...userNamespace.mapActions([
-      'FETCH_USER',
-    ]),
-
-    fetchUser() {
-      this.FETCH_USER((result) => {
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-    },
 
     getProjects() {
       this.isLoding = true;
@@ -170,7 +160,6 @@ export default {
 
   created() {
     this.getProjects();
-    this.fetchUser();
   },
 };
 </script>

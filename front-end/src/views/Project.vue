@@ -15,10 +15,13 @@ import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
 import AsideMenu from '../components/asideMenu/AsideMenu';
 import Confirm from '../components/common/Confirm';
+import viewsMixin from '../mixins/viewsMixin.js';
 const userNamespace = createNamespacedHelpers('userStore');
 const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
+  mixins: [viewsMixin],
+
   components: { 
     Header,
     AsideMenu,
@@ -36,10 +39,6 @@ export default {
       'SET_PROJECT_ID',
     ]),
 
-    ...userNamespace.mapActions([
-      'FETCH_USER',
-    ]),
-
     ...projectNamespace.mapActions([
       'FETCH_PROJECT',
     ]),
@@ -49,25 +48,15 @@ export default {
         id: this.$route.params.pid,
       })
         .then(() => {
-          // console.log(this.project);
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     },
-
-    fetchUser() {
-      this.FETCH_USER((result) => {
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-    }
   },
 
   created() {
     this.SET_PROJECT_ID(this.$route.params.pid);
-    this.fetchUser();
     this.getProject();
   },
 };
