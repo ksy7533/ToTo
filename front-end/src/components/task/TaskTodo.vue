@@ -1,7 +1,7 @@
 <template>
   <v-layout fill-height>
     <v-flex>
-      <v-card>
+      <v-card hover>
         <v-toolbar dense dark flat color="blue">
           <v-toolbar-title>오늘할일</v-toolbar-title>
         </v-toolbar>
@@ -52,6 +52,7 @@
             </v-list-tile>
           </template>
         </v-list>
+        
         <v-list v-else>
           <v-list-tile>
             <v-list-tile-title style="text-align:center">등록된 할일이 없습니다.</v-list-tile-title>
@@ -59,7 +60,7 @@
         </v-list>
       </v-card>
 
-      <v-card style="margin-top:20px">
+      <v-card hover style="margin-top:20px">
         <v-toolbar dense dark flat color="secondary lighten-2">
           <v-toolbar-title>지난할일</v-toolbar-title>
         </v-toolbar>

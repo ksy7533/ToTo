@@ -18,14 +18,14 @@
     <v-spacer></v-spacer>
 
     <v-btn
-      color="primary"
+      color="secondary"
       @click="onLogout"
       v-if="user"
     >
       <span class="font-weight-bold" style="margin-right:5px">{{ user.nick }}</span>님
     </v-btn>
-    <v-btn color="primary" ripple to="/">
-      대시보드
+    <v-btn fab small flat ripple to="/">
+      <v-icon>dashboard</v-icon>
     </v-btn>
   </v-toolbar>
 </template>

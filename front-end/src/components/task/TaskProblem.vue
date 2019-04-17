@@ -1,7 +1,7 @@
 <template>
   <v-layout fill-height v-if="tasks">
     <v-flex>
-      <v-card>
+      <v-card hover>
         <v-toolbar dense dark flat color="pink">
           <v-toolbar-title>문제점</v-toolbar-title>
         </v-toolbar>
