@@ -3,15 +3,11 @@ import * as api from '../../api';
 export default {
   namespaced: true,
   state: {
-    projects: [], // 모든 project
     project: null, // 현재 선택된 project
     projectId: '', // 현재 선택된 project id
   },
 
   mutations: {
-    SET_PROJECTS(state, projects) {
-      state.projects = projects;
-    },
     SET_PROJECT(state, project) {
       state.project = project;
     },
@@ -21,11 +17,8 @@ export default {
   },
 
   actions: {
-    FETCH_PROJECTS({ commit }) {
-      return api.project.fetchAll()
-        .then((data) => {
-          commit('SET_PROJECTS', data.result);
-        });
+    FETCH_PROJECTS() {
+      return api.project.fetchAll();
     },
     FETCH_PROJECT({ commit }, { id }) {
       return api.project.fetchOne(id)

@@ -13,8 +13,8 @@
                 keyboard_arrow_left
               </v-icon>
             </v-btn>
-            <v-btn color="primary" class="white--text" @click="goToday">
-              오늘로 이동
+            <v-btn color="" @click="goToday">
+              Today
             </v-btn>
             <v-btn color="white" @click="$refs.calendar.next()">
               <v-icon

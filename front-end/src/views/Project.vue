@@ -15,7 +15,7 @@ import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
 import AsideMenu from '../components/asideMenu/AsideMenu';
 import Confirm from '../components/common/Confirm';
-
+const userNamespace = createNamespacedHelpers('userStore');
 const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
@@ -25,14 +25,50 @@ export default {
     Confirm,
   },
 
+  computed: {
+    ...userNamespace.mapState({
+      user: 'user',
+    })
+  },
+
   methods: {
     ...projectNamespace.mapMutations([
       'SET_PROJECT_ID',
     ]),
+
+    ...userNamespace.mapActions([
+      'FETCH_USER',
+    ]),
+
+    ...projectNamespace.mapActions([
+      'FETCH_PROJECT',
+    ]),
+
+    getProject() {
+      this.FETCH_PROJECT({
+        id: this.$route.params.pid,
+      })
+        .then(() => {
+          // console.log(this.project);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    },
+
+    fetchUser() {
+      this.FETCH_USER((result) => {
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    }
   },
 
   created() {
     this.SET_PROJECT_ID(this.$route.params.pid);
+    this.fetchUser();
+    this.getProject();
   },
 };
 </script>

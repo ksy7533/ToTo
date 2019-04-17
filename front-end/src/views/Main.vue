@@ -82,6 +82,7 @@ import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
 import ModalMainAdd from '../components/modal/ModalMainAdd';
 import Confirm from '../components/common/Confirm';
+const userNamespace = createNamespacedHelpers('userStore');
 const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
@@ -91,19 +92,21 @@ export default {
     Confirm,
   },
 
+  computed: {
+    ...userNamespace.mapState({
+      user: 'user',
+    })
+  },
+
   data() {
     return {
       isLoding: false,
       title: '',
       showModalAdd: false,
       showModalConfirm: false,
-    };
-  },
 
-  computed: {
-    ...projectNamespace.mapState({
-      projects: 'projects',
-    }),
+      projects: [],
+    };
   },
 
   methods: {
@@ -112,10 +115,23 @@ export default {
       'DELETE_PROJECT',
     ]),
 
+    ...userNamespace.mapActions([
+      'FETCH_USER',
+    ]),
+
+    fetchUser() {
+      this.FETCH_USER((result) => {
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    },
+
     getProjects() {
       this.isLoding = true;
       this.FETCH_PROJECTS()
-        .then((result) => {
+        .then(({ result }) => {
+          this.projects = result;
         })
         .catch((err) => {
           console.log(err);
@@ -154,6 +170,7 @@ export default {
 
   created() {
     this.getProjects();
+    this.fetchUser();
   },
 };
 </script>

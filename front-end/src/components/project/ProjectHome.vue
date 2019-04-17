@@ -96,6 +96,12 @@ export default {
     }
   },
 
+  watch: {
+    '$route' (to, from) {
+      this.getIncompleteWorks();
+    }
+  },
+
   data() {
     return {
       incompletedItems: [], // 미완료된 할일

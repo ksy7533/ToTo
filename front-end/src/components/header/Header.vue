@@ -7,37 +7,31 @@
     clipped-left
     height="64"
   >
-    <v-toolbar-title class="mr-5">
-      <v-toolbar-side-icon @click.stop="onDrawer" v-if="pathName === 'project'"></v-toolbar-side-icon>
-      <v-toolbar-side-icon v-else>
-        <v-icon>web</v-icon>
-      </v-toolbar-side-icon>
-      <span>Today TodoList</span>
+    <v-toolbar-side-icon @click.stop="onDrawer" v-if="pathName === 'project'"></v-toolbar-side-icon>
+    <v-toolbar-side-icon v-else>
+      <v-icon>web</v-icon>
+    </v-toolbar-side-icon>
+    <v-toolbar-title style="margin-left:10px">
+      Today TodoList
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
-    <template v-if="pathName !== 'auth'">
-      <v-btn
-        flat
-        v-if="user"
-      >
-        <v-icon style="margin-right:10px">account_circle</v-icon>
-        {{ user.nick }} 님
-      </v-btn>
-      <v-btn
-        color="secondary"
-        @click="onLogout"
-      >
-        로그아웃
-      </v-btn>
-    </template>
+    <v-btn
+      color="primary"
+      @click="onLogout"
+      v-if="user"
+    >
+      <span class="font-weight-bold" style="margin-right:5px">{{ user.nick }}</span>님
+    </v-btn>
+    <v-btn color="primary" ripple to="/">
+      대시보드
+    </v-btn>
   </v-toolbar>
 </template>
 
 <script>
 import { mapState, mapMutations, createNamespacedHelpers } from 'vuex';
-const projectNamespace = createNamespacedHelpers('projectStore');
 const userNamespace = createNamespacedHelpers('userStore');
 
 export default {
@@ -49,10 +43,6 @@ export default {
     ...userNamespace.mapState({
       user: 'user',
     }),
-    
-    ...projectNamespace.mapState({
-      projectId: 'projectId',
-    })
   },
 
   watch: {
@@ -83,17 +73,12 @@ export default {
 
     onDrawer(){
       this.SET_DRAWER();
-    }
+    },
   },
 
   created() {
     this.pathName = this.$route.matched[0].name;
-    console.log(this.user)
   },
-
-  mounted() {
-    console.log(this.user)
-  }
 };
 </script>
 

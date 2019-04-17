@@ -5,7 +5,16 @@
     fixed
     app
   >
-    <v-list>
+    <v-toolbar flat>
+      <v-toolbar-title v-if="project">
+        {{project.title}}
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+
+    <v-divider></v-divider>
+
+    <v-list style="padding:0">
       <template v-for="(depth1, indexDepth1) in this.routes">
         <v-list-tile
           v-if="!depth1.items.length"
@@ -59,6 +68,7 @@ export default {
 
     ...projectNamespace.mapState({
       projectId: 'projectId',
+      project: 'project',
     }),
   },
 

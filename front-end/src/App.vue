@@ -8,9 +8,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
 import Header from './components/header/Header';
-const userNamespace = createNamespacedHelpers('userStore');
 
 export default {
   name: 'App',
@@ -18,30 +16,6 @@ export default {
   components: {
     Header,
   },
-
-  computed: {
-    ...userNamespace.mapState({
-      user: 'user',
-    })
-  },
-
-  methods: {
-    ...userNamespace.mapActions([
-      'FETCH_USER',
-    ]),
-
-    fetchUser() {
-      this.FETCH_USER((result) => {
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-    }
-  },
-
-  created() {
-    this.fetchUser();
-  }
 };
 </script>
 
