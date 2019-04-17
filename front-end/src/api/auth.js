@@ -30,5 +30,12 @@ export default {
       },
     });
   },
+
+  fetchUser() {
+    return request({
+      method: 'get',
+      url: '/auth',
+    });
+  },
 };
 

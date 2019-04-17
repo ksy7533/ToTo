@@ -18,12 +18,18 @@
     <v-spacer></v-spacer>
 
     <template v-if="pathName !== 'auth'">
-      <v-btn flat @click="onLogout">로그아웃</v-btn>
       <v-btn
-        icon
-        to="/"
+        flat
+        v-if="user"
       >
-        <v-icon>dashboard</v-icon>
+        <v-icon style="margin-right:10px">account_circle</v-icon>
+        {{ user.nick }} 님
+      </v-btn>
+      <v-btn
+        color="secondary"
+        @click="onLogout"
+      >
+        로그아웃
       </v-btn>
     </template>
   </v-toolbar>
@@ -38,6 +44,10 @@ export default {
   computed: {
     ...mapState({
       drawer: 'drawer',
+    }),
+
+    ...userNamespace.mapState({
+      user: 'user',
     }),
     
     ...projectNamespace.mapState({
@@ -78,6 +88,11 @@ export default {
 
   created() {
     this.pathName = this.$route.matched[0].name;
+    console.log(this.user)
+  },
+
+  mounted() {
+    console.log(this.user)
   }
 };
 </script>

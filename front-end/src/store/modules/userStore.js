@@ -3,7 +3,8 @@ import * as api from '../../api';
 export default {
   namespaced: true,
   state: {
-    toekn: null, // 유저 토큰 정보
+    token: null, // 유저 토큰 정보
+    user: null, // 유저 정보
   },
 
   mutations: {
@@ -18,6 +19,9 @@ export default {
       delete localStorage.token;
       api.setAuthInHeader(null);
     },
+    SET_USER(state, user) {
+      state.user = user;
+    },
   },
 
   actions: {
@@ -29,6 +33,12 @@ export default {
     },
     JOIN(_, { email, password, nick }) {
       return api.auth.join(email, password, nick);
+    },
+    FETCH_USER({ commit }) {
+      return api.auth.fetchUser()
+        .then(({ result }) => {
+          commit('SET_USER', result);
+        });
     },
   },
 };

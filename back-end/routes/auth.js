@@ -4,8 +4,28 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const { User } = require('../models');
+const { ensureAuth } = require('./middlewares');
 
 const expiresIn = 1 * 24 * 3600; // 토큰의 유효기간 = 1일
+
+/*
+ * 유저정보 가져오기
+ */
+router.get('/', ensureAuth(), async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.user.id,
+      },
+    });
+    return res.status(200).json({
+      result: user,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 
 /*
  * 회원가입 하기
