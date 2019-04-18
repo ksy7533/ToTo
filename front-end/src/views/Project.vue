@@ -28,10 +28,6 @@ export default {
   },
 
   methods: {
-    ...projectNamespace.mapMutations([
-      'SET_PROJECT_ID',
-    ]),
-
     ...projectNamespace.mapActions([
       'FETCH_PROJECT',
     ]),
@@ -53,7 +49,6 @@ export default {
   },
 
   created() {
-    this.SET_PROJECT_ID(this.$route.params.pid);
     this.getProject();
   },
 };

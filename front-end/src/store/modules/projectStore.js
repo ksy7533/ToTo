@@ -4,16 +4,12 @@ export default {
   namespaced: true,
   state: {
     project: null, // 현재 선택된 project
-    projectId: '', // 현재 선택된 project id
     projects: [],
   },
 
   mutations: {
     SET_PROJECT(state, project) {
       state.project = project;
-    },
-    SET_PROJECT_ID(state, id) {
-      state.projectId = id;
     },
     SET_PROJECTS(state, projects) {
       state.projects = projects;

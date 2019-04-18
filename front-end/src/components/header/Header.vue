@@ -13,25 +13,63 @@
     <v-toolbar-side-icon v-else>
       <v-icon>web</v-icon>
     </v-toolbar-side-icon>
-    <v-toolbar-title style="margin-left:10px">
+    <v-toolbar-title style="margin-left:10px" class="font-weight-bold">
       Today TodoList
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
 
     <template v-if="pathName !== 'auth'">
-      <v-btn
-        color="secondary"
-        @click="onLogout"
-        v-if="user"
-      >
-        <span class="font-weight-bold" style="margin-right:5px">{{ user.nick }}</span>님
-      </v-btn>
-      <v-btn fab small flat ripple to="/">
-        <v-icon>dashboard</v-icon>
-      </v-btn>
+      <v-menu offset-y v-model="menu">
+        <template v-slot:activator="{ on }">
+          <v-btn
+            dark
+            icon
+            v-on="on"
+            @click="getProjects"
+          >
+            <v-icon>dashboard</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list style="width:200px">
+          <v-list-tile to="/">
+            <v-icon style="margin-right:7px">view_module</v-icon>
+            <v-list-tile-title>대시보드</v-list-tile-title>
+          </v-list-tile>
+
+          <v-divider></v-divider>
+
+          <v-list-tile
+            v-for="(item, index) in projects"
+            :key="`${item.title}-${index}`"
+            @click="goProject(item.id)"
+            >
+            <v-icon style="margin-right:7px">view_list</v-icon>
+            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            dark
+            icon
+            v-on="on"
+          >
+            <v-icon>person</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list style="width:200px">
+          <v-list-tile @click="onLogout">
+            <v-list-tile-title>로그아웃</v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </template>
-    
+
     <v-progress-linear
       slot="extension"
       :indeterminate="isLoading"
@@ -46,6 +84,7 @@
 <script>
 import { mapState, mapMutations, createNamespacedHelpers } from 'vuex';
 const userNamespace = createNamespacedHelpers('userStore');
+const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
   computed: {
@@ -56,6 +95,10 @@ export default {
 
     ...userNamespace.mapState({
       user: 'user',
+    }),
+
+    ...projectNamespace.mapState({
+      projects: 'projects',
     }),
   },
 
@@ -68,6 +111,7 @@ export default {
   data() {
     return {
       pathName: '',
+      menu: false,
     }
   },
 
@@ -79,6 +123,35 @@ export default {
     ...userNamespace.mapMutations([
       'LOGOUT',
     ]),
+
+    ...projectNamespace.mapActions([
+      'FETCH_PROJECTS',
+      'FETCH_PROJECT',
+    ]),
+
+    getProjects() {
+      if(this.menu) return;
+      this.FETCH_PROJECTS()
+      .then(() => {
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+      });
+    },
+
+    goProject(pid) {
+      this.FETCH_PROJECT({
+        id: pid,
+      })
+        .then(() => {
+          this.$router.push(`/project/${pid}/home`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
     onLogout() {
       this.LOGOUT();

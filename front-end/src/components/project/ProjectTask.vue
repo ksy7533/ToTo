@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-container fluid>
+    <v-container fluid style="padding-bottom:60px">
       <transition name="fade" mode="out-in">
         <router-view></router-view>
       </transition>

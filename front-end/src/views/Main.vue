@@ -1,7 +1,7 @@
 <template>
   <v-app v-if="!isLoading">
     <v-content v-if="projects">
-      <v-container grid-list-md fluid style="height:100%">
+      <v-container grid-list-md fluid style="height:100%;padding-bottom:60px">
         <v-layout row wrap align-start justify-start v-if="projects.length">
           <v-flex
             v-for="(item, index) in projects"

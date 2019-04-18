@@ -32,13 +32,13 @@ export default {
     UPDATE_TODO({ dispatch, rootState }, { id, payload }) {
       return api.todo.update(id, payload)
         .then(() => {
-          dispatch('FETCH_TODOS', { pid: rootState.projectStore.projectId });
+          dispatch('FETCH_TODOS', { pid: rootState.projectStore.project.id });
         });
     },
     DELETE_TODO({ dispatch, rootState }, { id }) {
       return api.todo.delete(id)
         .then(() => {
-          dispatch('FETCH_TODOS', { pid: rootState.projectStore.projectId });
+          dispatch('FETCH_TODOS', { pid: rootState.projectStore.project.id });
         });
     },
     FETCH_PROBLEMS({ commit }, { pid }) {
@@ -60,13 +60,13 @@ export default {
     UPDATE_PROBLEM({ dispatch, rootState }, { id, payload }) {
       return api.problem.update(id, payload)
         .then(() => {
-          dispatch('FETCH_PROBLEMS', { pid: rootState.projectStore.projectId });
+          dispatch('FETCH_PROBLEMS', { pid: rootState.projectStore.project.id });
         });
     },
     DELETE_PROBLEM({ dispatch, rootState }, { id }) {
       return api.problem.delete(id)
         .then(() => {
-          dispatch('FETCH_PROBLEMS', { pid: rootState.projectStore.projectId });
+          dispatch('FETCH_PROBLEMS', { pid: rootState.projectStore.project.id });
         });
     },
     FETCH_CONCERNS({ commit }, { pid }) {
@@ -88,13 +88,13 @@ export default {
     UPDATE_CONCERN({ dispatch, rootState }, { id, payload }) {
       return api.concern.update(id, payload)
         .then(() => {
-          dispatch('FETCH_CONCERNS', { pid: rootState.projectStore.projectId });
+          dispatch('FETCH_CONCERNS', { pid: rootState.projectStore.project.id });
         });
     },
     DELETE_CONCERN({ dispatch, rootState }, { id }) {
       return api.concern.delete(id)
         .then(() => {
-          dispatch('FETCH_CONCERNS', { pid: rootState.projectStore.projectId });
+          dispatch('FETCH_CONCERNS', { pid: rootState.projectStore.project.id });
         });
     },
   },

@@ -19,7 +19,7 @@
         <v-list-tile
           v-if="!depth1.items.length"
           :key="indexDepth1"
-          :to="`/project/${projectId}/${depth1.name}`"
+          :to="`/project/${project.id}/${depth1.name}`"
         >
           <v-list-tile-action>
             <v-icon>{{depth1.icon}}</v-icon>
@@ -42,7 +42,7 @@
           <v-list-tile
             v-for="(depth2, index) in depth1.items"
             :key="index"
-            :to="`/project/${projectId}/${depth1.name}/${depth2.name}`"
+            :to="`/project/${project.id}/${depth1.name}/${depth2.name}`"
           >
             <v-list-tile-action>
               <v-icon>{{depth2.icon}}</v-icon>
@@ -67,7 +67,6 @@ export default {
     }),
 
     ...projectNamespace.mapState({
-      projectId: 'projectId',
       project: 'project',
     }),
   },
