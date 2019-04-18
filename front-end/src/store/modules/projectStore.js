@@ -5,6 +5,7 @@ export default {
   state: {
     project: null, // 현재 선택된 project
     projectId: '', // 현재 선택된 project id
+    projects: [],
   },
 
   mutations: {
@@ -14,11 +15,17 @@ export default {
     SET_PROJECT_ID(state, id) {
       state.projectId = id;
     },
+    SET_PROJECTS(state, projects) {
+      state.projects = projects;
+    },
   },
 
   actions: {
-    FETCH_PROJECTS() {
-      return api.project.fetchAll();
+    FETCH_PROJECTS({ commit }) {
+      return api.project.fetchAll()
+        .then((data) => {
+          commit('SET_PROJECTS', data.result);
+        });
     },
     FETCH_PROJECT({ commit }, { id }) {
       return api.project.fetchOne(id)

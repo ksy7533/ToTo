@@ -37,8 +37,8 @@ router.post('/join', async (req, res, next) => {
       where: {email}
     });
     if(exUser){
-      return res.status(401).json({
-        error : '이미존재한다',
+      return res.status(400).json({
+        message : '해당 이메일이 존재합니다',
       });
     };
     const hash = await bcrypt.hash(password, 12);
@@ -62,9 +62,9 @@ router.post('/join', async (req, res, next) => {
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {session: false}, (err, user, info) => {
     if (err || !user) {
-      let message = info ? info.message : 'Login failed';
-      return res.status(401).json({
-        error: message,
+      let message = info ? info.message : '로그인이 실패하였습니다';
+      return res.status(400).json({
+        message,
       });
     }
 

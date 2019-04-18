@@ -2,6 +2,7 @@
   <v-card class="elevation-12" >
     <v-toolbar dark color="primary">
       <v-toolbar-title>로그인</v-toolbar-title>
+      <v-toolbar-title class="red--text" v-if="message">{{message}}</v-toolbar-title>
     </v-toolbar>
 
     <v-card-text>
@@ -28,7 +29,7 @@ export default {
     return {
       email: '',
       password: '',
-      error: '',
+      message: '',
       rPath: '',
     };
   },
@@ -54,8 +55,8 @@ export default {
         .then(() => {
           this.$router.push(this.rPath);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          this.message = error.data.message;
         })
         .finally(() => {
           this.TOGGLE_IS_LOADING(false);

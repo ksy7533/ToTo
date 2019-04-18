@@ -125,7 +125,6 @@ export default {
 
   created() {
     this.getTask();
-    console.log(this.$router)
   },
 
   mounted() {

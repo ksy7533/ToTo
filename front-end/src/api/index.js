@@ -18,7 +18,7 @@ const onUnauthorized = () => {
   router.push(`/auth/login?returnPath=${encodeURIComponent(location.pathname)}`);
 };
 
-const request = (options) =>
+const request = (options) => 
   axios({
     method: options.method,
     url: DOMAIN + options.url,
@@ -31,7 +31,7 @@ const request = (options) =>
     .catch(({ response }) => {
       const { status } = response;
       if (status === UNAUTHORIZED) return onUnauthorized();
-      throw Error(response);
+      return Promise.reject(response);
     });
 
 const setAuthInHeader = (token) => {

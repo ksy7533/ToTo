@@ -94,12 +94,17 @@ export default {
     Confirm,
   },
 
+  computed: {
+    ...projectNamespace.mapState({
+      projects: 'projects',
+    })
+  },
+
   data() {
     return {
       title: '',
       showModalAdd: false,
       showModalConfirm: false,
-      projects: [],
     };
   },
 
@@ -112,8 +117,7 @@ export default {
     getProjects() {
       this.TOGGLE_IS_LOADING(true);
       this.FETCH_PROJECTS()
-        .then(({ result }) => {
-          this.projects = result;
+        .then(() => {
         })
         .catch((err) => {
           console.log(err);

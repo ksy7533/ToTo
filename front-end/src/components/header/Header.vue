@@ -19,16 +19,19 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn
-      color="secondary"
-      @click="onLogout"
-      v-if="user"
-    >
-      <span class="font-weight-bold" style="margin-right:5px">{{ user.nick }}</span>님
-    </v-btn>
-    <v-btn fab small flat ripple to="/">
-      <v-icon>dashboard</v-icon>
-    </v-btn>
+    <template v-if="pathName !== 'auth'">
+      <v-btn
+        color="secondary"
+        @click="onLogout"
+        v-if="user"
+      >
+        <span class="font-weight-bold" style="margin-right:5px">{{ user.nick }}</span>님
+      </v-btn>
+      <v-btn fab small flat ripple to="/">
+        <v-icon>dashboard</v-icon>
+      </v-btn>
+    </template>
+    
     <v-progress-linear
       slot="extension"
       :indeterminate="isLoading"
