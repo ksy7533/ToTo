@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="!isLoading">
     <v-content v-if="projects">
       <v-container grid-list-md fluid style="height:100%">
         <v-layout row wrap align-start justify-start v-if="projects.length">
@@ -96,7 +96,6 @@ export default {
 
   data() {
     return {
-      isLoding: false,
       title: '',
       showModalAdd: false,
       showModalConfirm: false,
@@ -111,7 +110,7 @@ export default {
     ]),
 
     getProjects() {
-      this.isLoding = true;
+      this.TOGGLE_IS_LOADING(true);
       this.FETCH_PROJECTS()
         .then(({ result }) => {
           this.projects = result;
@@ -120,7 +119,7 @@ export default {
           console.log(err);
         })
         .finally(() => {
-          this.isLoding = false;
+          this.TOGGLE_IS_LOADING(false);
         });
     },
 

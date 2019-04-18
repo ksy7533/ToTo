@@ -6,6 +6,8 @@
     fixed
     clipped-left
     height="64"
+    extended
+    :extension-height="4"
   >
     <v-toolbar-side-icon @click.stop="onDrawer" v-if="pathName === 'project'"></v-toolbar-side-icon>
     <v-toolbar-side-icon v-else>
@@ -27,6 +29,14 @@
     <v-btn fab small flat ripple to="/">
       <v-icon>dashboard</v-icon>
     </v-btn>
+    <v-progress-linear
+      slot="extension"
+      :indeterminate="isLoading"
+      class="ma-0"
+      color="accent"
+      :height="4"
+      >
+    </v-progress-linear>
   </v-toolbar>
 </template>
 
@@ -38,6 +48,7 @@ export default {
   computed: {
     ...mapState({
       drawer: 'drawer',
+      isLoading: 'isLoading',
     }),
 
     ...userNamespace.mapState({
@@ -83,4 +94,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/deep/ .v-toolbar__extension {
+  padding: 0;
+}
 </style>

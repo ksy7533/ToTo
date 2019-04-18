@@ -1,5 +1,6 @@
 const state = {
   drawer: true, // drawer 열림여부
+  isLoading: false, // loading 여부
   routes: [ // route 목록, depth : 1(gnb), depth: 2(lnb)
     {
       name: 'home',

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-if="!isLoading">
     <aside-menu></aside-menu>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
@@ -37,6 +37,7 @@ export default {
     ]),
 
     getProject() {
+      this.TOGGLE_IS_LOADING(true);
       this.FETCH_PROJECT({
         id: this.$route.params.pid,
       })
@@ -44,6 +45,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.TOGGLE_IS_LOADING(false);
         });
     },
   },

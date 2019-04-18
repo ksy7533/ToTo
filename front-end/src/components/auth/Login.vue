@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { mapMutations, createNamespacedHelpers } from 'vuex';
 const userNamespace = createNamespacedHelpers('userStore');
 
 export default {
@@ -40,17 +40,25 @@ export default {
   },
 
   methods: {
+    ...mapMutations([
+      'TOGGLE_IS_LOADING',
+    ]),
+
     ...userNamespace.mapActions([
       'LOGIN',
     ]),
 
     onSubmit() {
+      this.TOGGLE_IS_LOADING(true);
       this.LOGIN({ email: this.email, password: this.password })
         .then(() => {
           this.$router.push(this.rPath);
         })
         .catch((err) => {
           console.log(err);
+        })
+        .finally(() => {
+          this.TOGGLE_IS_LOADING(false);
         });
     },
 

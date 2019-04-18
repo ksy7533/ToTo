@@ -6,6 +6,9 @@ const mutations = {
       state.drawer = true;
     }
   },
+  TOGGLE_IS_LOADING(state, isLoading) {
+    state.isLoading = isLoading;
+  },
 };
 
 export default mutations;
