@@ -7,8 +7,6 @@ import App from './App';
 import router from './router';
 import store from './store';
 
-// import './styles/base.scss';
-
 Vue.use(Vuetify);
 Vue.config.productionTip = false;
 

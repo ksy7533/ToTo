@@ -16,7 +16,6 @@ import Header from '../components/header/Header';
 import AsideMenu from '../components/asideMenu/AsideMenu';
 import Confirm from '../components/common/Confirm';
 import viewsMixin from '../mixins/viewsMixin.js';
-const userNamespace = createNamespacedHelpers('userStore');
 const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
@@ -26,12 +25,6 @@ export default {
     Header,
     AsideMenu,
     Confirm,
-  },
-
-  computed: {
-    ...userNamespace.mapState({
-      user: 'user',
-    })
   },
 
   methods: {
