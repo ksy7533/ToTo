@@ -13,13 +13,17 @@
     <v-toolbar-side-icon v-else>
       <v-icon>web</v-icon>
     </v-toolbar-side-icon>
-    <v-toolbar-title style="margin-left:10px" class="font-weight-bold">
+    <v-toolbar-title style="margin-left:10px">
       Today TodoList
     </v-toolbar-title>
-
+    
     <v-spacer></v-spacer>
 
     <template v-if="pathName !== 'auth'">
+      <search></search>
+
+      <v-spacer></v-spacer>
+      
       <v-menu offset-y v-model="menu">
         <template v-slot:activator="{ on }">
           <v-btn
@@ -82,11 +86,16 @@
 </template>
 
 <script>
-import { mapState, mapMutations, createNamespacedHelpers } from 'vuex';
+import { mapState, mapMutations, mapActions, createNamespacedHelpers } from 'vuex';
+import Search from './Search';
 const userNamespace = createNamespacedHelpers('userStore');
 const projectNamespace = createNamespacedHelpers('projectStore');
 
 export default {
+  components: {
+    Search,
+  },
+
   computed: {
     ...mapState({
       drawer: 'drawer',

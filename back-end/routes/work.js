@@ -5,6 +5,53 @@ const { ensureAuth } = require('./middlewares');
 const Moment = require('moment');
 
 /*
+ * 업무 검색하기
+ */
+router.get('/search', ensureAuth(), async (req, res, next) => {
+  const keyword = req.query.keyword;
+  try {
+    const todos = await Todo.findAll({
+      where: {
+        title: {
+          [Sequelize.Op.like]: '%' + keyword + '%',
+        }
+      },
+      raw: true,
+    });
+    todos.map(item => item.type='todo');
+
+    const problems = await Problem.findAll({
+      where: {
+        title: {
+          [Sequelize.Op.like]: '%' + keyword + '%',
+        }
+      },
+      raw: true,
+    });
+    problems.map(item => item.type='problem');
+
+    const concerns = await Concern.findAll({
+      where: {
+        title: {
+          [Sequelize.Op.like]: '%' + keyword + '%',
+        }
+      },
+      raw: true,
+    });
+    concerns.map(item => item.type='concern');
+
+    const works = todos.concat(problems, concerns);
+    console.log(works)
+    return res.status(200).json({
+      result: works,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+/*
  * 해당하는 기간의 모든 업무 리스트 목록 가져오기
  */
 router.get('/:pid/calendar', ensureAuth(), async (req, res, next) => {

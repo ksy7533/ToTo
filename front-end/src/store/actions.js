@@ -10,6 +10,11 @@ const actions = {
     return api.work.fetchIncomplete(pid)
       .then(data => data.result);
   },
+
+  SEARCH_KEYWORD(_, { keyword }) {
+    return api.work.searchKeyword(keyword)
+      .then(data => data.result);
+  },
 };
 
 export default actions;

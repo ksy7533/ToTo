@@ -23,7 +23,7 @@
           type="password"
           v-model.trim="password"></v-text-field>
         <v-text-field
-        :rules="[rules.required]"
+          :rules="[rules.required]"
           prepend-icon="person"
           name="Nickname"
           label="Nickname"

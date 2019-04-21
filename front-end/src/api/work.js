@@ -15,4 +15,14 @@ export default {
       url: `/works/${pid}/incomplete`,
     });
   },
+
+  searchKeyword(keyword) {
+    return request({
+      method: 'get',
+      url: '/works/search',
+      params: {
+        keyword,
+      },
+    });
+  },
 };

@@ -67,7 +67,7 @@ export default {
   watch: {
     showModal (val) {
       if(!val) {
-        this.$router.push({ name: this.prevRouteName });
+        this.$router.push({ name: 'todo' });
       }
     }
   },
@@ -78,12 +78,6 @@ export default {
       form: null,
       prevRouteName: '',
     };
-  },
-
-  beforeRouteEnter (to, from, next) {
-    next(vm => {
-      vm.prevRouteName = from.name;
-    });
   },
 
   methods: {
@@ -119,7 +113,7 @@ export default {
 
     close() {
       this.showModal = false;
-      return this.$router.push({ name: this.prevRouteName });
+      this.$router.push({ name: 'todo' });
     }
   },
 
