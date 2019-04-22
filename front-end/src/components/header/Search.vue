@@ -72,7 +72,6 @@ export default {
     ]),
 
     goWork(item) {
-      console.log(item);
       this.search = '';
       this.items= [];
       this.$router.push(`/project/${item.projectId}/task/${item.type}/${item.id}`);
