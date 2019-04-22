@@ -18,7 +18,11 @@
           :key="`${item.title}-${index}`"
           @click="goWork(item)"
         >
-          <v-list-tile-title>{{item.title}} - {{item.type}}</v-list-tile-title>
+          <span v-workType="item.type"></span>
+          <v-list-tile-content style="margin-left:15px">
+            <v-list-tile-title>{{item.title}}</v-list-tile-title>
+            <v-list-tile-sub-title>{{item.regDate}}</v-list-tile-sub-title>
+          </v-list-tile-content>
         </v-list-tile>
       </v-list>
 
@@ -68,6 +72,7 @@ export default {
     ]),
 
     goWork(item) {
+      console.log(item);
       this.search = '';
       this.items= [];
       this.$router.push(`/project/${item.projectId}/task/${item.type}/${item.id}`);

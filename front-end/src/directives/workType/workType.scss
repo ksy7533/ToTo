@@ -1,0 +1,23 @@
+.type {
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50%;
+
+  &.todo {
+    background-color: #1976d2;
+  }
+
+  &.problem {
+    background-color: #e91e63;
+  }
+
+  &.concern {
+    background-color: #9c27b0;
+  }
+}

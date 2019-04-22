@@ -16,7 +16,7 @@
               :headers="todayIncompletedHeaders"
             >
               <template v-slot:items="props">
-                <td>{{ props.item.type }}</td>
+                <td v-workType="props.item.type"></td>
                 <td>{{ props.item.title }}</td>
                 <td>
                   <span class="red--text" v-if="props.item.priority">급함</span>
@@ -43,7 +43,7 @@
               :headers="pastIncompletedHeaders"
             >
               <template v-slot:items="props">
-                <td>{{ props.item.type }}</td>
+                <td v-workType="props.item.type"></td>
                 <td>{{ props.item.title }}</td>
                 <td>
                   <span class="red--text" v-if="props.item.priority">급함</span>
