@@ -33,7 +33,7 @@
                   <v-flex ml-3>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
-                        <v-btn fab small v-on="on" @click="onDelete(item.id)">
+                        <v-btn fab small v-on="on" @click.prevent="onDelete(item.id)">
                           <v-icon>delete</v-icon>
                         </v-btn>
                       </template>
@@ -84,7 +84,7 @@
                   <v-flex ml-3>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
-                        <v-btn fab small v-on="on" @click="onDelete(item.id)">
+                        <v-btn fab small v-on="on" @click.prevent="onDelete(item.id)">
                           <v-icon>delete</v-icon>
                         </v-btn>
                       </template>
