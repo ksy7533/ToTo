@@ -14,9 +14,11 @@
             <v-list-tile
               :key="item.createdAt"
               :class="{completed: item.completed}"
+              :to="{name: 'concernDetail', params: {cid: item.id}}"
             >
               <v-list-tile-action>
-                <v-checkbox :disabled="isUpdating" :input-value="item.completed" @change="onCheckBox(item.id, $event)"></v-checkbox>
+                <v-icon v-if="item.completed">check_box</v-icon>
+                <v-icon v-else>check_box_outline_blank</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title v-html="item.title"></v-list-tile-title>
@@ -24,16 +26,6 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-layout>
-                  <v-flex ml-3>
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn color="purple" fab small dark v-on="on" :to="{name: 'concernDetail', params: {cid: item.id}}">
-                          <v-icon>edit</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>상세보기</span>
-                    </v-tooltip>
-                  </v-flex>
                   <v-flex ml-3>
                     <v-tooltip bottom>
                       <template v-slot:activator="{ on }">
