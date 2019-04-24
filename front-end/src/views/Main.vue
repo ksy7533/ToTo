@@ -76,9 +76,10 @@
       <v-icon>add</v-icon>
     </v-btn>
 
-    <modal-main-add
+    <modal-add
       v-model="showModalAdd"
-    ></modal-main-add>
+      :workType="'project'"
+    ></modal-add>
 
     <confirm ref="confirm"></confirm>
     
@@ -88,7 +89,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import Header from '../components/header/Header';
-import ModalMainAdd from '../components/modal/ModalMainAdd';
+import ModalAdd from '../components/modal/ModalAdd';
 import Confirm from '../components/common/Confirm';
 import viewsMixin from '../mixins/viewsMixin.js';
 const projectNamespace = createNamespacedHelpers('projectStore');
@@ -98,7 +99,7 @@ export default {
 
   components: {
     Header,
-    ModalMainAdd,
+    ModalAdd,
     Confirm,
   },
 

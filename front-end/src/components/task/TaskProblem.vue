@@ -61,9 +61,10 @@
       <v-icon>add</v-icon>
     </v-btn>
 
-    <modal-task-problem-add
+    <modal-add
       v-model="showModalAdd"
-    ></modal-task-problem-add>
+      :workType="'problem'"
+    ></modal-add>
 
     <confirm ref="confirm"></confirm>
 
@@ -75,13 +76,13 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import ModalTaskProblemAdd from '../modal/ModalTaskProblemAdd';
+import ModalAdd from '../modal/ModalAdd';
 import Confirm from '../common/Confirm';
 const taskNamespace = createNamespacedHelpers('taskStore');
 
 export default {
   components: {
-    ModalTaskProblemAdd,
+    ModalAdd,
     Confirm,
   },
 

@@ -116,9 +116,10 @@
       <v-icon>add</v-icon>
     </v-btn>
 
-    <modal-task-todo-add
+    <modal-add
       v-model="showModalAdd"
-    ></modal-task-todo-add>
+      :workType="'todo'"
+    ></modal-add>
 
     <confirm ref="confirm"></confirm>
 
@@ -130,7 +131,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex';
-import ModalTaskTodoAdd from '../modal/ModalTaskTodoAdd';
+import ModalAdd from '../modal/ModalAdd';
 import Confirm from '../common/Confirm';
 import moment from 'moment';
 const taskNamespace = createNamespacedHelpers('taskStore');
@@ -142,7 +143,7 @@ const taskNamespace = createNamespacedHelpers('taskStore');
 
 export default {
   components: {
-    ModalTaskTodoAdd,
+    ModalAdd,
     Confirm,
   },
 
