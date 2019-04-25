@@ -2,7 +2,7 @@
   <v-dialog v-model="showModal" width="500px" v-if="this.form">
     <v-card>
       <v-card-title class="grey lighten-4 py-4 title">
-        할일 상세정보
+        {{this.workType | matchedWorkType }} 상세정보
       </v-card-title>
       <v-container grid-list-sm class="pa-4">
         <v-layout row wrap>
@@ -131,12 +131,6 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 const taskNamespace = createNamespacedHelpers('taskStore');
-
-const WORK_TITLE = {
-  'todo': '할일',
-  'problem': '문제',
-  'concern': '고민사항',
-}
 
 export default {
   props: {

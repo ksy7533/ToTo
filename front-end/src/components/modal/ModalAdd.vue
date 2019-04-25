@@ -4,7 +4,7 @@
       <v-card-title
         class="grey lighten-4 py-4 title"
       >
-        {{this.translateTitle}} 생성
+        {{this.workType | matchedWorkType }} 생성
       </v-card-title>
       <v-container grid-list-sm class="pa-4">
         <v-layout row wrap>
@@ -33,13 +33,6 @@ import { createNamespacedHelpers } from 'vuex';
 const projectNamespace = createNamespacedHelpers('projectStore');
 const taskNamespace = createNamespacedHelpers('taskStore');
 
-const WORK_TITLE = {
-  'project': '프로젝트',
-  'todo': '할일',
-  'problem': '문제',
-  'concern': '고민사항',
-}
-
 export default {
   props: {
     value: Boolean,
@@ -59,10 +52,6 @@ export default {
 
     invalidForm() {
       return !this.title;
-    },
-
-    translateTitle() {
-      return WORK_TITLE[this.workType];
     },
   },
 
