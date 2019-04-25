@@ -10,10 +10,10 @@
           <template v-for="(item, index) in this.todayTasks">
             <v-divider
               v-if="index !== 0"
-              :key="`${item.title}-${index}`"
+              :key="`divider-${item.title}-${item.id}-${index}`"
             ></v-divider>
             <v-list-tile
-              :key="item.createdAt"
+              :key="`today-${item.title}-${item.id}-${index}`"
               :class="{completed: item.completed}"
               :to="{name: 'todoDetail', params: {tid: item.id}}"
             >
@@ -61,10 +61,10 @@
           <template v-for="(item, index) in this.notTodayTasks">
             <v-divider
               v-if="index !== 0"
-              :key="`${item.title}-${index}`"
+              :key="`divider-${item.title}-${item.id}-${index}`"
             ></v-divider>
             <v-list-tile
-              :key="item.createdAt"
+              :key="`past-${item.title}-${item.id}-${index}`"
               :class="{completed: item.completed}"
               :to="{name: 'todoDetail', params: {tid: item.id}}"
             >

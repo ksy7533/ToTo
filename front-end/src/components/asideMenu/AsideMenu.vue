@@ -18,7 +18,7 @@
       <template v-for="(depth1, indexDepth1) in this.routes">
         <v-list-tile
           v-if="!depth1.items.length"
-          :key="indexDepth1"
+          :key="`${depth1.name}-${indexDepth1}`"
           :to="`/project/${project.id}/${depth1.name}`"
         >
           <v-list-tile-action>
@@ -28,7 +28,7 @@
         </v-list-tile>
         <v-list-group
           v-else
-          :key="indexDepth1"
+          :key="`group-${depth1.name}-${indexDepth1}`"
           value="true"
         >
           <template v-slot:activator>
@@ -41,7 +41,7 @@
           </template>
           <v-list-tile
             v-for="(depth2, index) in depth1.items"
-            :key="index"
+            :key="`${depth2.name}-${index}`"
             :to="`/project/${project.id}/${depth1.name}/${depth2.name}`"
           >
             <v-list-tile-action>

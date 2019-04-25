@@ -9,10 +9,10 @@
           <template v-for="(item, index) in this.tasks">
             <v-divider
               v-if="index !== 0"
-              :key="`${item.title}-${index}`"
+              :key="`divider-${item.title}-${item.id}-${index}`"
             ></v-divider>
             <v-list-tile
-              :key="item.createdAt"
+              :key="`${item.title}-${item.id}-${index}`"
               :class="{completed: item.completed}"
               :to="{name: 'concernDetail', params: {cid: item.id}}"
             >

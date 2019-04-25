@@ -15,7 +15,7 @@
       <v-list light class="elevation-4" v-if="items.length > 0">
         <v-list-tile
           v-for="(item, index) in items"
-          :key="`${item.title}-${index}`"
+          :key="`${item.title}-${item.id}-${index}`"
           @click="goWork(item)"
         >
           <span v-workType="item.type"></span>

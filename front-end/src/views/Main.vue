@@ -5,7 +5,7 @@
         <v-layout row wrap align-start justify-start v-if="projects.length">
           <v-flex
             v-for="(item, index) in projects"
-            :key="index"
+            :key="`${item.title}-${item.id}-${index}`"
             pa-2
             xs12
             sm4

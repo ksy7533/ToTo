@@ -61,7 +61,7 @@
                       <v-list>
                         <v-list-tile
                           v-for="(event, index) in todoEventsMap[date]"
-                          :key="`event.title-${index}`"
+                          :key="`${event.title}-${event.id}-${index}`"
                           avatar
                           :to="{name: 'todoDetailCalendar', params: {tid: event.id}}"
                         >
@@ -100,7 +100,7 @@
                       <v-list>
                         <v-list-tile
                           v-for="(event, index) in problemEventsMap[date]"
-                          :key="`event.title-${index}`"
+                          :key="`${event.title}-${event.id}-${index}`"
                           avatar
                           :to="{name: 'problemDetailCalendar', params: {pbid: event.id}}"
                         >
@@ -139,7 +139,7 @@
                       <v-list>
                         <v-list-tile
                           v-for="(event, index) in concernEventsMap[date]"
-                          :key="`event.title-${index}`"
+                          :key="`${event.title}-${event.id}-${index}`"
                           avatar
                           :to="{name: 'concernDetailCalendar', params: {cid: event.id}}"
                         >

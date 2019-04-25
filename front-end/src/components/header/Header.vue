@@ -46,7 +46,7 @@
 
           <v-list-tile
             v-for="(item, index) in projects"
-            :key="`${item.title}-${index}`"
+            :key="`${item.title}-${item.id}-${index}`"
             @click="goProject(item.id)"
             >
             <v-icon style="margin-right:7px">view_list</v-icon>
