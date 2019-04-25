@@ -69,7 +69,7 @@
     <confirm ref="confirm"></confirm>
 
     <!-- ModalTaskProblemDetail -->
-    <router-view></router-view>
+    <router-view :workType="'problem'"></router-view>
     <!--// ModalTaskProblemDetail -->
   </v-layout>
 </template>

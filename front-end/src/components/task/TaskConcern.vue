@@ -69,7 +69,7 @@
     <confirm ref="confirm"></confirm>
 
     <!-- ModalTaskConcernDetail -->
-    <router-view></router-view>
+    <router-view :workType="'concern'"></router-view>
     <!--// ModalTaskConcernDetail -->
   </v-layout>
 </template>

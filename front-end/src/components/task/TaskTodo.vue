@@ -124,7 +124,7 @@
     <confirm ref="confirm"></confirm>
 
     <!-- ModalTaskTodoDetail -->
-    <router-view></router-view>
+    <router-view :workType="'todo'"></router-view>
     <!--// ModalTaskTodoDetail -->
   </v-layout>
 </template>

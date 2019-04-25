@@ -12,9 +12,7 @@ import Join from '@/components/auth/Join';
 import TaskTodo from '@/components/task/TaskTodo';
 import TaskProblem from '@/components/task/TaskProblem';
 import TaskConcern from '@/components/task/TaskConcern';
-import ModalTaskTodoDetail from '@/components/modal/ModalTaskTodoDetail';
-import ModalTaskProblemDetail from '@/components/modal/ModalTaskProblemDetail';
-import ModalTaskConcernDetail from '@/components/modal/ModalTaskConcernDetail';
+import ModalDetail from '@/components/modal/ModalDetail';
 import NotFound from '@/components/common/NotFound';
 import store from '../store';
 
@@ -61,7 +59,7 @@ export default new Router({
                 {
                   path: ':tid',
                   name: 'todoDetail',
-                  component: ModalTaskTodoDetail,
+                  component: ModalDetail,
                   beforeEnter: requireAuth,
                 },
               ],
@@ -75,7 +73,7 @@ export default new Router({
                 {
                   path: ':pbid',
                   name: 'problemDetail',
-                  component: ModalTaskProblemDetail,
+                  component: ModalDetail,
                   beforeEnter: requireAuth,
                 },
               ],
@@ -89,7 +87,7 @@ export default new Router({
                 {
                   path: ':cid',
                   name: 'concernDetail',
-                  component: ModalTaskConcernDetail,
+                  component: ModalDetail,
                   beforeEnter: requireAuth,
                 },
               ],
@@ -105,19 +103,19 @@ export default new Router({
             {
               path: 'todo/:tid',
               name: 'todoDetailCalendar',
-              component: ModalTaskTodoDetail,
+              component: ModalDetail,
               beforeEnter: requireAuth,
             },
             {
               path: 'problem/:pbid',
               name: 'problemDetailCalendar',
-              component: ModalTaskProblemDetail,
+              component: ModalDetail,
               beforeEnter: requireAuth,
             },
             {
               path: 'concern/:cid',
               name: 'concernDetailCalendar',
-              component: ModalTaskConcernDetail,
+              component: ModalDetail,
               beforeEnter: requireAuth,
             },
           ],

@@ -154,14 +154,17 @@
               </template>
             </v-calendar>
           </v-sheet>
+
           <div v-else>
             loading...
           </div>
+
         </v-flex>
       </v-layout>
     </v-container>
+
     <!-- ModalTaskTodoDetail -->
-    <router-view></router-view>
+    <router-view :workType="workType"></router-view>
     <!--// ModalTaskTodoDetail -->
   </v-content>
 </template>
@@ -200,6 +203,18 @@ export default {
       this.concernEvents.forEach(e => (map[e.regDate] = map[e.regDate] || []).push(e));
       return map;
     },
+
+    workType() {
+      let type = ''; 
+      if(this.$route.name === 'todoDetailCalendar') {
+        type = 'todo';
+      } else if(this.$route.name === 'problemDetailCalendar') {
+        type = 'problem';
+      } else if(this.$route.name === 'concernDetailCalendar') {
+        type = 'concern';
+      }
+      return type;
+    }
   },
 
   watch: {
